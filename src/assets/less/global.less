@@ -1,0 +1,10 @@
+@themeColor: #87ceeb;
+@bobo: .info_list;
+.title_overflow(@line) {
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @line;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
