@@ -30,11 +30,7 @@ export default defineComponent({
 </script>
 <template>
   <div class="default_class">
-    <!-- <router-link :to="{ name: 'one' }">我是one|</router-link>
-    <router-link :to="{ name: 'two' }">我是two|</router-link>
-    <router-link :to="{ name: 'three' }">我是three</router-link>
-    <router-link :to="{ name: 'four' }">我是four setup</router-link> -->
-    <router-link :to="{ name: 'reborn' }">java设计模式</router-link>
+    <!-- <router-link :to="{ name: 'reborn' }">java设计模式</router-link> -->
     <router-view></router-view>
   </div>
 </template>

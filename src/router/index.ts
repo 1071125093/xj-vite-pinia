@@ -2,26 +2,44 @@
  * @Author: HuangXiaojun
  * @Date: 2022-04-01 11:09:17
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-10 12:41:56
+ * @LastEditTime: 2022-07-12 00:14:51
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/router/index.ts
  */
 import { createRouter, RouteRecordRaw, Router, createWebHistory } from 'vue-router'
-
+import useRouterGuard from './useRouterGuard'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/front',
     name: 'front',
     component: () => import('@/views/front/index.vue'),
-    redirect: '',
-    meta: {
-      title: '首页',
+    redirect: {
+      name: 'system',
     },
     children: [
       {
         path: 'reborn',
         name: 'reborn',
         component: () => import('@/views/front/reborn/index.vue'),
+        meta: {
+          title: 'reborn页面',
+        },
+      },
+      {
+        path: 'system',
+        name: 'system',
+        component: () => import('@/views/front/system/index.vue'),
+        meta: {
+          title: '系统页面',
+        },
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('@/views/front/login/index.vue'),
+        meta: {
+          title: '登陆页面',
+        },
       },
     ],
   },
@@ -35,5 +53,5 @@ const router: Router = createRouter({
   history: createWebHistory(),
   routes,
 })
-
+useRouterGuard(router)
 export default router

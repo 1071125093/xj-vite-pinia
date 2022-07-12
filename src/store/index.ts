@@ -2,20 +2,21 @@
  * @Author: XiaoJun
  * @Date: 2022-07-02 21:20:29
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-07 19:51:24
+ * @LastEditTime: 2022-07-11 23:08:06
  * @Description: pinia
  * @FilePath: /xj-vite-pinia/src/store/index.ts
  */
-import { defineStore, StoreDefinition, Store } from 'pinia'
-import { ref, toRefs } from 'vue'
+import { createPinia } from 'pinia'
 import usePiniaOne from './piniaOne'
 import usePiniaTwo from './piniaTwo'
-type StoreModule = 'piniaOne' | 'piniaTwo'
+import useSystem from './system'
+type StoreModule = 'piniaOne' | 'piniaTwo' | 'system'
 // #tips:Map对象的使用比较有问题
 // eg const map = new Map<string,T>() 需保证Map对象的返回值类型一致 或通过ts做出某种限制 暂时不会
 export type StoreReturnType = {
   piniaOne: ReturnType<typeof usePiniaOne>
   piniaTwo: ReturnType<typeof usePiniaTwo>
+  system: ReturnType<typeof useSystem>
 }
 // export default (): storeReturnType => {
 //   return {
@@ -30,16 +31,20 @@ export type StoreReturnType = {
 // }
 export function getStore(moduleName: 'piniaOne'): StoreReturnType['piniaOne']
 export function getStore(moduleName: 'piniaTwo'): StoreReturnType['piniaTwo']
+export function getStore(moduleName: 'system'): StoreReturnType['system']
 export function getStore(moduleName: StoreModule) {
   switch (moduleName) {
     case 'piniaTwo':
       return usePiniaTwo()
     case 'piniaOne':
       return usePiniaOne()
+    case 'system':
+      return useSystem()
     default:
       return null
   }
 }
+export const pinia = createPinia()
 // export default (moduleName: StoreModule) => {
 //   const moduleMap = new Map<StoreModule, StoreReturnType[StoreModule]>([
 //     ["piniaOne", usePiniaOne()],
