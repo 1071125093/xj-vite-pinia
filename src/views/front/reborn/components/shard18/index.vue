@@ -2,15 +2,34 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 19:37:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-07 20:08:37
- * @Description: 组件功能
- * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard0/index.vue
+ * @LastEditTime: 2022-07-14 10:11:16
+ * @Description: suspense仍然是实验性API 即使是在vite下
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard18/index.vue
 -->
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, defineAsyncComponent } from 'vue'
+// const one = defineAsyncComponent(() => import('./component/one.vue'))
+import loadingComponent from './component/loadingComponent.vue'
+// 带选项的异步组件
+const asyncPageWithOptions = defineAsyncComponent({
+  loader: () => import('./component/one.vue'),
+  delay: 3000,
+  timeout: 1,
+  errorComponent: loadingComponent,
+})
 </script>
 <template>
-  <div class="shard">空</div>
+  <div class="shard">
+    <asyncPageWithOptions></asyncPageWithOptions>
+    <!-- <Suspense>
+      <template #default>
+        <one></one>
+      </template>
+      <template #fallback>
+        <div>默认展示</div>
+      </template>
+    </Suspense> -->
+  </div>
 </template>
 <style lang="less" scoped>
 .shard {

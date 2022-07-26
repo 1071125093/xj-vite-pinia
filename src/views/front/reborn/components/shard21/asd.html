@@ -1,0 +1,22 @@
+<!--
+ * @Author: XiaoJun
+ * @Date: 2022-07-13 09:09:33
+ * @LastEditors: XiaoJun
+ * @LastEditTime: 2022-07-13 09:18:45
+ * @Description: 组件功能
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard21/asd.html
+-->
+<script>
+  function foo() {
+    console.log(this.a)
+  }
+  function doFoo() {
+    foo()
+  }
+  let obj = {
+    a: 1,
+    doFoo: doFoo,
+  }
+  var a = 2
+  obj.doFoo()
+</script>

@@ -2,14 +2,22 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 14:00:00
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-07 20:08:33
+ * @LastEditTime: 2022-07-25 12:41:17
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard7/index.vue
 -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { reactive } from 'vue'
-import { useMouse, useClipboard, useFullscreen, useDark, useTitle } from '@vueuse/core'
+import {
+  useMouse,
+  useClipboard,
+  useFullscreen,
+  useDark,
+  useDraggable,
+  useWindowScroll,
+  useTitle,
+} from '@vueuse/core'
 /********** 鼠标位置 start **********/
 const mouse = reactive(useMouse())
 const getPos = () => {
@@ -37,20 +45,32 @@ const { text, copy, copied, isSupported } = useClipboard({ source })
 // const toggleDark = useToggle(isDark);
 /********** 黑暗模式 end   **********/
 /********** 设置title start **********/
-// const title = useTitle();
-const title = ref(0)
+const title = useTitle('default title')
 const logTitle = () => {
-  title.value++
+  title.value = '前端修改标题测试'
 } // print current title
 // change current title
 /********** 设置title end   **********/
 // "x" and "y" will be auto unwrapped, no `.value` needed
+//#region ****** draggable start **********/
+const el = ref<HTMLElement | null>(null)
+
+// `style` will be a helper computed for `left: ?px; top: ?px;`
+const { x, y, style } = useDraggable(el, {
+  initialValue: { x: 40, y: 40 },
+})
+const { x: sx, x: sy } = useWindowScroll()
+//#endregion *** draggable end   **********/
 </script>
 <template>
   <div class="default_class">
+    <el-button type="primary" size="small" @click="logTitle">点我修改标题</el-button>
     <el-button type="primary" size="small" @click="getPos">点我获取位置</el-button>
     <el-button type="primary" size="small" @click="myToggle">点我全屏</el-button>
     <el-button type="primary" size="small" @click="copy()">{{ source }}</el-button>
+    <div class="draggable" ref="el" :style="style" style="position: fixed">
+      Drag me! I am at {{ x }}, {{ y }}
+    </div>
     <!-- <el-button type="primary" size="small" @click="myToggle"
       >点我全屏</el-button
     > -->
@@ -60,6 +80,7 @@ const logTitle = () => {
   </div>
 </template>
 <style lang="less" scoped>
-.default_class {
+.draggable {
+  cursor: grab;
 }
 </style>

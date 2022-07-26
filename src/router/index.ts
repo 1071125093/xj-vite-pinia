@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-04-01 11:09:17
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-12 00:14:51
+ * @LastEditTime: 2022-07-12 14:40:29
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/router/index.ts
  */
@@ -14,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'front',
     component: () => import('@/views/front/index.vue'),
     redirect: {
-      name: 'system',
+      name: 'reborn',
     },
     children: [
       {

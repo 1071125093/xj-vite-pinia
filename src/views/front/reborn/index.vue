@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-10 12:43:13
+ * @LastEditTime: 2022-07-25 12:11:22
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -29,6 +29,8 @@ import shard17 from './components/shard17/index.vue'
 import shard18 from './components/shard18/index.vue'
 import shard19 from './components/shard19/index.vue'
 import shard20 from './components/shard20/index.vue'
+import shard21 from './components/shard21/index.vue'
+import shard22 from './components/shard22/index.vue'
 // 测试
 // 测试
 /**
@@ -64,6 +66,7 @@ const tabs = computed(() => {
     {
       label: 'vueUse',
       component: markRaw(shard7),
+      show: true,
     },
     {
       label: 'echarts',
@@ -97,7 +100,6 @@ const tabs = computed(() => {
     {
       label: '全局&局部组件代码提示',
       component: markRaw(shard15),
-      show: true,
     },
     {
       label: '钩子',
@@ -107,26 +109,31 @@ const tabs = computed(() => {
     {
       label: '过渡效果',
       component: markRaw(shard17),
-      show: true,
     },
     {
-      label: '暂定',
+      label: '异步组件',
       component: markRaw(shard18),
-      show: true,
     },
     {
       label: '防抖节流',
       component: markRaw(shard19),
-      show: true,
     },
     {
       label: '算法',
       component: markRaw(shard20),
+    },
+    {
+      label: 'd3js',
+      component: markRaw(shard21),
+    },
+    {
+      label: '鼠标事件',
+      component: markRaw(shard22),
       show: true,
     },
   ].filter((item) => item.show)
 })
-const activeTabName = ref('算法')
+const activeTabName = ref('鼠标事件')
 const currentTab = computed(() => {
   return tabs.value.find((item) => item.label === activeTabName.value)
 })

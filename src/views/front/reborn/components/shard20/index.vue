@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 19:37:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-10 15:27:54
+ * @LastEditTime: 2022-07-18 17:35:04
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard20/index.vue
 -->
@@ -50,10 +50,34 @@ import { ref } from 'vue'
 // console.log(res)
 
 //#endregion *** shuffle排序 end   **********/
-const getFileSizeAndUnit = (fileSize) => {
-  const unitMap = ['B', 'KB', 'MB', 'GB', 'TB']
-  const fileIndex = Math.log(fileSize) / Math.log(1024)
+// const getFileSizeAndUnit = (fileSize) => {
+//   const unitMap = ['B', 'KB', 'MB', 'GB', 'TB']
+//   const fileIndex = Math.log(fileSize) / Math.log(1024)
+// }
+
+const basicArray = [
+  {
+    name: '默认1',
+  },
+  {
+    name: '默认2',
+  },
+  {
+    name: '默认3',
+  },
+]
+const insertObj = {
+  name: '插入对象',
 }
+const addArr = [insertObj, insertObj, insertObj]
+const tranferArray = () => {
+  let resultArr = []
+  basicArray.forEach((item, index) => {
+    resultArr.push(basicArray[index], addArr[index])
+  })
+  console.log(resultArr)
+}
+tranferArray()
 </script>
 <template>
   <div class="shard">空</div>
