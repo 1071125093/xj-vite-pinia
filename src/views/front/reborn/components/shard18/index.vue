@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 19:37:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-29 16:55:31
+ * @LastEditTime: 2022-07-14 10:11:16
  * @Description: suspense仍然是实验性API 即使是在vite下
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard18/index.vue
 -->
@@ -17,8 +17,6 @@ const asyncPageWithOptions = defineAsyncComponent({
   timeout: 1,
   errorComponent: loadingComponent,
 })
-console.log('回滚测试');
-
 </script>
 <template>
   <div class="shard">
