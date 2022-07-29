@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-12 16:00:44
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-13 01:00:44
+ * @LastEditTime: 2022-07-28 21:36:17
  * @Description: 环形进度条
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard21/components/circleProgress.vue
 -->
@@ -13,49 +13,37 @@ import { copy } from '@/service/commonService'
 const outCircleDom = ref(null)
 let svg: any, dashedLine: any, trackLineLength: number
 let trackLine: any
-let lightCircle:any
 const getSvg = () => {
   let svg = d3.select(outCircleDom.value)
   trackLine = svg.append('path')
-  dashedLine = svg.append('path')
-  lightCircle = svg.append('circle')
 }
 const drawTrackLine = () => {
   let path = d3.path()
-  path.moveTo(100, 100)
-  path.lineTo(150, 100)
-  path.lineTo(150, 150)
-  path.lineTo(200, 150)
-  path.lineTo(200, 200)
-  trackLine.attr('stroke', 'transparent').attr('fill', 'transparent').attr('d', path.toString())
+  const p0 = { x: 100, y: 20 }
+  const p1 = { x: 150, y: 20 }
+  const p2 = { x: 150, y: 70 }
+  const p3 = { x: 150, y: 120 }
+  const p4 = { x: 100, y: 120 }
+  path.moveTo(p0.x, p0.y)
+  path.arcTo(p1.x, p1.y, p2.x, p2.y, 50)
+  path.arcTo(p3.x, p3.y, p4.x, p4.y, 50)
+  // path.moveTo(100, 100)
+  // path.lineTo(150, 100)
+  // path.lineTo(150, 150)
+  // path.lineTo(200, 150)
+  // path.lineTo(200, 200)
+  trackLine
+    .attr('stroke', 'url(#grad1)')
+    .attr('stroke-width', '8px')
+    .attr('fill','transparent')
+    // .attr('fill', 'url(#grad1)')
+    .attr('stroke-dasharray', '8,8')
+    .attr('d', path.toString())
   trackLineLength = trackLine.node().getTotalLength()
-}
-const regLocationM = /.*?(?=L)/g
-const drawDashedLine = () => {
-  dashedLine
-    .attr('stroke', '#87ceeb')
-    .attr('stroke-dasharray', '4,4')
-    .attr('fill', 'none')
-    .transition()
-    .duration(2000)
-    .ease(d3.easeLinear)
-    .attrTween('d', function () {
-      let animation = trackLine.attr('d').match(regLocationM)[0]
-      return function (t: number) {
-        let p = trackLine.node().getPointAtLength(t * trackLineLength) // 新的终点
-        animation = animation + ` L${p.x},${p.y}`
-        return animation
-      }
-    })
-}
-const drawLightCircle = () => {
-  // lightCircle.attr('')
 }
 const init = () => {
   getSvg()
   drawTrackLine()
-  drawDashedLine()
-  drawLightCircle()
 }
 onMounted(() => {
   init()
@@ -64,10 +52,13 @@ onMounted(() => {
 <template>
   <div class="circle_progress">
     <svg class="module" ref="outCircleDom">
-      <!-- <circle class="inner_circle" cx="350" cy="350" r="300"></circle> -->
-      <!-- <circle ref="outCircleDom" class="outer_circle" cx="350" cy="350" r="300"></circle> -->
-      <!-- transform="rotate(-90,350,350)" -->
-      <!-- <text class="inner_text" x="350" y="350">33%</text> -->
+      <defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="1" y2="0%">
+          <stop offset="0%" style="stop-color: rgb(255, 255, 0)"></stop>
+
+          <stop offset="100%" style="stop-color: rgb(255, 0, 0)"></stop>
+        </linearGradient>
+      </defs>
     </svg>
   </div>
 </template>
@@ -75,29 +66,10 @@ onMounted(() => {
 .circle_progress {
   width: 700px;
   height: 700px;
+  stroke: linear;
 }
 .module {
   width: 100%;
   height: 100%;
-}
-.inner_circle {
-  fill: none;
-  stroke-width: 40px;
-  stroke: gray;
-  stroke-linecap: round;
-}
-.outer_circle {
-  fill: none;
-  stroke-width: 40px;
-  stroke: #87ceeb;
-  stroke-linecap: round;
-  // transform: rotate(-180deg, 350px, 350px);
-  stroke-dasharray: 0 10000;
-}
-.inner_text {
-  font-size: 200px;
-  fill: #87ceeb;
-  text-anchor: middle;
-  dominant-baseline: middle;
 }
 </style>

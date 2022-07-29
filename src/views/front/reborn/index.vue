@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-25 12:11:22
+ * @LastEditTime: 2022-07-28 20:11:53
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -125,6 +125,7 @@ const tabs = computed(() => {
     {
       label: 'd3js',
       component: markRaw(shard21),
+      show:true
     },
     {
       label: '鼠标事件',
