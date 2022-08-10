@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-28 20:11:53
+ * @LastEditTime: 2022-08-09 10:32:24
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -31,6 +31,7 @@ import shard19 from './components/shard19/index.vue'
 import shard20 from './components/shard20/index.vue'
 import shard21 from './components/shard21/index.vue'
 import shard22 from './components/shard22/index.vue'
+import shard23 from './components/shard23/index.vue'
 // 测试
 // 测试
 /**
@@ -130,6 +131,11 @@ const tabs = computed(() => {
     {
       label: '鼠标事件',
       component: markRaw(shard22),
+      show: true,
+    },
+    {
+      label: 'setup无根组件形式',
+      component: markRaw(shard23),
       show: true,
     },
   ].filter((item) => item.show)

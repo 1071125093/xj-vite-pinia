@@ -10,7 +10,8 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
-    "@vueuse/core": "^8.7.4",
+    "@vueuse/core": "^8.7.5",
+    "@vueuse/integrations": "^8.7.5",
     "d3": "^7.6.1",
     "deepcopy": "^2.1.0",
     "echarts": "^5.3.3",
@@ -18,6 +19,7 @@
     "eslint": "^8.19.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.2.0",
+    "focus-trap": "^6.9.4",
     "fs-extra": "^10.1.0",
     "layui": "^2.7.5",
     "pinia": "^2.0.14",

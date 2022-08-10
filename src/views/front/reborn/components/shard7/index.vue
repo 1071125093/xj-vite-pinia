@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 14:00:00
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-27 10:31:19
+ * @LastEditTime: 2022-08-10 17:54:02
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard7/index.vue
 -->
@@ -17,7 +17,9 @@ import {
   useDraggable,
   useWindowScroll,
   useTitle,
+  onClickOutside,
 } from '@vueuse/core'
+import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
 /********** 鼠标位置 start **********/
 const mouse = reactive(useMouse())
 const getPos = () => {
@@ -61,6 +63,16 @@ const { x, y, style } = useDraggable(el, {
 })
 const { x: sx, x: sy } = useWindowScroll()
 //#endregion *** draggable end   **********/
+
+//#region ****** onClickOutside  start **********/
+// const container = ref(null)
+// onClickOutside(container, () => alert('Good. Better to click outside.'))
+//#endregion *** onClickOutside  end   **********/
+
+//#region ****** useFocusTrap start **********/
+const container = ref(null)
+useFocusTrap(container, { immediate: true })
+//#endregion *** useFocusTrap end   **********/
 </script>
 <template>
   <div class="default_class">
@@ -70,6 +82,21 @@ const { x: sx, x: sy } = useWindowScroll()
     <el-button type="primary" size="small" @click="copy()">{{ source }}</el-button>
     <div class="draggable" ref="el" :style="style" style="position: fixed">
       Drag me! I am at {{ x }}, {{ y }}
+    </div>
+    <!-- <div>
+      <p>Hey there, here's some text.</p>
+      <div class="container" ref="container">
+        <p>Please don't click in here.</p>
+      </div>
+    </div> -->
+    <div>
+      <button tab-index="-1">Can't click me</button>
+      <div class="container" ref="container">
+        <button tab-index="-1">Inside the trap</button>
+        <button tab-index="-1">Can't break out</button>
+        <button tab-index="-1">Stuck here forever</button>
+      </div>
+      <button tab-index="-1">Can't click me</button>
     </div>
     <!-- <el-button type="primary" size="small" @click="myToggle"
       >点我全屏</el-button
@@ -82,5 +109,28 @@ const { x: sx, x: sy } = useWindowScroll()
 <style lang="less" scoped>
 .draggable {
   cursor: grab;
+}
+button {
+  margin: 8px 0;
+  padding: 12px 16px;
+  background: slategrey;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 4px;
+}
+
+button:focus {
+  outline: skyblue solid 6px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid gray;
+  border-radius: 6px;
+  margin: 16px 0;
+  padding: 4px 8px;
 }
 </style>
