@@ -2,12 +2,12 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 14:00:00
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-10 17:54:02
+ * @LastEditTime: 2022-08-11 17:34:32
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard7/index.vue
 -->
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, WatchOptions, watch, nextTick } from 'vue'
 import { reactive } from 'vue'
 import {
   useMouse,
@@ -18,8 +18,12 @@ import {
   useWindowScroll,
   useTitle,
   onClickOutside,
+  useStorage,
+  useIntervalFn,
 } from '@vueuse/core'
+// import { UseFocusTrap } from '@vueuse/integrations/useFocusTrap/component'
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
+import { vElementHover } from '@vueuse/components'
 /********** 鼠标位置 start **********/
 const mouse = reactive(useMouse())
 const getPos = () => {
@@ -37,6 +41,7 @@ const myToggle = () => {
 
 const source = ref('点我复制文字')
 const { text, copy, copied, isSupported } = useClipboard({ source })
+
 /********** 复制 end   **********/
 /********** 黑暗模式 start **********/
 // const isDark = useDark({
@@ -70,9 +75,72 @@ const { x: sx, x: sy } = useWindowScroll()
 //#endregion *** onClickOutside  end   **********/
 
 //#region ****** useFocusTrap start **********/
+// 函数式
 const container = ref(null)
-useFocusTrap(container, { immediate: true })
+const { hasFocus, activate, deactivate } = useFocusTrap(container, { immediate: false })
+// 组件式
+// const show = ref(true)
+
 //#endregion *** useFocusTrap end   **********/
+
+//#region ****** vElementHover  start **********/
+const isHovered = ref(false)
+const onHover = (state: boolean) => {
+  isHovered.value = state
+}
+//#endregion *** vElementHover  end   **********/
+
+//#region ****** watchOnce start **********/
+function watchOnce<Immediate extends Readonly<boolean> = false>(
+  source: any,
+  cb: any,
+  options?: WatchOptions<Immediate>
+): void {
+  // 精髓部分 vue-watch的返回值可以结束该监听 基础不牢固的后果
+  const stop = watch(
+    source,
+    (...args) => {
+      nextTick(() => {
+        stop()
+      })
+      return cb(...args)
+    },
+    options
+  )
+}
+const watchOnceSource = ref(0)
+watchOnce(watchOnceSource, (value: any) => {
+  console.log('变化了', value)
+})
+const clickedFn = () => {
+  watchOnceSource.value++
+}
+//#endregion *** watchOnce end   **********/
+
+//#region ****** useIntervalFn start **********/
+
+const greetings = [
+  'Hello',
+  'Hi',
+  'Yo!',
+  'Hey',
+  'Hola',
+  'こんにちは',
+  'Bonjour',
+  'Salut!',
+  '你好',
+  'Привет',
+]
+const word = ref('Hello')
+const interval = ref(1000)
+const { pause, resume, isActive } = useIntervalFn(() => {
+  word.value = greetings[Math.floor(Math.random() * greetings.length)]
+}, interval)
+//#endregion *** useIntervalFn end   **********/
+
+//#region ****** useImage start **********/
+// 暂无测试 可以用 但没必要
+//#endregion *** useImage end   **********/
 </script>
 <template>
   <div class="default_class">
@@ -89,21 +157,41 @@ useFocusTrap(container, { immediate: true })
         <p>Please don't click in here.</p>
       </div>
     </div> -->
-    <div>
-      <button tab-index="-1">Can't click me</button>
-      <div class="container" ref="container">
-        <button tab-index="-1">Inside the trap</button>
-        <button tab-index="-1">Can't break out</button>
-        <button tab-index="-1">Stuck here forever</button>
-      </div>
-      <button tab-index="-1">Can't click me</button>
-    </div>
-    <!-- <el-button type="primary" size="small" @click="myToggle"
-      >点我全屏</el-button
-    > -->
+    <el-button type="primary" size="small" @click="myToggle">点我全屏</el-button>
     <!-- <el-button type="primary" size="small" @click="toggleDark"
       >点我黑黑黑</el-button
     > -->
+    <div>
+      <button tab-index="5">目前是否开启focus-trap:{{ hasFocus }}</button>
+      <button tab-index="5" @click="activate()">开启</button>
+      <div class="container" ref="container">
+        <button tab-index="5">Inside the trap</button>
+        <button tab-index="5">Can't break out</button>
+        <button tab-index="5">Stuck here forever</button>
+        <button tab-index="5" @click="deactivate()">关闭</button>
+      </div>
+    </div>
+    <!-- <div class="modal" @click="show = true">开启 当前状态{{ show }}</div>
+    <UseFocusTrap v-if="show">
+      <div class="modal" @click="show = false">关闭{{ show }}</div>
+      <button tab-index="5">Inside the trap</button>
+      <button tab-index="5">Can't break out</button>
+      <button tab-index="5">Stuck here forever</button>
+    </UseFocusTrap> -->
+
+    <button v-element-hover="onHover">
+      {{ isHovered ? 'Thank you!' : 'Hover me' }}
+    </button>
+    <div>{{ watchOnceSource }}</div>
+    <button @click="clickedFn">点击按钮测试watchOnce</button>
+
+    <p>{{ word }}</p>
+    <p>
+      interval:
+      <input v-model="interval" type="number" placeholder="interval" />
+    </p>
+    <button v-if="isActive" class="orange" @click="pause">Pause</button>
+    <button v-if="!isActive" @click="resume">Resume</button>
   </div>
 </template>
 <style lang="less" scoped>

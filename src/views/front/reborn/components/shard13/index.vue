@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-03 12:17:35
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-09 23:47:31
+ * @LastEditTime: 2022-08-11 14:25:11
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard13/index.vue
 -->
@@ -10,22 +10,6 @@
 import { ref } from 'vue'
 </script>
 <template>
-  <!-- <div class="container">
-    <div class="row">
-      <div class="row_item">
-        <div class="item_text">左侧:</div>
-        <div class="item_content">右侧内容</div>
-      </div>
-      <div class="row_item">
-        <div class="item_text">左侧:</div>
-        <div class="item_content">右侧内容</div>
-      </div>
-      <div class="row_item">
-        <div class="item_text">左侧:</div>
-        <div class="item_content">右侧内容</div>
-      </div>
-    </div>
-  </div> -->
   <div class="parent">
     <div class="child"></div>
   </div>
