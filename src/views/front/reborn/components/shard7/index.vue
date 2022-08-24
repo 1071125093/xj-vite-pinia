@@ -2,12 +2,12 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 14:00:00
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-11 17:34:32
+ * @LastEditTime: 2022-08-12 11:26:32
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard7/index.vue
 -->
 <script lang="ts" setup>
-import { ref, WatchOptions, watch, nextTick } from 'vue'
+import { ref, WatchOptions, watch, nextTick, computed, unref } from 'vue'
 import { reactive } from 'vue'
 import {
   useMouse,
@@ -20,15 +20,27 @@ import {
   onClickOutside,
   useStorage,
   useIntervalFn,
+  useElementByPoint,
+  useElementBounding,
+  useEventListener,
+  UseElementByPointOptions,
 } from '@vueuse/core'
 // import { UseFocusTrap } from '@vueuse/integrations/useFocusTrap/component'
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
 import { vElementHover } from '@vueuse/components'
+
+//#region ****** 潜力股 start **********/
+// useImage level-1
+// useScroll level-3
+// onClickOutside level-5
+// onKeyStroke level-1 监听键盘事件
+//#endregion *** 潜力股 end   **********/
 /********** 鼠标位置 start **********/
-const mouse = reactive(useMouse())
-const getPos = () => {
-  console.log(mouse.x, mouse.y)
-}
+const { x, y } = useMouse({ type: 'client' })
+// const { x: mouseX, y: mouseY } = useMouse({ type: 'client' })
+// const getPos = () => {
+//   console.log(mouseX, mouseY)
+// }
 /********** 鼠标位置 end   **********/
 /********** 全屏 start **********/
 const { isFullscreen, toggle } = useFullscreen()
@@ -41,7 +53,9 @@ const myToggle = () => {
 
 const source = ref('点我复制文字')
 const { text, copy, copied, isSupported } = useClipboard({ source })
-
+const xjTest = () => {
+  copy()
+}
 /********** 复制 end   **********/
 /********** 黑暗模式 start **********/
 // const isDark = useDark({
@@ -63,10 +77,10 @@ const logTitle = () => {
 const el = ref<HTMLElement | null>(null)
 
 // `style` will be a helper computed for `left: ?px; top: ?px;`
-const { x, y, style } = useDraggable(el, {
-  initialValue: { x: 40, y: 40 },
-})
-const { x: sx, x: sy } = useWindowScroll()
+// const { x, y, style } = useDraggable(el, {
+//   initialValue: { x: 40, y: 40 },
+// })
+// const { x: sx, x: sy } = useWindowScroll()
 //#endregion *** draggable end   **********/
 
 //#region ****** onClickOutside  start **********/
@@ -138,19 +152,42 @@ const { pause, resume, isActive } = useIntervalFn(() => {
 }, interval)
 //#endregion *** useIntervalFn end   **********/
 
-//#region ****** useImage start **********/
-// 暂无测试 可以用 但没必要
-//#endregion *** useImage end   **********/
+//#region ****** useElementByPoint start **********/
+// const { element } = useElementByPoint({ x, y })
+// const bounding = reactive(useElementBounding(element))
+// bounding
+// useEventListener('scroll', bounding.update, true)
+// const boxStyles = computed(() => {
+//   if (element.value) {
+//     return {
+//       display: 'block',
+//       width: `${bounding.width}px`,
+//       height: `${bounding.height}px`,
+//       left: `${bounding.left}px`,
+//       top: `${bounding.top}px`,
+//       backgroundColor: '#3eaf7c44',
+//       transition: 'all 0.05s linear',
+//     } as Record<string, string | number>
+//   }
+//   return {
+//     display: 'none',
+//   }
+// })
+// const pointStyles = computed<Record<string, string | number>>(() => ({
+//   transform: `translate(calc(${x.value}px - 50%), calc(${y.value}px - 50%))`,
+// }))
+//#endregion *** useElementByPoint end   **********/
 </script>
 <template>
   <div class="default_class">
     <el-button type="primary" size="small" @click="logTitle">点我修改标题</el-button>
-    <el-button type="primary" size="small" @click="getPos">点我获取位置</el-button>
+    <!-- <el-button type="primary" size="small" @click="getPos">点我获取位置</el-button> -->
     <el-button type="primary" size="small" @click="myToggle">点我全屏</el-button>
-    <el-button type="primary" size="small" @click="copy()">{{ source }}</el-button>
-    <div class="draggable" ref="el" :style="style" style="position: fixed">
+    <el-button type="primary" size="small" @click="copy()">{{ source }}复制测试</el-button>
+    <el-button type="primary" size="small" @click="xjTest()">复制指定文字</el-button>
+    <!-- <div class="draggable" ref="el" :style="style" style="position: fixed">
       Drag me! I am at {{ x }}, {{ y }}
-    </div>
+    </div> -->
     <!-- <div>
       <p>Hey there, here's some text.</p>
       <div class="container" ref="container">
@@ -192,11 +229,28 @@ const { pause, resume, isActive } = useIntervalFn(() => {
     </p>
     <button v-if="isActive" class="orange" @click="pause">Pause</button>
     <button v-if="!isActive" @click="resume">Resume</button>
+
+    <!-- <div :style="boxStyles" class="box_style" /> -->
+    <!-- <div :style="pointStyles" class="point_style" /> -->
+    <div class="flex items-center">
+      <span class="mr-4">X</span>
+      <input v-model="x" type="number" />
+    </div>
+    <div class="flex items-center">
+      <span class="mr-4">Y</span>
+      <input v-model="y" type="number" />
+    </div>
   </div>
 </template>
 <style lang="less" scoped>
 .draggable {
   cursor: grab;
+}
+.box_style {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  border: 1px solid #87ceeb;
 }
 button {
   margin: 8px 0;
@@ -220,5 +274,16 @@ button:focus {
   border-radius: 6px;
   margin: 16px 0;
   padding: 4px 8px;
+}
+.point_style {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #87ceeb;
+  z-index: 999;
 }
 </style>

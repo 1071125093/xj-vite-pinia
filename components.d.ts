@@ -10,6 +10,8 @@ declare module '@vue/runtime-core' {
     BlockTitle: typeof import('./src/components/blockTitle/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     OnceMore: typeof import('./src/components/onceMore/index.vue')['default']

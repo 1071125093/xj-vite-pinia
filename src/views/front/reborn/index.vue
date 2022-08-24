@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-11 16:31:49
+ * @LastEditTime: 2022-08-24 17:23:22
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -32,6 +32,10 @@ import shard20 from './components/shard20/index.vue'
 import shard21 from './components/shard21/index.vue'
 import shard22 from './components/shard22/index.vue'
 import shard23 from './components/shard23/index.vue'
+import shard24 from './components/shard24/index.vue'
+import shard25 from './components/shard25/index.vue'
+import shard26 from './components/shard26/index.vue'
+import shard27 from './components/shard27/index.vue'
 // 测试
 // 测试
 /**
@@ -138,9 +142,29 @@ const tabs = computed(() => {
       component: markRaw(shard23),
       show: true,
     },
+    {
+      label: 'xjModalDialog',
+      component: markRaw(shard24),
+      show: true,
+    },
+    {
+      label: 'elementUI生吃',
+      component: markRaw(shard25),
+      show: true,
+    },
+    {
+      label: 'vue2测试',
+      component: markRaw(shard26),
+      show: true,
+    },
+    {
+      label: 'vue.draggable',
+      component: markRaw(shard27),
+      show: true,
+    },
   ].filter((item) => item.show)
 })
-const activeTabName = ref('vueUse')
+const activeTabName = ref('elementUI生吃')
 const currentTab = computed(() => {
   return tabs.value.find((item) => item.label === activeTabName.value)
 })
