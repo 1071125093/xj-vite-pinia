@@ -147,10 +147,11 @@ module.exports = {
     'no-async-promise-executor': 'warn',
     'vue/multi-word-component-names': 'off',
   },
-  // globals: {
-  //   defineProps: 'readonly',
-  //   defineEmits: 'readonly',
-  //   defineExpose: 'readonly',
-  //   withDefaults: 'readonly',
-  // },
+  globals: {
+    // defineProps: 'readonly',
+    // defineEmits: 'readonly',
+    // defineExpose: 'readonly',
+    // withDefaults: 'readonly',
+    // defineOptions:'readonly'
+  },
 }

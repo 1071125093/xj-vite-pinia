@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-24 17:23:22
+ * @LastEditTime: 2022-08-25 17:35:16
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -36,6 +36,7 @@ import shard24 from './components/shard24/index.vue'
 import shard25 from './components/shard25/index.vue'
 import shard26 from './components/shard26/index.vue'
 import shard27 from './components/shard27/index.vue'
+import shard28 from './components/shard28/index.vue'
 // 测试
 // 测试
 /**
@@ -84,6 +85,7 @@ const tabs = computed(() => {
     {
       label: '递归组件',
       component: markRaw(shard10),
+      show: true,
     },
     {
       label: 'setup语法糖',
@@ -92,6 +94,7 @@ const tabs = computed(() => {
     {
       label: 'pinia',
       component: markRaw(shard12),
+      show: true,
     },
     {
       label: 'css布局',
@@ -162,9 +165,14 @@ const tabs = computed(() => {
       component: markRaw(shard27),
       show: true,
     },
+    {
+      label: '.env测试',
+      component: markRaw(shard28),
+      show: true,
+    },
   ].filter((item) => item.show)
 })
-const activeTabName = ref('elementUI生吃')
+const activeTabName = ref('ProvideInject')
 const currentTab = computed(() => {
   return tabs.value.find((item) => item.label === activeTabName.value)
 })

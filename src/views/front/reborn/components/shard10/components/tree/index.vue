@@ -2,19 +2,22 @@
  * @Author: XiaoJun
  * @Date: 2022-07-02 16:36:31
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-05 16:38:39
+ * @LastEditTime: 2022-08-25 11:24:19
  * @Description: 组件功能
- * @FilePath: /my-vite/src/views/front/reborn/components/shard10/components/tree/index.vue
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard10/components/tree/index.vue
 -->
 <script lang="ts" setup name="tree">
-import { onMounted, ref } from "vue";
+import { onMounted, ref ,inject} from 'vue'
 interface TreeItem {
-  label: "string";
-  children: TreeItem[];
+  label: 'string'
+  children: TreeItem[]
 }
+// defineOptions({
+//   name: 'tree',
+// })
 const props = defineProps<{
-  tree: TreeItem[];
-}>();
+  tree: TreeItem[]
+}>()
 </script>
 <template>
   <div class="tree" v-for="treeItem in tree" :key="treeItem.label">

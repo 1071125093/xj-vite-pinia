@@ -2,13 +2,13 @@
  * @Author: HuangXiaojun
  * @Date: 2022-07-01 13:00:01
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-05 16:39:02
+ * @LastEditTime: 2022-08-25 11:23:00
  * @Description: 组件功能
- * @FilePath: /my-vite/src/views/front/reborn/components/shard10/index.vue
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard10/index.vue
 -->
 <script lang="ts" setup>
 import { ref } from "vue";
-import tree from "./components/tree/tree.vue";
+import tree from "./components/tree/index.vue";
 const treeList = ref<any[]>([
   {
     label: "1",
