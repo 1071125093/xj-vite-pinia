@@ -2,25 +2,24 @@
  * @Author: XiaoJun
  * @Date: 2022-07-02 21:23:59
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-04 12:33:35
+ * @LastEditTime: 2022-08-31 11:53:44
  * @Description: 组件功能
- * @FilePath: /my-vite/src/views/front/reborn/components/shard12/index.vue
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard12/index.vue
 -->
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 // import useStore from "@/store";
-import { getStore } from "@/store";
-import { storeToRefs } from "pinia";
+import { usePiniaOne } from '@/store'
+import { storeToRefs } from 'pinia'
 //#region ****** piniaOne模块测试 start **********/
-// const { piniaOne } = useStore();
-const piniaOne = getStore("piniaOne");
-const { count } = storeToRefs(piniaOne);
-const testCount = ref<number>(0);
+const piniaOne = usePiniaOne()
+const { count } = storeToRefs(piniaOne)
+const testCount = ref<number>(0)
 const doTest = () => {
-  const num = Number(testCount.value);
-  piniaOne.increaseCount(num);
-};
-const doReset = () => {};
+  const num = Number(testCount.value)
+  piniaOne.increaseCount(num)
+}
+const doReset = () => {}
 //#endregion *** piniaOne模块测试 end   **********/
 </script>
 <template>

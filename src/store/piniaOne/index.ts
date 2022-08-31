@@ -2,9 +2,9 @@
  * @Author: XiaoJun
  * @Date: 2022-07-03 14:11:48
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-04 01:16:24
+ * @LastEditTime: 2022-08-31 10:46:14
  * @Description: 组件功能
- * @FilePath: /my-vite/src/store/piniaOne/index.ts
+ * @FilePath: /xj-vite-pinia/src/store/piniaOne/index.ts
  */
 import { defineStore } from "pinia";
 import { reactive, toRefs, computed } from "vue";
@@ -29,4 +29,4 @@ export default defineStore("piniaOne", () => {
     calcCount,
     increaseCount,
   };
-});
+})
