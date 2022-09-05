@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-30 21:07:33
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-31 10:42:36
+ * @LastEditTime: 2022-09-05 14:29:37
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard9/index.vue
 -->
@@ -32,7 +32,7 @@ const person1: Person1 = {
   happy1: true,
 }
 type Values<T> = T[keyof T]
-const myChange = <Type extends any>(obj: Type, key: keyof Type, value: Type[typeof key]) => {
+const myChange = <Type extends {}>(obj: Type, key: keyof Type, value: Type[typeof key]) => {
   obj[key] = value
 }
 // 此处仍存在问题
@@ -88,7 +88,7 @@ interface Dog {
 }
 
 let animal: Animal
-let wangCai: Dog = {
+const wangCai: Dog = {
   name: 'wang cai',
   age: 3,
   bite: () => {},

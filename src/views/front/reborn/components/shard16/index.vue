@@ -15,7 +15,7 @@ const changeDateStr = () => {
 </script>
 <template>
   <button class="change" @click="changeDateStr">按钮</button>
-  <div class="shard" v-dateFormat>{{ theDateStr }}</div>
+  <div v-dateFormat class="shard">{{ theDateStr }}</div>
 </template>
 <style lang="less" scoped>
 .shard {

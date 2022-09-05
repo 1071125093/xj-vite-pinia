@@ -13,7 +13,7 @@ onMounted(() => {})
 </script>
 <template>
   <div class="container">
-    <div class="shard" ref="shard">空</div>
+    <div ref="shard" class="shard">空</div>
   </div>
 </template>
 <style lang="less" scoped>

@@ -7,7 +7,7 @@
  * @FilePath: /my-vite/src/views/front/reborn/components/shard14/index.vue
 -->
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 </script>
 <template>
   <div class="shard">正则表达式</div>

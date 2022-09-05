@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 14:00:00
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-12 11:26:32
+ * @LastEditTime: 2022-08-31 17:23:49
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard7/index.vue
 -->
@@ -51,10 +51,10 @@ const myToggle = () => {
 /********** 全屏 end   **********/
 /********** 复制 start **********/
 
-const source = ref('点我复制文字')
-const { text, copy, copied, isSupported } = useClipboard({ source })
+const source123 = ref('点我复制文字')
+const { text, copy, copied, isSupported } = useClipboard()
 const xjTest = () => {
-  copy()
+  copy(source123.value)
 }
 /********** 复制 end   **********/
 /********** 黑暗模式 start **********/
@@ -126,7 +126,9 @@ const watchOnceSource = ref(0)
 watchOnce(watchOnceSource, (value: any) => {
   console.log('变化了', value)
 })
+// 123123213
 const clickedFn = () => {
+  console.log('w rnm')
   watchOnceSource.value++
 }
 //#endregion *** watchOnce end   **********/
@@ -183,8 +185,8 @@ const { pause, resume, isActive } = useIntervalFn(() => {
     <el-button type="primary" size="small" @click="logTitle">点我修改标题</el-button>
     <!-- <el-button type="primary" size="small" @click="getPos">点我获取位置</el-button> -->
     <el-button type="primary" size="small" @click="myToggle">点我全屏</el-button>
-    <el-button type="primary" size="small" @click="copy()">{{ source }}复制测试</el-button>
-    <el-button type="primary" size="small" @click="xjTest()">复制指定文字</el-button>
+    <el-button type="primary" size="small">{{ source123 }}</el-button>
+    <el-button type="primary" size="small" @click="xjTest">复制指定文字</el-button>
     <!-- <div class="draggable" ref="el" :style="style" style="position: fixed">
       Drag me! I am at {{ x }}, {{ y }}
     </div> -->
@@ -201,7 +203,7 @@ const { pause, resume, isActive } = useIntervalFn(() => {
     <div>
       <button tab-index="5">目前是否开启focus-trap:{{ hasFocus }}</button>
       <button tab-index="5" @click="activate()">开启</button>
-      <div class="container" ref="container">
+      <div ref="container" class="container">
         <button tab-index="5">Inside the trap</button>
         <button tab-index="5">Can't break out</button>
         <button tab-index="5">Stuck here forever</button>
@@ -220,8 +222,7 @@ const { pause, resume, isActive } = useIntervalFn(() => {
       {{ isHovered ? 'Thank you!' : 'Hover me' }}
     </button>
     <div>{{ watchOnceSource }}</div>
-    <button @click="clickedFn">点击按钮测试watchOnce</button>
-
+    <button type="button" @click="clickedFn">点击按钮测试watchOnce</button>
     <p>{{ word }}</p>
     <p>
       interval:

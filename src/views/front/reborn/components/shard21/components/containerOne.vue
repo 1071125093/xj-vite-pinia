@@ -33,7 +33,7 @@ import * as d3 from 'd3'
       <!-- <rect x="0" y="0" width="100" height="100" fill="none" stroke="black"></rect> -->
       <defs>
         <mask id="mask1" x="0" y="0">
-          <rect x="0" y="0" width="100" height="30" style="stroke: none; fill: #ffffff"  />
+          <rect x="0" y="0" width="100" height="30" style="stroke: none; fill: #ffffff" />
         </mask>
       </defs>
       <rect

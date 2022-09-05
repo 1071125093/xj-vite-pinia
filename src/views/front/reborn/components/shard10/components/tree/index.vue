@@ -7,7 +7,7 @@
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard10/components/tree/index.vue
 -->
 <script lang="ts" setup name="tree">
-import { onMounted, ref ,inject} from 'vue'
+import { onMounted, ref, inject } from 'vue'
 interface TreeItem {
   label: 'string'
   children: TreeItem[]
@@ -20,7 +20,7 @@ const props = defineProps<{
 }>()
 </script>
 <template>
-  <div class="tree" v-for="treeItem in tree" :key="treeItem.label">
+  <div v-for="treeItem in tree" :key="treeItem.label" class="tree">
     <div class="label">{{ treeItem.label }}</div>
     <tree :tree="treeItem.children"></tree>
   </div>

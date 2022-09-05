@@ -6,27 +6,29 @@
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/store/piniaOne/index.ts
  */
-import { defineStore } from "pinia";
-import { reactive, toRefs, computed } from "vue";
+import { defineStore } from 'pinia'
+import { reactive, toRefs, computed } from 'vue'
 interface State {
-  count: number;
-  age: number;
+  count: number
+  age: number
 }
-export default defineStore("piniaOne", () => {
+export default defineStore('piniaOne', () => {
   const state = reactive<State>({
     age: 10086,
     count: 5,
-  });
+  })
   const calcCount = computed(() => {
-    return state.count + 6;
-  });
+    return state.count + 6
+  })
   const increaseCount = (num: number) => {
-    if (typeof num !== "number") return;
-    state.count += num;
-  };
+    if (typeof num !== 'number') {
+      return
+    }
+    state.count += num
+  }
   return {
     ...toRefs(state),
     calcCount,
     increaseCount,
-  };
+  }
 })

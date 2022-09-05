@@ -6,30 +6,30 @@
  * @Description: 组件功能
  * @FilePath: /my-vite/src/store/piniaTwo/index.ts
  */
-import { defineStore } from "pinia";
-import { reactive, toRefs, computed } from "vue";
+import { defineStore } from 'pinia'
+import { reactive, toRefs, computed } from 'vue'
 interface State {
-  count: number;
-  age: number;
-  happy: boolean;
-  name: string;
+  count: number
+  age: number
+  happy: boolean
+  name: string
 }
-export default defineStore("piniaTwo", () => {
+export default defineStore('piniaTwo', () => {
   const state = reactive<State>({
     count: 15,
     age: 232323,
     happy: false,
-    name: "hxj",
-  });
+    name: 'hxj',
+  })
   const calcCount = computed(() => {
-    return state.count + 6;
-  });
+    return state.count + 6
+  })
   const myTest = () => {
-    console.log("我裂开le");
-  };
+    console.log('我裂开le')
+  }
   return {
     ...toRefs(state),
     calcCount,
     myTest,
-  };
-});
+  }
+})

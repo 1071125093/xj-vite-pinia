@@ -7,43 +7,43 @@
  * @FilePath: \my-vite\src\views\front\reborn\components\shard2\index.vue
 -->
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 class LoginForm {
-  state: string;
+  state: string
   static getInstance = (() => {
-    let instance: LoginForm | undefined;
+    let instance: LoginForm | undefined
     return () => {
       {
         if (!instance) {
-          console.log("上面");
-          instance = new LoginForm();
+          console.log('上面')
+          instance = new LoginForm()
         }
-        return instance;
+        return instance
       }
-    };
-  })();
+    }
+  })()
   constructor() {
-    this.state = "hide";
+    this.state = 'hide'
   }
   show() {
-    if (this.state === "show") {
-      return;
+    if (this.state === 'show') {
+      return
     }
-    this.state = "show";
+    this.state = 'show'
   }
   hide() {
-    if (this.state === "hide") {
-      return;
+    if (this.state === 'hide') {
+      return
     }
-    this.state = "hide";
+    this.state = 'hide'
   }
 }
-let obj1 = LoginForm.getInstance();
-let obj2 = LoginForm.getInstance();
-obj1.show();
-console.log(obj2);
-obj2.hide();
-console.log(obj1);
+const obj1 = LoginForm.getInstance()
+const obj2 = LoginForm.getInstance()
+obj1.show()
+console.log(obj2)
+obj2.hide()
+console.log(obj1)
 // console.log(obj2.state);
 </script>
 <template>

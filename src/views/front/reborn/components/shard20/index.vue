@@ -71,7 +71,7 @@ const insertObj = {
 }
 const addArr = [insertObj, insertObj, insertObj]
 const tranferArray = () => {
-  let resultArr = []
+  const resultArr = []
   basicArray.forEach((item, index) => {
     resultArr.push(basicArray[index], addArr[index])
   })

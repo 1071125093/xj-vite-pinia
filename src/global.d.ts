@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 21:02:39
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-24 17:41:06
+ * @LastEditTime: 2022-09-05 10:45:48
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/global.d.ts
  */

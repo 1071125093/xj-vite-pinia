@@ -7,7 +7,7 @@
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard25/index.vue
 -->
 <script lang="ts" setup>
-import { ref,computed } from 'vue'
+import { ref, computed } from 'vue'
 const calcOps = computed(() => {
   return [
     {

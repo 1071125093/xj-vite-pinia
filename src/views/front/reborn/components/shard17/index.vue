@@ -20,7 +20,7 @@ const changeMe = () => {
 <template>
   <button class="test" @click="changeMe">点我切换button隐藏显示</button>
   <transition-group tag="div" name="slide-fade">
-    <div class="shard" :key="currentItem">{{ currentItem }}</div>
+    <div :key="currentItem" class="shard">{{ currentItem }}</div>
   </transition-group>
 </template>
 <style lang="less" scoped>

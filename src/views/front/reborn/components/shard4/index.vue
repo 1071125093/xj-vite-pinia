@@ -7,32 +7,32 @@
  * @FilePath: \my-vite\src\views\front\reborn\components\shard4\index.vue
 -->
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 class Cellphone {
   create() {
-    console.log("生成一个手机");
+    console.log('生成一个手机')
   }
 }
 class Decorator {
-  cellphone: Cellphone;
+  cellphone: Cellphone
   constructor(cellphone) {
-    this.cellphone = cellphone;
+    this.cellphone = cellphone
   }
   create() {
-    this.cellphone.create();
-    this.createShell();
+    this.cellphone.create()
+    this.createShell()
   }
   createShell() {
-    console.log("生成手机壳");
+    console.log('生成手机壳')
   }
 }
 // 测试代码
-let cellphone = new Cellphone();
-cellphone.create();
+const cellphone = new Cellphone()
+cellphone.create()
 
-console.log("------------");
-let dec = new Decorator(cellphone);
-dec.create();
+console.log('------------')
+const dec = new Decorator(cellphone)
+dec.create()
 </script>
 <template>
   <div class="shard">空</div>

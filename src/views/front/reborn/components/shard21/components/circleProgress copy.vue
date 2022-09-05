@@ -15,13 +15,13 @@ let svg: any, dashedLine: any, trackLineLength: number
 let trackLine: any
 let lightCircle: any
 const getSvg = () => {
-  let svg = d3.select(outCircleDom.value)
+  const svg = d3.select(outCircleDom.value)
   trackLine = svg.append('path')
   dashedLine = svg.append('path')
   lightCircle = svg.append('circle')
 }
 const drawTrackLine = () => {
-  let path = d3.path()
+  const path = d3.path()
   path.moveTo(100, 100)
   path.lineTo(150, 100)
   path.lineTo(150, 150)
@@ -42,7 +42,7 @@ const drawDashedLine = () => {
     .attrTween('d', function () {
       let animation = this.trackLine.attr('d').match(regLocationM)[0]
       return function (t: number) {
-        let p = this.trackLine.node().getPointAtLength(t * trackLineLength) // 新的终点
+        const p = this.trackLine.node().getPointAtLength(t * trackLineLength) // 新的终点
         animation = animation + ` L${p.x},${p.y}`
         return animation
       }
@@ -63,7 +63,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="circle_progress">
-    <svg class="module" ref="outCircleDom">
+    <svg ref="outCircleDom" class="module">
       <!-- <circle class="inner_circle" cx="350" cy="350" r="300"></circle> -->
       <!-- <circle ref="outCircleDom" class="outer_circle" cx="350" cy="350" r="300"></circle> -->
       <!-- transform="rotate(-90,350,350)" -->

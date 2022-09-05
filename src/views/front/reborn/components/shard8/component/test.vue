@@ -7,7 +7,7 @@
  * @FilePath: \my-vite\src\views\front\reborn\components\shard8\component\test.vue
 -->
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 </script>
 <template>
   <div class="default_class">填充内容</div>

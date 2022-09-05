@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-08-24 17:22:24
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-24 17:58:53
+ * @LastEditTime: 2022-09-01 16:22:06
  * @Description: vue-draggable
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard27/index.vue
 -->
@@ -38,28 +38,28 @@ const onEnd = () => {
 }
 
 //#region ****** el-table区域 start **********/
-const tableData = [
+const tableData = ref([
   {
     date: '2016-05-03',
-    name: 'Tom',
+    name: 'Tom1',
     address: 'No. 189, Grove St, Los Angeles',
   },
   {
     date: '2016-05-02',
-    name: 'Tom',
+    name: 'Tom2',
     address: 'No. 189, Grove St, Los Angeles',
   },
   {
     date: '2016-05-04',
-    name: 'Tom',
+    name: 'Tom3',
     address: 'No. 189, Grove St, Los Angeles',
   },
   {
     date: '2016-05-01',
-    name: 'Tom',
+    name: 'Tom4',
     address: 'No. 189, Grove St, Los Angeles',
   },
-]
+])
 //#endregion *** el-table区域 end   **********/
 </script>
 <template>
@@ -70,14 +70,15 @@ const tableData = [
         <el-table-column prop="name" label="Name" width="180" />
         <el-table-column prop="address" label="Address" />
       </el-table> -->
+      {{ tableData }}
       <draggable
         :list="tableData"
         ghost-class="ghost"
         chosen-class="chosenClass"
         animation="300"
+        item-key="id"
         @start="onStart"
         @end="onEnd"
-        itemKey="id"
       >
         <template #item="{ element }">
           <div class="item">

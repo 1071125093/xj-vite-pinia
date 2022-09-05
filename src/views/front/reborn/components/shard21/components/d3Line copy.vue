@@ -15,7 +15,7 @@
 -->
 <template>
   <div class="D3Line">
-    <svg ref="svgDom" :id="`svgDom_${domId}`">
+    <svg :id="`svgDom_${domId}`" ref="svgDom">
       <defs>
         <linearGradient id="linear">
           <stop offset="0%" style="stop-color: #7bfaff" stop-opacity=".2" />
@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { defineComponent, nextTick, onMounted, onUnmounted, ref, toRefs } from '@vue/runtime-core'
+import { defineComponent, nextTick, onMounted, onUnmounted, ref, toRefs } from 'vue'
 import * as d3 from 'd3'
 import { time } from 'echarts'
 const D3Line = defineComponent({
@@ -91,7 +91,7 @@ const D3Line = defineComponent({
     },
   },
   setup(props) {
-    let svgDom = ref('')
+    const svgDom = ref('')
     const domId = ref(Math.floor(Math.random() * 1e3))
     let width, height, svg, $path, l, circle
     const { x1, y1 } = toRefs(props)
@@ -109,7 +109,7 @@ const D3Line = defineComponent({
       width = svgDom.value.parentElement.offsetWidth // 使用父元素的宽
       height = svgDom.value.parentElement.offsetHeight // 使用父元素的高
       svg = d3.select(svgDom.value).attr('width', width).attr('height', height)
-      let dx = 0,
+      const dx = 0,
         // x1 = 55.5,
         // y1 = 0,
         x2 = props.x2 ? props.x2 : width / 2,
@@ -119,7 +119,7 @@ const D3Line = defineComponent({
       // let cpx = Math.round((x1 + x2) / 2 + dx);
       // let cpy = Math.round((x1 + x2) / 2 - dy);
 
-      let path = d3.path()
+      const path = d3.path()
       if (!props.path) {
         path.moveTo(x1.value, y1.value)
         path.lineTo(x2, y2)
@@ -132,7 +132,7 @@ const D3Line = defineComponent({
           .style('stroke', 'transparent')
           .style('stroke-width', '1')
       } else {
-        let linePath = d3
+        const linePath = d3
           .line()
           .x((o) => {
             return o[0]
@@ -192,20 +192,24 @@ const D3Line = defineComponent({
           .duration(props.lineDuration)
           .ease(d3.easeLinear)
           .attrTween('d', function () {
-            let coord = $path
+            const coord = $path
               .attr('d')
               .replace(/(M)/g, '')
               .match(/((\d|\.)+)/g)
-            let x1 = +coord[0]
-            let y1 = +coord[1] // 起点
+            const x1 = +coord[0]
+            const y1 = +coord[1] // 起点
             let animation = `M${x1},${y1}`
             return function (t) {
-              let p = $path.node().getPointAtLength(t * l) // 新的终点
-              if (props.highlights) circle.attr('cx', p.x).attr('cy', p.y)
+              const p = $path.node().getPointAtLength(t * l) // 新的终点
+              if (props.highlights) {
+                circle.attr('cx', p.x).attr('cy', p.y)
+              }
               animation = animation + ` L${p.x},${p.y}`
-              if (props.path) return animation
+              if (props.path) {
+                return animation
+              }
               // 折线动画
-              else return `M${x1}, ${y1} ${p.x}, ${p.y}` // 直线动画
+              return `M${x1}, ${y1} ${p.x}, ${p.y}` // 直线动画
             }
           })
           .on('end', function () {
@@ -224,8 +228,8 @@ const D3Line = defineComponent({
      * @return  {[type]}  [return description]
      */
     const animate = () => {
-      let mask = d3.select('#Mask')
-      let circleMask = mask
+      const mask = d3.select('#Mask')
+      const circleMask = mask
         .append('circle')
         .attr('class', `circleMask_${domId.value}`)
         .attr('cx', x1.value)
@@ -245,20 +249,22 @@ const D3Line = defineComponent({
         .ease(d3.easeLinear)
         // .ease(d3.easeCircle)
         .attrTween('d', function () {
-          let coord = $path
+          const coord = $path
             .attr('d')
             .replace(/(M)/g, '')
             .match(/((\d|\.)+)/g)
-          let x1 = +coord[0]
-          let y1 = +coord[1] // 起点
+          const x1 = +coord[0]
+          const y1 = +coord[1] // 起点
           let animation = `M${x1},${y1}`
           return function (t) {
-            let p = $path.node().getPointAtLength(t * l) // 新的终点
+            const p = $path.node().getPointAtLength(t * l) // 新的终点
             circleMask.attr('cx', p.x).attr('cy', p.y)
             animation = animation + ` L${p.x},${p.y}`
-            if (props.path) return animation
+            if (props.path) {
+              return animation
+            }
             // 折线动画
-            else return `M${x1}, ${y1} ${p.x}, ${p.y}` // 直线动画
+            return `M${x1}, ${y1} ${p.x}, ${p.y}` // 直线动画
           }
         })
         .remove()

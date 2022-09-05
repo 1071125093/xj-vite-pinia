@@ -7,17 +7,17 @@
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard10/index.vue
 -->
 <script lang="ts" setup>
-import { ref } from "vue";
-import tree from "./components/tree/index.vue";
+import { ref } from 'vue'
+import tree from './components/tree/index.vue'
 const treeList = ref<any[]>([
   {
-    label: "1",
+    label: '1',
     children: [
       {
-        label: "1-1",
+        label: '1-1',
         children: [
           {
-            label: "1-1-1",
+            label: '1-1-1',
             children: [],
           },
         ],
@@ -25,20 +25,20 @@ const treeList = ref<any[]>([
     ],
   },
   {
-    label: "2",
+    label: '2',
     children: [
       {
-        label: "2-1",
+        label: '2-1',
         children: [
           {
-            label: "2-1-1",
+            label: '2-1-1',
             children: [],
           },
         ],
       },
     ],
   },
-]);
+])
 </script>
 <template>
   <div class="shard">

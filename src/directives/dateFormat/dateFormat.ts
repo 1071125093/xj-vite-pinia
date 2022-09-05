@@ -13,7 +13,9 @@ const getNum = () => {
 }
 const getFormatedDate = (el: HTMLElement, binding: DirectiveBinding) => {
   const theDate = new Date(el.innerHTML.trim())
-  if (!theDate) return
+  if (!theDate) {
+    return
+  }
   el.innerHTML = dayjs(theDate).format(`YYYY-MM-DD 12:12:12`)
 }
 const dateFormat: Directive = {

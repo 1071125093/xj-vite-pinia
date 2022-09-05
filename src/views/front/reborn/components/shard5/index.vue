@@ -7,47 +7,47 @@
  * @FilePath: \my-vite\src\views\front\reborn\components\shard5\index.vue
 -->
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 // 状态 （弱光、强光、关灯）
 class State {
-  state: string;
+  state: string
   constructor(state: string) {
-    this.state = state;
+    this.state = state
   }
   handle(context: Context) {
-    console.log(`this is ${this.state} light`);
-    context.setState(this.state);
+    console.log(`this is ${this.state} light`)
+    context.setState(this.state)
   }
 }
 class Context {
-  state: string;
+  state: string
   constructor() {
-    this.state = null;
+    this.state = null
   }
   getState() {
-    return this.state;
+    return this.state
   }
   setState(state: string) {
-    this.state = state;
+    this.state = state
   }
 }
 // test
-let context = new Context();
-let weak = new State("weak");
-let strong = new State("strong");
-let off = new State("off");
+const context = new Context()
+const weak = new State('weak')
+const strong = new State('strong')
+const off = new State('off')
 
 // 弱光
-weak.handle(context);
-console.log(context.getState());
+weak.handle(context)
+console.log(context.getState())
 
 // 强光
-strong.handle(context);
-console.log(context.getState());
+strong.handle(context)
+console.log(context.getState())
 
 // 关闭
-off.handle(context);
-console.log(context.getState());
+off.handle(context)
+console.log(context.getState())
 </script>
 <template>
   <div class="shard">空</div>

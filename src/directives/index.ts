@@ -13,7 +13,7 @@ export default {
     const directives = {
       dateFormat,
     }
-    for (let key in directives) {
+    for (const key in directives) {
       app.directive(key, (directives as any)[key])
     }
   },

@@ -14,11 +14,11 @@ const outCircleDom = ref(null)
 let svg: any, dashedLine: any, trackLineLength: number
 let trackLine: any
 const getSvg = () => {
-  let svg = d3.select(outCircleDom.value)
+  const svg = d3.select(outCircleDom.value)
   trackLine = svg.append('path')
 }
 const drawTrackLine = () => {
-  let path = d3.path()
+  const path = d3.path()
   const p0 = { x: 100, y: 20 }
   const p1 = { x: 150, y: 20 }
   const p2 = { x: 150, y: 70 }
@@ -35,7 +35,7 @@ const drawTrackLine = () => {
   trackLine
     .attr('stroke', 'url(#grad1)')
     .attr('stroke-width', '8px')
-    .attr('fill','transparent')
+    .attr('fill', 'transparent')
     // .attr('fill', 'url(#grad1)')
     .attr('stroke-dasharray', '8,8')
     .attr('d', path.toString())
@@ -51,7 +51,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="circle_progress">
-    <svg class="module" ref="outCircleDom">
+    <svg ref="outCircleDom" class="module">
       <defs>
         <linearGradient id="grad1" x1="0%" y1="0%" x2="1" y2="0%">
           <stop offset="0%" style="stop-color: rgb(255, 255, 0)"></stop>

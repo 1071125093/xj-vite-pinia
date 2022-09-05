@@ -5,9 +5,10 @@ module.exports = {
     node: true,
     es2021: true,
   },
+  lintOnSave: true,
   parser: 'vue-eslint-parser',
   extends: [
-    'eslint:recommended',
+    // 'eslint:recommended',
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',

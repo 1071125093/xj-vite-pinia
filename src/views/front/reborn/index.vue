@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-25 17:35:16
+ * @LastEditTime: 2022-09-05 14:51:04
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -37,6 +37,7 @@ import shard25 from './components/shard25/index.vue'
 import shard26 from './components/shard26/index.vue'
 import shard27 from './components/shard27/index.vue'
 import shard28 from './components/shard28/index.vue'
+import shard29 from './components/shard29/index.vue'
 // 测试
 // 测试
 /**
@@ -90,6 +91,7 @@ const tabs = computed(() => {
     {
       label: 'setup语法糖',
       component: markRaw(shard11),
+      show: true,
     },
     {
       label: 'pinia',
@@ -168,6 +170,11 @@ const tabs = computed(() => {
     {
       label: '.env测试',
       component: markRaw(shard28),
+      show: true,
+    },
+    {
+      label: 'enum',
+      component: markRaw(shard29),
       show: true,
     },
   ].filter((item) => item.show)

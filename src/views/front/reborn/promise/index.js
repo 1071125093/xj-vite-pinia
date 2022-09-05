@@ -14,8 +14,8 @@ const promise = new Promise((resolve, reject) => {
 }).then(() => {
   console.log(5)
 })
-setTimeout(()=>{
-  console.log(6);
+setTimeout(() => {
+  console.log(6)
 })
 promise
   .then(() => {

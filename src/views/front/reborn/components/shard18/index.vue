@@ -17,8 +17,7 @@ const asyncPageWithOptions = defineAsyncComponent({
   timeout: 1,
   errorComponent: loadingComponent,
 })
-console.log('啥玩意 我东西呢');
-
+console.log('啥玩意 我东西呢')
 </script>
 <template>
   <div class="shard">
