@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-08-31 10:00:17
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-31 10:42:30
+ * @LastEditTime: 2022-09-08 09:34:59
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/store/index copy.ts
  */
@@ -25,7 +25,7 @@
 import { createPinia } from 'pinia'
 import usePiniaOne from './piniaOne'
 import usePiniaTwo from './piniaTwo'
-import useSystem from './system'
+import useSystem from './piniaSystem'
 type StoreModule = 'piniaOne' | 'piniaTwo' | 'system'
 // #tips:Map对象的使用比较有问题
 // eg const map = new Map<string,T>() 需保证Map对象的返回值类型一致 或通过ts做出某种限制 暂时不会

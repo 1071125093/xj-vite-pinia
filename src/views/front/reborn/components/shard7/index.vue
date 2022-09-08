@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 14:00:00
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-08-31 17:23:49
+ * @LastEditTime: 2022-09-08 09:55:14
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard7/index.vue
 -->

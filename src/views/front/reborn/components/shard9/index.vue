@@ -2,11 +2,24 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-30 21:07:33
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-09-05 14:29:37
+ * @LastEditTime: 2022-09-08 15:09:46
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard9/index.vue
 -->
 <script lang="ts" setup>
+// // 假设我一个枚举
+// enum ENUM_TYPE {
+//   ALL = 'all',
+//   SOME = 'some',
+//   LITTLE = 'little',
+// }
+
+// // 获取枚举的 value
+// type IValue = `${ENUM_TYPE}` // 'all' | 'some' | 'little'
+
+// // 获取枚举的 key
+// type IKey = keyof typeof ENUM_TYPE // 'ALL' | 'SOME' | 'LITTLE'
+
 type Person = {
   name: string
   school: string

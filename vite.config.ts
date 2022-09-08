@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 17:25:21
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-09-05 15:35:06
+ * @LastEditTime: 2022-09-08 10:01:17
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/vite.config.ts
  */
@@ -13,13 +13,11 @@ import path from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     DefineOptions(),
-    VueSetupExtend(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
