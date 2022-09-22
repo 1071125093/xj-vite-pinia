@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-09-08 17:08:42
+ * @LastEditTime: 2022-09-22 10:42:36
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -39,6 +39,7 @@ import shard27 from './components/shard27/index.vue'
 import shard28 from './components/shard28/index.vue'
 import shard29 from './components/shard29/index.vue'
 import shard30 from './components/shard30/index.vue'
+import shard31 from './components/shard31/index.vue'
 // 测试
 // 测试
 /**
@@ -146,41 +147,38 @@ const tabs = computed(() => {
     {
       label: 'setup无根组件形式',
       component: markRaw(shard23),
-      show: true,
     },
     {
       label: 'xjModalDialog',
       component: markRaw(shard24),
-      show: true,
     },
     {
       label: 'elementUI生吃',
       component: markRaw(shard25),
-      show: true,
     },
     {
       label: 'vue2测试',
       component: markRaw(shard26),
-      show: true,
     },
     {
       label: 'vue.draggable',
       component: markRaw(shard27),
-      show: true,
     },
     {
       label: '.env测试',
       component: markRaw(shard28),
-      show: true,
     },
     {
       label: '贪吃蛇',
       component: markRaw(shard29),
-      show: true,
     },
     {
       label: ':is测试',
       component: markRaw(shard30),
+    },
+    {
+      label: 'node接口',
+      component: markRaw(shard31),
       show: true,
     },
   ].filter((item) => item.show)
