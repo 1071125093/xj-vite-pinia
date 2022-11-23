@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-10-24 14:19:12
+ * @LastEditTime: 2022-10-28 11:37:26
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -202,6 +202,7 @@ const currentTab = computed(() => {
       </el-tab-pane>
     </el-tabs>
     <component :is="currentTab?.component"></component>
+    <shard9></shard9>
   </div>
 </template>
 <style lang="less" scoped>

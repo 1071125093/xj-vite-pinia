@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 19:37:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-10-21 13:03:42
+ * @LastEditTime: 2022-11-14 17:03:09
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard31/index.vue
 -->
@@ -24,7 +24,10 @@ const kai = {
 }
 </script>
 <template>
-  <div class="shard">空</div>
+  <div class="shard">
+    空
+    <blockTitle title="左边"></blockTitle>
+  </div>
 </template>
 <style lang="less" scoped>
 .shard {
