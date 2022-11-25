@@ -2,33 +2,37 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 17:25:21
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-10-24 14:51:11
+ * @LastEditTime: 2022-11-23 16:08:45
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/vite.config.ts
  */
-import { defineConfig } from 'vite'
+// import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import path from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import requireTransform from 'vite-plugin-require-transform'
-// const MonacoWebpackPlugin = require('monaco-editor-esm-webpack-plugin')
-// https://vitejs.dev/config/
 export default ({ mode }) => {
   return defineConfig({
     plugins: [
-      vue(),
+      vue({
+        reactivityTransform: true,
+      }),
       DefineOptions(),
       AutoImport({
         resolvers: [ElementPlusResolver()],
+        imports: [
+          'vue',
+          // 'vue-i18n', '@vueuse/head',
+        ],
+        //需要按需自动引入的依赖包
+        dts: 'src/auto-import.d.ts',
+        //选择auto-import.d.ts生成的位置'
       }),
       Components({
         resolvers: [ElementPlusResolver()],
-      }),
-      requireTransform({
-        fileRegex: /.js$|.vue$/,
       }),
     ],
     resolve: {
@@ -71,14 +75,12 @@ export default ({ mode }) => {
         },
       },
     },
-    optimizeDeps: {
-      include: [
-        `monaco-editor/esm/vs/language/json/json.worker`,
-        `monaco-editor/esm/vs/language/css/css.worker`,
-        `monaco-editor/esm/vs/language/html/html.worker`,
-        `monaco-editor/esm/vs/language/typescript/ts.worker`,
-        `monaco-editor/esm/vs/editor/editor.worker`,
-      ],
+    test: {
+      // 启用类似 jest 的全局测试 API
+      globals: true,
+      // 使用 happy-dom 模拟 DOM
+      // 这需要你安装 happy-dom 作为对等依赖（peer dependency）
+      environment: 'happy-dom',
     },
   })
 }

@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-10-28 11:37:26
+ * @LastEditTime: 2022-11-23 15:48:09
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -41,6 +41,8 @@ import shard29 from './components/shard29/index.vue'
 import shard30 from './components/shard30/index.vue'
 import shard31 from './components/shard31/index.vue'
 import shard32 from './components/shard32/index.vue'
+import shard33 from './components/shard33/index.vue'
+import shard34 from './components/shard34/index.vue'
 // 测试
 // 测试
 /**
@@ -152,7 +154,7 @@ const tabs = computed(() => {
     {
       label: 'xjModalDialog',
       component: markRaw(shard24),
-      show:true
+      show: true,
     },
     {
       label: 'elementUI生吃',
@@ -186,6 +188,16 @@ const tabs = computed(() => {
     {
       label: 'monaco-editor',
       component: markRaw(shard32),
+      show: true,
+    },
+    {
+      label: 'vitest',
+      component: markRaw(shard33),
+      show: true,
+    },
+    {
+      label: 'vue3官网',
+      component: markRaw(shard34),
       show: true,
     },
   ].filter((item) => item.show)
