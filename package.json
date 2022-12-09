@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "copy": "node ./src/service/copyShard.js",
     "dev": "vite --mode dev",
     "pro": "vite --mode pro",
     "sit": "vite --mode sit",
@@ -20,6 +21,7 @@
     "@vueuse/integrations": "^8.7.5",
     "axios": "^0.27.2",
     "d3": "^7.6.1",
+    "dayjs": "^1.11.7",
     "deepcopy": "^2.1.0",
     "echarts": "^5.3.3",
     "element-plus": "^2.2.8",
@@ -31,6 +33,7 @@
     "monaco-editor": "^0.34.1",
     "monaco-editor-nls": "^3.0.0",
     "pinia": "^2.0.14",
+    "qs": "^6.11.0",
     "vant": "^3.5.2",
     "vue": "^3.2.25",
     "vue-router": "^4.1.1",
@@ -38,7 +41,8 @@
   },
   "devDependencies": {
     "@testing-library/vue": "^6.6.1",
-    "@types/node": "^18.0.3",
+    "@types/node": "^18.11.11",
+    "@types/qs": "^6.9.7",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "@vitejs/plugin-vue": "^2.3.3",
@@ -60,7 +64,6 @@
     "unplugin-vue-define-options": "^0.10.0",
     "vite": "^2.9.9",
     "vite-plugin-eslint": "^1.8.1",
-    "vite-plugin-require-transform": "^1.0.4",
     "vitest": "^0.25.3",
     "vue-tsc": "^0.34.7"
   }

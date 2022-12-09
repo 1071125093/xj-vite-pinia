@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-11-23 15:48:09
+ * @LastEditTime: 2022-12-08 17:26:57
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -43,6 +43,8 @@ import shard31 from './components/shard31/index.vue'
 import shard32 from './components/shard32/index.vue'
 import shard33 from './components/shard33/index.vue'
 import shard34 from './components/shard34/index.vue'
+import shard35 from './components/shard35/index.vue'
+import shard36 from './components/shard36/index.vue'
 // 测试
 // 测试
 /**
@@ -140,12 +142,10 @@ const tabs = computed(() => {
     {
       label: 'd3js',
       component: markRaw(shard21),
-      show: true,
     },
     {
       label: '鼠标事件',
       component: markRaw(shard22),
-      show: true,
     },
     {
       label: 'setup无根组件形式',
@@ -154,7 +154,6 @@ const tabs = computed(() => {
     {
       label: 'xjModalDialog',
       component: markRaw(shard24),
-      show: true,
     },
     {
       label: 'elementUI生吃',
@@ -183,7 +182,6 @@ const tabs = computed(() => {
     {
       label: 'node接口',
       component: markRaw(shard31),
-      show: true,
     },
     {
       label: 'monaco-editor',
@@ -193,16 +191,19 @@ const tabs = computed(() => {
     {
       label: 'vitest',
       component: markRaw(shard33),
-      show: true,
     },
     {
       label: 'vue3官网',
       component: markRaw(shard34),
+    },
+    {
+      label: 'node接口测试-fsExtra',
+      component: markRaw(shard35),
       show: true,
     },
   ].filter((item) => item.show)
 })
-const activeTabName = ref('ProvideInject')
+const activeTabName = ref('node接口测试-fsExtra')
 const currentTab = computed(() => {
   return tabs.value.find((item) => item.label === activeTabName.value)
 })

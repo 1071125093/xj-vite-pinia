@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 19:25:25
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-11-14 17:05:13
+ * @LastEditTime: 2022-12-08 17:38:48
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/components/blockTitle/index.vue
 -->
@@ -15,16 +15,12 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   // title: 'one',
 })
-const startInit = () => {
-  debugger
-}
+const startInit = () => {}
 
 onMounted(() => {
   startInit()
 })
-onBeforeUnmount(() => {
-  debugger
-})
+onBeforeUnmount(() => {})
 </script>
 <template>
   <div class="block_title">公共标题</div>

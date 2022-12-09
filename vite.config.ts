@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 17:25:21
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-11-23 16:08:45
+ * @LastEditTime: 2022-12-08 17:44:10
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/vite.config.ts
  */
@@ -14,6 +14,7 @@ import path from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
 export default ({ mode }) => {
   return defineConfig({
     plugins: [
@@ -54,10 +55,10 @@ export default ({ mode }) => {
         //     return path.replace(/^\/api/, '123123')
         //   },
         // },
-        '/api': {
-          target: 'http://127.0.0.1:8080/',
+        '/xjApi': {
+          target: 'http://192.168.217.68:99',
           changeOrigin: false,
-          rewrite: (path) => path.replace(/^\/api/, '/05'),
+          rewrite: (path) => path.replace(/^\/xjApi/, ''),
         },
         '^/fallback/.*': {
           target: 'http://jsonplaceholder.typicode.com',
