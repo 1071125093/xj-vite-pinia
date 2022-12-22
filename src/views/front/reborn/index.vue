@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-12-08 17:26:57
+ * @LastEditTime: 2022-12-21 15:14:46
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -45,6 +45,7 @@ import shard33 from './components/shard33/index.vue'
 import shard34 from './components/shard34/index.vue'
 import shard35 from './components/shard35/index.vue'
 import shard36 from './components/shard36/index.vue'
+import shard37 from './components/shard37/index.vue'
 // 测试
 // 测试
 /**
@@ -199,6 +200,16 @@ const tabs = computed(() => {
     {
       label: 'node接口测试-fsExtra',
       component: markRaw(shard35),
+      show: true,
+    },
+    {
+      label: 'TS最新测试+Node+vue3工具类学习',
+      component: markRaw(shard36),
+      show: true,
+    },
+    {
+      label: 'node文件上传',
+      component: markRaw(shard37),
       show: true,
     },
   ].filter((item) => item.show)

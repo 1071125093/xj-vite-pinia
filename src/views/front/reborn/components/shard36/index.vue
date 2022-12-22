@@ -2,12 +2,23 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 19:37:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-07 20:08:37
+ * @LastEditTime: 2022-12-15 18:05:52
  * @Description: 组件功能
- * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard0/index.vue
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard36/index.vue
 -->
 <script lang="ts" setup>
-import { ref } from 'vue'
+let xjTest: Shard36.XjTest = {
+  cateId: 123,
+  name: '',
+  alias: '123',
+  is_deleted: '0',
+}
+xjTest.cateId
+
+/** 注释 */
+const makeMap = (str: string, expertsLowerCase: boolean): string => {
+  return str
+}
 </script>
 <template>
   <div class="shard">空</div>
