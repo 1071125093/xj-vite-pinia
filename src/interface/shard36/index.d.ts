@@ -2,17 +2,18 @@
  * @Author: XiaoJun
  * @Date: 2022-12-15 17:29:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-12-15 18:02:57
+ * @LastEditTime: 2023-01-06 16:56:52
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/interface/shard36/index.d.ts
  */
 
 declare namespace Shard36 {
+  /** 这是啥呢 */
   interface XjTest {
     cateId: number // 主键
-    name: string
-    alias: string
-    is_deleted: string
+    name: string // 前端测试
+    alias: string //我感觉很难受
+    is_deleted: string //这是什么
   }
   type Zero = number | string
 }

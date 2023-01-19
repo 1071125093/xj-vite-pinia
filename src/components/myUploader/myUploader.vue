@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-09-28 11:56:23
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-12-21 15:51:22
+ * @LastEditTime: 2023-01-18 14:10:14
  * @Description: myUploader ~ element-ui版本
  后续如有导入等需求，请及时callme
  * @FilePath: /xj-vite-pinia/src/components/myUploader/myUploader.vue
@@ -10,7 +10,7 @@
 
 <script setup>
 //#region ********** 库&组件等引入 start **************/
-import { ref, getCurrentInstance, computed, watch, defineProps, reactive, nextTick } from 'vue'
+import { ref, getCurrentInstance, computed, watch, reactive, nextTick } from 'vue'
 import { useHttp } from '@/service/httpService'
 import { ElMessage } from 'element-plus'
 import { piniaSystem } from '@/store'

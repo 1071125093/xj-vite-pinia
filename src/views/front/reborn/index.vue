@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-12-21 15:14:46
+ * @LastEditTime: 2023-01-18 14:10:59
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -46,6 +46,7 @@ import shard34 from './components/shard34/index.vue'
 import shard35 from './components/shard35/index.vue'
 import shard36 from './components/shard36/index.vue'
 import shard37 from './components/shard37/index.vue'
+import shard38 from './components/shard38/index.vue'
 // 测试
 // 测试
 /**
@@ -151,6 +152,7 @@ const tabs = computed(() => {
     {
       label: 'setup无根组件形式',
       component: markRaw(shard23),
+      show: true,
     },
     {
       label: 'xjModalDialog',
@@ -210,6 +212,11 @@ const tabs = computed(() => {
     {
       label: 'node文件上传',
       component: markRaw(shard37),
+      show: true,
+    },
+    {
+      label: '高德地图',
+      component: markRaw(shard38),
       show: true,
     },
   ].filter((item) => item.show)

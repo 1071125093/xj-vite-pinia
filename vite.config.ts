@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 17:25:21
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-12-08 17:44:10
+ * @LastEditTime: 2023-01-18 15:03:44
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/vite.config.ts
  */
@@ -14,6 +14,7 @@ import path from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
 
 export default ({ mode }) => {
   return defineConfig({
@@ -22,6 +23,9 @@ export default ({ mode }) => {
         reactivityTransform: true,
       }),
       DefineOptions(),
+      resolveExternalsPlugin({
+        AMap: 'AMap',
+      }),
       AutoImport({
         resolvers: [ElementPlusResolver()],
         imports: [
