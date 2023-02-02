@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-12-15 17:29:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-01-06 16:56:52
+ * @LastEditTime: 2023-01-31 16:19:45
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/interface/shard36/index.d.ts
  */

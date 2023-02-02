@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 21:02:39
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-09-05 10:45:48
+ * @LastEditTime: 2023-01-31 16:30:19
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/global.d.ts
  */
@@ -17,3 +17,5 @@ declare module 'd3' {
   const content: any
   export = content
 }
+declare module 'lodash-es'
+declare let XjHappy: number
