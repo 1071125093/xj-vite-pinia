@@ -168,8 +168,10 @@ const tabs = computed(() => {
       component: markRaw(shard26),
     },
     {
+      
       label: 'vue.draggable',
       component: markRaw(shard27),
+      show: true,
     },
     {
       label: '.env测试',

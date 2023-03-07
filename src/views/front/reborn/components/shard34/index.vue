@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 19:37:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-11-23 16:09:13
+ * @LastEditTime: 2023-02-28 23:11:34
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard34/index.vue
 -->
@@ -23,5 +23,6 @@ const xjTest = () => {
 </template>
 <style lang="less" scoped>
 .shard {
+  height: 300px;
 }
 </style>

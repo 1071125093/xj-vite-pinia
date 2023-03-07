@@ -68,6 +68,7 @@
     "vite": "^2.9.9",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-resolve-externals": "^0.2.2",
+    "vite-plugin-vue-setup-extend-plus": "^0.1.0",
     "vitest": "^0.25.3",
     "vue-tsc": "^0.34.7"
   }

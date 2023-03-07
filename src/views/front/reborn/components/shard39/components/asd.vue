@@ -1,34 +1,41 @@
 <!--
  * @Author: XiaoJun
- * @Date: 2023-01-31 17:35:52
+ * @Date: 2023-02-28 22:37:32
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-01-31 17:39:37
+ * @LastEditTime: 2023-03-08 00:24:16
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard39/components/asd.vue
 -->
+<script lang="ts" setup>
+// #region ********** 库&组件等引入 start **************/
+// #endregion ******* 库&组件等引入 ~end~ **************/
+
+import { number } from 'echarts'
+
+// const props = defineProps<{
+//   list: any[]
+// }>()
+const props = defineProps(['list'])
+type Asd = typeof props.list
+
+// #region ********** 通用部分 start **************/
+const outObj = {
+  name: 123,
+  age: 444,
+}
+// #endregion ******* 通用部分 ~end~ **************/
+
+// #region ********** 测试区域 start **************/
+// #endregion ******* 测试区域 ~end~ **************/
+</script>
 <template>
-  <div>
-    我来试试传值问题：{{ testValue }}
-    <div @click="addMe">点我加1</div>
+  <div class="default_class">
+    <div v-for="item in list">
+      <slot name="xjWanna" v-bind="item"></slot>
+    </div>
   </div>
 </template>
-<script>
-export default {
-  props: {
-    testValue: {
-      type: Number,
-    },
-  },
-  data() {
-    return {}
-  },
-  mounted() {},
-  methods: {
-    addMe() {
-      console.log(this.testValue)
-      this.$emit('update:testValue', this.testValue + 1)
-    },
-  },
+<style lang="less" scoped>
+.default_class {
 }
-</script>
-<style lang="less" scoped></style>
+</style>

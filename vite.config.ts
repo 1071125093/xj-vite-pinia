@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 17:25:21
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-01-18 15:03:44
+ * @LastEditTime: 2023-03-07 21:38:07
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/vite.config.ts
  */
@@ -15,13 +15,14 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
-
+import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
 export default ({ mode }) => {
   return defineConfig({
     plugins: [
       vue({
         reactivityTransform: true,
       }),
+      vueSetupExtend(),
       DefineOptions(),
       resolveExternalsPlugin({
         AMap: 'AMap',

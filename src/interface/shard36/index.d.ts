@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-12-15 17:29:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-01-31 16:19:45
+ * @LastEditTime: 2023-02-28 22:37:57
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/interface/shard36/index.d.ts
  */
@@ -16,4 +16,9 @@ declare namespace Shard36 {
     is_deleted: string //这是什么
   }
   type Zero = number | string
+
+  type XjTestKeys = keyof XjTest
+  type XjTestValues = XJ.Values<XjTest>
+
+
 }

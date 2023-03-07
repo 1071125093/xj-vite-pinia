@@ -47,6 +47,7 @@ specifiers:
   vite: ^2.9.9
   vite-plugin-eslint: ^1.8.1
   vite-plugin-resolve-externals: ^0.2.2
+  vite-plugin-vue-setup-extend-plus: ^0.1.0
   vitest: ^0.25.3
   vue: ^3.2.25
   vue-router: ^4.1.1
@@ -105,6 +106,7 @@ devDependencies:
   vite: registry.npmmirror.com/vite/2.9.15_less@4.1.3
   vite-plugin-eslint: registry.npmmirror.com/vite-plugin-eslint/1.8.1_eslint@8.29.0+vite@2.9.15
   vite-plugin-resolve-externals: registry.npmmirror.com/vite-plugin-resolve-externals/0.2.2
+  vite-plugin-vue-setup-extend-plus: registry.npmmirror.com/vite-plugin-vue-setup-extend-plus/0.1.0
   vitest: registry.npmmirror.com/vitest/0.25.5_happy-dom@7.7.2+less@4.1.3
   vue-tsc: registry.npmmirror.com/vue-tsc/0.34.17_typescript@4.9.4
 
@@ -5170,6 +5172,12 @@ packages:
     resolution: {integrity: sha512-RHwCA5z+oGwxlqVSJq43qjphpImq8N44NwqjUVqK3aH13R1C4JJM7ApRtOmkfU2x/paN7kdSwf252VVfKEVsQw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-resolve-externals/-/vite-plugin-resolve-externals-0.2.2.tgz}
     name: vite-plugin-resolve-externals
     version: 0.2.2
+    dev: true
+
+  registry.npmmirror.com/vite-plugin-vue-setup-extend-plus/0.1.0:
+    resolution: {integrity: sha512-pa27KIsHIBvBMv4xz9uB3UCfAuP2tr7PLlFhCS9vw+aXd326LEHsvhqd3hCQDOR5MjlQVyQH6vwuGr3u+KRiiw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-vue-setup-extend-plus/-/vite-plugin-vue-setup-extend-plus-0.1.0.tgz}
+    name: vite-plugin-vue-setup-extend-plus
+    version: 0.1.0
     dev: true
 
   registry.npmmirror.com/vite/2.9.15_less@4.1.3:
