@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 17:25:21
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-04-10 15:27:01
+ * @LastEditTime: 2023-04-10 17:51:02
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/vite.config.ts
  */
@@ -18,11 +18,17 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
-
+import { visualizer } from 'rollup-plugin-visualizer'
 export default ({ mode }) => {
   return defineConfig({
     plugins: [
       Vue(),
+      visualizer({
+        emitFile: false,
+        gzipSize:true,
+        filename: 'report.html', //分析图生成的文件名
+        open: true, //如果存在本地服务端口，将在打包后自动展示
+      }),
       // Macros.vite({
       //   plugins: {
       //     vue: Vue(),
@@ -97,6 +103,31 @@ export default ({ mode }) => {
       // 使用 happy-dom 模拟 DOM
       // 这需要你安装 happy-dom 作为对等依赖（peer dependency）
       environment: 'happy-dom',
+    },
+    build: {
+      outDir: 'xjDist', //输出目录名
+      minify: 'terser', //压缩方式
+      terserOptions: {
+        compress: {
+          drop_console: true, //剔除console,和debugger
+          drop_debugger: true,
+        },
+      },
+      // chunkSizeWarningLimit: 1500,大文件报警阈值设置,不建议使用
+      rollupOptions: {
+        output: {
+          //静态资源分类打包
+          chunkFileNames: 'static/js/[name]-[hash].js',
+          entryFileNames: 'static/js/[name]-[hash].js',
+          assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+          manualChunks(id) {
+            //静态资源分拆打包
+            if (id.includes('node_modules')) {
+              return id.toString().split('node_modules/')[1].split('/')[0].toString()
+            }
+          },
+        },
+      },
     },
   })
 }

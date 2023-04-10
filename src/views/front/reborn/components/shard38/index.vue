@@ -2,11 +2,13 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 19:37:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-01-30 13:48:46
+ * @LastEditTime: 2023-04-10 17:33:00
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/index.vue
 -->
+<!-- ignore  -->
 <script lang="ts" setup>
+//@ts-nocheck
 import { ref } from 'vue'
 import AMapLoader from '@amap/amap-jsapi-loader'
 import xjMenu from './components/xjMenu.vue'

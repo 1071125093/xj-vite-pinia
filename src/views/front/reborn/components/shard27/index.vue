@@ -2,13 +2,16 @@
  * @Author: XiaoJun
  * @Date: 2022-08-24 17:22:24
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-09-08 09:54:12
+ * @LastEditTime: 2023-04-10 17:12:26
  * @Description: vue-draggable
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard27/index.vue
 -->
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import draggable from 'vuedraggable'
+let asd: any = {
+  name: 123,
+}
 /*
 draggable 对CSS样式没有什么要求万物皆可拖拽
 :list="state.list"         //需要绑定的数组
