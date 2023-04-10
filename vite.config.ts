@@ -2,28 +2,38 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 17:25:21
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-03-07 21:38:07
+ * @LastEditTime: 2023-04-10 15:27:01
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/vite.config.ts
  */
 // import { defineConfig } from 'vite'
 import { defineConfig } from 'vitest/config'
-import vue from '@vitejs/plugin-vue'
-import DefineOptions from 'unplugin-vue-define-options/vite'
+import Macros from 'unplugin-vue-macros'
+// import VueMacros from 'unplugin-vue-macros/vite'
+import Vue from '@vitejs/plugin-vue'
+// import DefineOptions from 'unplugin-vue-define-options/vite'
 import path from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
+
 export default ({ mode }) => {
   return defineConfig({
     plugins: [
-      vue({
-        reactivityTransform: true,
-      }),
+      Vue(),
+      // Macros.vite({
+      //   plugins: {
+      //     vue: Vue(),
+      //     // vueJsx: VueJsx(), // 如果需要
+      //   },
+      // }),
+      // vue({
+      //   reactivityTransform: true,
+      // }),
       vueSetupExtend(),
-      DefineOptions(),
+      // DefineOptions(),
       resolveExternalsPlugin({
         AMap: 'AMap',
       }),

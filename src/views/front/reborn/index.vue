@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-01-31 17:35:22
+ * @LastEditTime: 2023-04-10 14:43:13
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -220,7 +220,7 @@ const tabs = computed(() => {
       show: true,
     },
     {
-      label: 'vue2和3双向绑定问题',
+      label: 'tsx测试',
       component: markRaw(shard39),
       show: true,
     },
