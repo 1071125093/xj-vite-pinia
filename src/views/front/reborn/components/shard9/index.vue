@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-30 21:07:33
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-09-08 15:09:46
+ * @LastEditTime: 2023-04-10 19:06:26
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard9/index.vue
 -->
@@ -184,6 +184,43 @@ const getMore = <T extends keyof Asd>(key: T): Asd[T] => {
 }
 const name = getMore('judge')
 //#endregion *** more end   **********/
+
+// #region ********** 注释 start **************/
+interface Person41 {
+  name: string
+  age: number
+}
+interface MyTest extends Person41 {}
+
+const myTest: MyTest = {
+  name: '123',
+  age: 123,
+}
+
+/** 感觉没啥用 */
+function getProperty<T extends object, K extends keyof T>(obj: T, key: K) {
+  return obj[key]
+}
+
+// const user = {
+//   id: '1',
+//   name: 'xiaoming',
+// }
+
+// let id = 'id'
+
+// const userId = user[id]
+// const userId = getProperty(user,id)
+enum EStatus {
+  success = '成功',
+  warning = '警告',
+  error = '错误',
+}
+type EKeys = keyof typeof EStatus
+type EValues = U.Values<typeof EStatus>
+const E1 = EStatus.error
+
+// #endregion ******* 注释 ~end~ **************/
 </script>
 <template>
   <div class="shard"></div>

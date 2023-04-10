@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-04-10 14:43:13
+ * @LastEditTime: 2023-04-10 18:59:58
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -92,6 +92,7 @@ const tabs = computed(() => {
     {
       label: 'Ts',
       component: markRaw(shard9),
+      show: true,
     },
     {
       label: '递归组件',
@@ -168,7 +169,6 @@ const tabs = computed(() => {
       component: markRaw(shard26),
     },
     {
-      
       label: 'vue.draggable',
       component: markRaw(shard27),
       show: true,
