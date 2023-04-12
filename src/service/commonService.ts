@@ -22,7 +22,7 @@ export const copy = deepcopy
 type MyFsPath = string | string[]
 export const getMyDist = (filePath: MyFsPath) => {
   filePath = [[filePath]].flat(Infinity).filter((item) => item) as MyFsPath
-  let reg = /(.*)\\service$/
-  let myDirname = __dirname.match(reg)?.[1] as string
+  const reg = /(.*)\\service$/
+  const myDirname = __dirname.match(reg)?.[1] as string
   return path.join(myDirname)
 }

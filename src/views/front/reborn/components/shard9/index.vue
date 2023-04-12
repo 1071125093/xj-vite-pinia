@@ -190,7 +190,7 @@ interface Person41 {
   name: string
   age: number
 }
-interface MyTest extends Person41 {}
+type MyTest = Person41
 
 const myTest: MyTest = {
   name: '123',

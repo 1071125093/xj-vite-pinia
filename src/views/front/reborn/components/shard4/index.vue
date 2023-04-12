@@ -1,3 +1,6 @@
+/** * @Author: XiaoJun * @Date: 2022-08-08 15:14:55 * @LastEditors: XiaoJun * @LastEditTime:
+2023-04-12 16:16:27 * @Description: 组件功能 * @FilePath:
+/xj-vite-pinia/src/views/front/reborn/components/shard4/index.vue */
 <!--
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 12:44:49
@@ -7,6 +10,7 @@
  * @FilePath: \my-vite\src\views\front\reborn\components\shard4\index.vue
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { ref } from 'vue'
 class Cellphone {
   create() {

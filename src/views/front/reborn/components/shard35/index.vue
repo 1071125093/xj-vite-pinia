@@ -40,7 +40,7 @@ onMounted(() => {})
     <div class="shard_container">
       <blockTitle title="文章类型列表"></blockTitle>
       <ul class="article_cate_list">
-        <li class="item" v-for="item in articleCateList" :key="item.cateId">
+        <li v-for="item in articleCateList" :key="item.cateId" class="item">
           {{ item.name }}
         </li>
       </ul>

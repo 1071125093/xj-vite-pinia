@@ -26,7 +26,7 @@ function fillRect(bgc: string, range: [TX, TY, TWidth, THeight]) {
   ctx.fillStyle = bgc
   ctx.fillRect(...range)
 }
-let config = {
+const config = {
   snake: [
     [0, 100],
     [10, 100],
@@ -48,18 +48,22 @@ type TStatus = 'unStart' | 'start' | 'pause'
 // 定义变量
 let canvas: any = null
 let ctx: any = null
-let direction: Ref<TDirection> = ref('ArrowRight')
-let score: Ref<number> = ref(0)
-let speed = computed(() => {
-  if (score.value <= 0) return 1
-  if (score.value >= 10) return 10
+const direction: Ref<TDirection> = ref('ArrowRight')
+const score: Ref<number> = ref(0)
+const speed = computed(() => {
+  if (score.value <= 0) {
+    return 1
+  }
+  if (score.value >= 10) {
+    return 10
+  }
   return score.value
 })
-let elSize: number = 10
-let snakeStatus: Ref<TStatus> = ref('unStart')
+const elSize = 10
+const snakeStatus: Ref<TStatus> = ref('unStart')
 let snakeList: Array<[number, number]> = []
-let foodPosition: Ref<[TX, TY]> = ref<[TX, TY]>([0, 0])
-let foodColor = '#ff5732'
+const foodPosition: Ref<[TX, TY]> = ref<[TX, TY]>([0, 0])
+const foodColor = '#ff5732'
 let stopTime = () => {}
 const initCtx = () => {
   if (!ctx) {
@@ -103,7 +107,9 @@ function foodComp() {
 }
 // 计算蛇行进
 function snakeRun() {
-  if (snakeStatus.value !== 'start') return
+  if (snakeStatus.value !== 'start') {
+    return
+  }
   const dir = direction.value
   const currentLocation = snakeList[snakeList.length - 1]
   const nextLocation: [number, number] = [currentLocation[0], currentLocation[1]]
@@ -112,10 +118,18 @@ function snakeRun() {
   } else {
     nextLocation[1] = nextLocation[1] + 10 * (dir === 'ArrowDown' ? 1 : -1)
   }
-  if (nextLocation[0] < 0) nextLocation[0] = 890
-  if (nextLocation[1] < 0) nextLocation[1] = 590
-  if (nextLocation[0] > 890) nextLocation[0] = 0
-  if (nextLocation[1] > 590) nextLocation[1] = 0
+  if (nextLocation[0] < 0) {
+    nextLocation[0] = 890
+  }
+  if (nextLocation[1] < 0) {
+    nextLocation[1] = 590
+  }
+  if (nextLocation[0] > 890) {
+    nextLocation[0] = 0
+  }
+  if (nextLocation[1] > 590) {
+    nextLocation[1] = 0
+  }
   snakeList.push(nextLocation)
   if (!eatFood(nextLocation)) {
     const traceLocation: any = snakeList.shift()
@@ -149,7 +163,7 @@ function runTime() {
   }
 }
 // 剩余时间
-let restTime = ref(10)
+const restTime = ref(10)
 let stopReduceTime = () => {}
 function reduceTime() {
   const timeId = setInterval(() => {

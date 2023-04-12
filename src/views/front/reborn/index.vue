@@ -248,5 +248,6 @@ const currentTab = computed(() => {
   </div>
 </template>
 <style lang="less" scoped>
-.reborn {}
+.reborn {
+}
 </style>

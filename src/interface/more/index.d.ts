@@ -6,4 +6,4 @@
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/interface/more/index.d.ts
  */
-declare function xjFoo<const T>(x: T): T;
+declare function xjFoo<const T>(x: T): T

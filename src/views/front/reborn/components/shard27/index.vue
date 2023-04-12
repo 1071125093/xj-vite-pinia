@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import draggable from 'vuedraggable'
-let asd: any = {
+const asd: any = {
   name: 123,
 }
 /*

@@ -113,7 +113,7 @@ const calcLoading = computed({
 
 //#region ********** 附件格式&正则相关 start **************/
 /** 文件extension正则*/
-let fileExtReg = /\.(\w+)$/
+const fileExtReg = /\.(\w+)$/
 
 /**匹配出附件的extension（文件格式）
  * @param {*} fileName
@@ -243,7 +243,9 @@ const innerFiles = ref([])
 const stopWatch = watch(
   () => props.fileIds,
   async (fileIds) => {
-    if (!fileIds) return
+    if (!fileIds) {
+      return
+    }
     const { data } = await post(`/usercenter/project/getFile/${fileIds}`)
     innerFiles.value = data.map((item) => {
       item.displayName = formatName(item.fileName, item.fileSize)
@@ -272,8 +274,8 @@ watch(
  */
 const beforeUpload = async (file) => {
   return new Promise((resolve, reject) => {
-    let extension = getExtension(file.name)
-    let acceptArr = props.acceptStr.split(',')
+    const extension = getExtension(file.name)
+    const acceptArr = props.acceptStr.split(',')
     if (!acceptArr.includes(extension)) {
       ElMessage({
         type: 'error',
@@ -326,7 +328,9 @@ const onSuccess = (resp, file, fileList) => {
     type: code === 0 ? 'success' : 'error',
     message: code === 0 ? '文件上传成功' : message,
   })
-  if (code !== 0) return
+  if (code !== 0) {
+    return
+  }
   file.displayName = formatName(file.name, file.size)
   file.fileId = resp.data.ids
   innerFiles.value = fileList.map((item) => {
@@ -413,19 +417,21 @@ const myPaste = async (e) => {
   if (innerFiles.value.length >= props.maxFileNum) {
     return onExceed([file], innerFiles.value)
   }
-  if (!file) return
+  if (!file) {
+    return
+  }
   uploadRef.value.handleStart(file)
   uploadRef.value.submit()
 }
-let token = localStorage.getItem('TALENT_token') || ''
+const token = localStorage.getItem('TALENT_token') || ''
 </script>
 <template>
   <div class="my_uploader">
     <!-- my_uploader -->
-    <div class="top_container" v-if="canUpload && !disabled">
+    <div v-if="canUpload && !disabled" class="top_container">
       <el-upload
-        class="upload"
         ref="uploadRef"
+        class="upload"
         :show-file-list="false"
         :action="action"
         :data="{
@@ -446,37 +452,37 @@ let token = localStorage.getItem('TALENT_token') || ''
         drag
       >
         <slot name="uploadBtn">
-          <div class="big_btn_wrap" v-if="btnType === 'big'">
+          <div v-if="btnType === 'big'" class="big_btn_wrap">
             <div class="big_btn">
               <i class="iconfont icon-jiahao"></i>
               <span class="btn_text">附件</span>
             </div>
-            <div class="right_content" @click.stop v-if="canPaste">
-              <el-input
+            <div v-if="canPaste" class="right_content" @click.stop>
+              <!-- <el-input
                 class="paste_input"
                 :placeholder="`支持上传${maxFileNum}个附件，每个不超过${maxFileSize}M\n点击按钮或黏贴、拖拽至此上传`"
                 type="textarea"
                 :rows="2"
-                @paste.native="myPaste($event)"
                 resize="none"
-              ></el-input>
+                @paste.native="myPaste($event)"
+              ></el-input> -->
             </div>
           </div>
-          <div class="small_btn_wrap" v-else-if="btnType === 'mini'">
+          <div v-else-if="btnType === 'mini'" class="small_btn_wrap">
             <el-button type="primary" class="small_btn">
               <i class="iconfont" :class="preIconClass"></i>
               {{ title }}
             </el-button>
-            <div @click.stop v-if="canPaste">
-              <el-input
+            <div v-if="canPaste" @click.stop>
+              <!-- <el-input
                 class="paste_input"
                 placeholder="黏贴、拖拽或点击上传附件"
                 @paste.native="myPaste($event)"
                 @click.stop
-              ></el-input>
+              ></el-input> -->
             </div>
 
-            <p class="tips" v-if="showTips" @click.stop>
+            <p v-if="showTips" class="tips" @click.stop>
               支持上传{{ maxFileNum }}个附件，每个不超过{{ maxFileSize }}M
             </p>
           </div>
@@ -486,22 +492,22 @@ let token = localStorage.getItem('TALENT_token') || ''
     </div>
     <slot name="list">
       <ul
-        class="appendix_list"
         v-if="innerFiles.length"
+        class="appendix_list"
         :class="{
           has_margin_top: canUpload && !disabled,
         }"
       >
-        <li class="appendix_item" v-for="item in innerFiles" :key="item.fileId">
+        <li v-for="item in innerFiles" :key="item.fileId" class="appendix_item">
           <div class="name shard" :title="item.fileName">
             <span>{{ item.displayName }}</span>
           </div>
           <!-- <div class="size">{{ formatSize(item.size) }}</div> -->
           <ul class="operation_list shard">
             <li
-              class="operation_button"
               v-for="subItem in calcOperationList(item)"
               :key="subItem.iconfont"
+              class="operation_button"
               @click="subItem.method(item)"
             >
               <i class="iconfont" :class="subItem.iconfont"></i>
@@ -511,11 +517,11 @@ let token = localStorage.getItem('TALENT_token') || ''
       </ul>
     </slot>
     <el-image
+      v-show="false"
+      ref="imageDom"
       style="width: 100px; height: 100px"
       :src="calcPictures[currentImageIndex]"
       :preview-src-list="calcPictures"
-      v-show="false"
-      ref="imageDom"
     ></el-image>
   </div>
 </template>

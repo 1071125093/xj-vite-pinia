@@ -33,7 +33,7 @@ const xjTestObj = {
 // funf->不带参数
 
 // nfn->实名函数带
-const nameFn = () => { }
+const nameFn = () => {}
 
 // dob->解构 :destructing object 破坏对象
 // 同理dar 数组解构 destructing array 破坏数组
@@ -44,7 +44,7 @@ const [xjTestItemOne] = xjList
 // return new Promise((resolve, reject) => {})
 
 // fre-->forEach
-xjList.forEach((currentItem) => { })
+xjList.forEach((currentItem) => {})
 
 /** fof-->for of */
 for (const ele of xjList) {
@@ -67,5 +67,6 @@ type Z = typeof names
   </div>
 </template>
 <style lang="less" scoped>
-.shard {}
+.shard {
+}
 </style>

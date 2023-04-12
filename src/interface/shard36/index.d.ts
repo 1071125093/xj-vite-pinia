@@ -19,6 +19,4 @@ declare namespace Shard36 {
 
   type XjTestKeys = keyof XjTest
   type XjTestValues = XJ.Values<XjTest>
-
-
 }

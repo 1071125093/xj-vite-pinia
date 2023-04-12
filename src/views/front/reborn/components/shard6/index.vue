@@ -7,6 +7,7 @@
  * @FilePath: \my-vite\src\views\front\reborn\components\shard6\index.vue
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { ref } from 'vue'
 const checkType = (function () {
   const rules = {

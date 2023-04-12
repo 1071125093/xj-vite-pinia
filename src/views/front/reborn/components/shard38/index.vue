@@ -56,7 +56,7 @@ const initMap = async () => {
     ],
     zooms: [4, 18], //设置地图级别范围
   })
-  var trafficLayer = new AMap.TileLayer.Traffic({
+  const trafficLayer = new AMap.TileLayer.Traffic({
     zIndex: 10,
   })
 }
@@ -102,7 +102,7 @@ const xjTest = () => {
 }
 
 const handleFeatureClick = (e, feature) => {
-  var featureInfo = feature.properties
+  const featureInfo = feature.properties
   console.log(featureInfo)
   switch2AreaNode(featureInfo.adcode)
 }
@@ -137,7 +137,7 @@ const renderAreaPolygons = (areaNode) => {
   districtExplorer.value.renderSubFeatures(areaNode, function (feature) {
     const name = feature.properties.name
     const fillColor = '#094C70'
-    var strokeColor = '#010c23'
+    const strokeColor = '#010c23'
     return {
       cursor: 'default',
       bubble: true,
@@ -202,7 +202,7 @@ onMounted(async () => {
 </script>
 <template>
   <div class="shard">
-    <div class="xj_map_container" ref="mapDom"></div>
+    <div ref="mapDom" class="xj_map_container"></div>
   </div>
 </template>
 <style lang="less" scoped>

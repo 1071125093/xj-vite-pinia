@@ -12,19 +12,19 @@ import { onMounted, ref } from 'vue'
 //#endregion *** 库等引入 end   **********/
 
 //#region ****** 公共属性 start **********/
-let width = ref(600) // 地图默认宽度
-let height = ref(400) // 地图默认高度
+const width = ref(600) // 地图默认宽度
+const height = ref(400) // 地图默认高度
 let canvas: any = null // canvas 对象
 let ctx: any = null // canvas 渲染上下文对象
-let snakeList = [
+const snakeList = [
   [0, 100],
   [10, 100],
 ] // 蛇的点位坐标
 let direction = 'ArrowRight' // top | down | left | right // 当前方向
-let elementWidth = 10 // 元素尺寸
-let step = 10 // 速度
-let store = ref(0) // 分数
-let status = ref('start') // unStart | start | pause ｜ over | success(通关) // 状态
+const elementWidth = 10 // 元素尺寸
+const step = 10 // 速度
+const store = ref(0) // 分数
+const status = ref('start') // unStart | start | pause ｜ over | success(通关) // 状态
 let foodCoordinate: any = [
   ((Math.random() * width.value) / 10) | 0,
   ((Math.random() * height.value) / 10) | 0,
@@ -124,11 +124,11 @@ function handleRenderSnake() {
       status.value = 'success'
       return
     }
-    for (let i of snakeList) {
+    for (const i of snakeList) {
       ctx.clearRect(i[0], i[1], elementWidth, elementWidth)
     }
 
-    let currentSnake = snakeList.slice(-1)[0]
+    const currentSnake = snakeList.slice(-1)[0]
     if (
       Math.abs(currentSnake[0] - foodCoordinate[0]) < 10 &&
       Math.abs(currentSnake[1] - foodCoordinate[1]) < 10

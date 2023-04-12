@@ -20,7 +20,7 @@ const downloadFileTest = () => {
 <template>
   <div class="shard">
     <blockTitle title="文件上传"></blockTitle>
-    <myUploader :fileIds="myFileIds"></myUploader>
+    <myUploader :file-ids="myFileIds"></myUploader>
     <el-button type="primary" @click="downloadFileTest">点我下载试试</el-button>
   </div>
 </template>
