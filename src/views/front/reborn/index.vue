@@ -48,6 +48,7 @@ import shard36 from './components/shard36/index.vue'
 import shard37 from './components/shard37/index.vue'
 import shard38 from './components/shard38/index.vue'
 import shard39 from './components/shard39/index.vue'
+import shard40 from './components/shard40/index.vue'
 // 测试
 // 测试
 /**
@@ -224,6 +225,11 @@ const tabs = computed(() => {
       component: markRaw(shard39),
       show: true,
     },
+    {
+      label: 'npm包',
+      component: markRaw(shard40),
+      show: true,
+    },
   ].filter((item) => item.show)
 })
 const activeTabName = ref('node接口测试-fsExtra')
@@ -242,6 +248,5 @@ const currentTab = computed(() => {
   </div>
 </template>
 <style lang="less" scoped>
-.reborn {
-}
+.reborn {}
 </style>
