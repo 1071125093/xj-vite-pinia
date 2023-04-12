@@ -41,6 +41,7 @@ specifiers:
   prettier: ^2.8.7
   qs: ^6.11.0
   rollup-plugin-visualizer: ^5.9.0
+  simple-git-hooks: ^2.8.1
   terser: ^5.16.8
   ts-node: ^10.8.2
   typescript: ^5.0.4
@@ -107,6 +108,7 @@ devDependencies:
   monaco-editor-webpack-plugin: registry.npmmirror.com/monaco-editor-webpack-plugin/7.0.1_monaco-editor@0.34.1
   prettier: registry.npmmirror.com/prettier/2.8.7
   rollup-plugin-visualizer: registry.npmmirror.com/rollup-plugin-visualizer/5.9.0
+  simple-git-hooks: registry.npmmirror.com/simple-git-hooks/2.8.1
   terser: registry.npmmirror.com/terser/5.16.8
   ts-node: registry.npmmirror.com/ts-node/10.9.1_bhanhq442dy43ncydsavgi4jfi
   typescript: registry.npmmirror.com/typescript/5.0.4
@@ -3991,7 +3993,6 @@ packages:
     name: graceful-fs
     version: 4.2.11
     requiresBuild: true
-    dev: true
     optional: true
 
   registry.npmmirror.com/grapheme-splitter/1.0.4:
@@ -4551,7 +4552,7 @@ packages:
     dependencies:
       universalify: registry.npmmirror.com/universalify/2.0.0
     optionalDependencies:
-      graceful-fs: registry.npmmirror.com/graceful-fs/4.2.10
+      graceful-fs: registry.npmmirror.com/graceful-fs/4.2.11
     dev: false
 
   registry.npmmirror.com/klona/2.0.5:
@@ -5775,6 +5776,14 @@ packages:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/signal-exit/-/signal-exit-3.0.7.tgz}
     name: signal-exit
     version: 3.0.7
+    dev: true
+
+  registry.npmmirror.com/simple-git-hooks/2.8.1:
+    resolution: {integrity: sha512-DYpcVR1AGtSfFUNzlBdHrQGPsOhuuEJ/FkmPOOlFysP60AHd3nsEpkGq/QEOdtUyT1Qhk7w9oLmFoMG+75BDog==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/simple-git-hooks/-/simple-git-hooks-2.8.1.tgz}
+    name: simple-git-hooks
+    version: 2.8.1
+    hasBin: true
+    requiresBuild: true
     dev: true
 
   registry.npmmirror.com/sirv/2.0.2:
