@@ -83,7 +83,7 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,vue,md}": [
-      "bash -c 'pnpm run lint:eslint'"
+      "pnpm run lint:eslint"
     ]
   }
 }
