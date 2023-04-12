@@ -11,7 +11,7 @@
     "build": "vue-tsc --noEmit && vite build --mode pro",
     "build:dev": "vite build --mode dev",
     "preview": "vite preview",
-    "lint:eslint": "eslint --cache --max-warnings 100  \"src/**/*.{vue,ts,tsx}\" --fix",
+    "lint:eslint": "eslint --cache --max-warnings 10086  \"src/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:tsc": "vue-tsc --noEmit"

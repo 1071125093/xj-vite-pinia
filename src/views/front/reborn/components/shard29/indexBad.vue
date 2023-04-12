@@ -2,9 +2,9 @@
  * @Author: XiaoJun
  * @Date: 2022-08-31 15:38:17
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-09-08 10:38:25
+ * @LastEditTime: 2023-04-12 18:34:49
  * @Description: 组件功能
- * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard29/index.vue
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard29/indexBad.vue
 -->
 <script lang="ts" setup>
 //#region ****** 库等引入 start **********/
@@ -18,17 +18,14 @@ let canvas: any = null // canvas 对象
 let ctx: any = null // canvas 渲染上下文对象
 const snakeList = [
   [0, 100],
-  [10, 100],
+  [10, 100]
 ] // 蛇的点位坐标
 let direction = 'ArrowRight' // top | down | left | right // 当前方向
 const elementWidth = 10 // 元素尺寸
 const step = 10 // 速度
 const store = ref(0) // 分数
 const status = ref('start') // unStart | start | pause ｜ over | success(通关) // 状态
-let foodCoordinate: any = [
-  ((Math.random() * width.value) / 10) | 0,
-  ((Math.random() * height.value) / 10) | 0,
-] // 食物坐标
+let foodCoordinate: any = [((Math.random() * width.value) / 10) | 0, ((Math.random() * height.value) / 10) | 0] // 食物坐标
 let process: any = null // 定时器 Id
 //#endregion *** 公共属性 end   **********/
 
@@ -50,7 +47,6 @@ function handleInit() {
     process = setInterval(handleRenderSnake, 150)
     handleRenderFood()
     // window.requestAnimationFrame(handleRenderSnake)
-  } else {
   }
 }
 
@@ -70,10 +66,7 @@ function handleRenderSnake() {
         return
       }
 
-      snakeList.push([
-        snakeList[snakeList.length - 1][0],
-        snakeList[snakeList.length - 1][1] - step,
-      ])
+      snakeList.push([snakeList[snakeList.length - 1][0], snakeList[snakeList.length - 1][1] - step])
       handleUpdateVerify()
       break
     case 'ArrowDown':
@@ -82,10 +75,7 @@ function handleRenderSnake() {
         return
       }
 
-      snakeList.push([
-        snakeList[snakeList.length - 1][0],
-        snakeList[snakeList.length - 1][1] + step,
-      ])
+      snakeList.push([snakeList[snakeList.length - 1][0], snakeList[snakeList.length - 1][1] + step])
       handleUpdateVerify()
 
       break
@@ -95,10 +85,7 @@ function handleRenderSnake() {
         return
       }
 
-      snakeList.push([
-        snakeList[snakeList.length - 1][0] - step,
-        snakeList[snakeList.length - 1][1],
-      ])
+      snakeList.push([snakeList[snakeList.length - 1][0] - step, snakeList[snakeList.length - 1][1]])
       handleUpdateVerify()
       break
     case 'ArrowRight':
@@ -106,10 +93,7 @@ function handleRenderSnake() {
         status.value = 'over'
         return
       }
-      snakeList.push([
-        snakeList[snakeList.length - 1][0] + step,
-        snakeList[snakeList.length - 1][1],
-      ])
+      snakeList.push([snakeList[snakeList.length - 1][0] + step, snakeList[snakeList.length - 1][1]])
       handleUpdateVerify()
       break
   }
@@ -129,10 +113,7 @@ function handleRenderSnake() {
     }
 
     const currentSnake = snakeList.slice(-1)[0]
-    if (
-      Math.abs(currentSnake[0] - foodCoordinate[0]) < 10 &&
-      Math.abs(currentSnake[1] - foodCoordinate[1]) < 10
-    ) {
+    if (Math.abs(currentSnake[0] - foodCoordinate[0]) < 10 && Math.abs(currentSnake[1] - foodCoordinate[1]) < 10) {
       store.value++
       handleRenderFood()
     } else {

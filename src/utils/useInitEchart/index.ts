@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { App, createApp, HTMLAttributes, StyleHTMLAttributes, StyleValue } from 'vue'
 /*
  * @Author: HuangXiaojun

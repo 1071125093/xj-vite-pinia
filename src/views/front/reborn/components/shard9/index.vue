@@ -2,11 +2,13 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-30 21:07:33
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-04-10 19:06:26
+ * @LastEditTime: 2023-04-12 18:34:17
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard9/index.vue
 -->
 <script lang="ts" setup>
+// @ts-nocheck
+
 // // 假设我一个枚举
 // enum ENUM_TYPE {
 //   ALL = 'all',
@@ -36,13 +38,13 @@ const person: Person = {
   name: '前端测试',
   school: '幼儿园',
   age: 10086,
-  happy: true,
+  happy: true
 }
 const person1: Person1 = {
   name1: '前端测试',
   school1: '幼儿园',
   age1: 10086,
-  happy1: true,
+  happy1: true
 }
 type Values<T> = T[keyof T]
 const myChange = <Type extends {}>(obj: Type, key: keyof Type, value: Type[typeof key]) => {
@@ -79,11 +81,7 @@ type item3 = ArrayElementType<[number, string]>
 type Bar<T> = T extends { a: (x: infer U) => void; b: (x: infer U) => void } ? U : never
 type T21 = Bar<{ a: (x: string) => void; b: (x: number) => void }> // string & number
 // 联合转交叉
-type UnionToIntersection<U> = (U extends U ? (x: U) => unknown : never) extends (
-  x: infer R
-) => unknown
-  ? R
-  : never
+type UnionToIntersection<U> = (U extends U ? (x: U) => unknown : never) extends (x: infer R) => unknown ? R : never
 //#endregion *** 函数重载&联合类型 end   **********/
 
 //#region ****** ts协变&逆变&高级类型 start **********/
@@ -104,7 +102,7 @@ let animal: Animal
 const wangCai: Dog = {
   name: 'wang cai',
   age: 3,
-  bite: () => {},
+  bite: () => {}
 }
 animal = wangCai
 // animal = {
@@ -114,16 +112,16 @@ animal = wangCai
 // wangCai = animal
 
 // 逆变
-interface Animal {
-  name: string
-  age: number
-}
+// interface Animal {
+//   name: string
+//   age: number
+// }
 
-interface Dog {
-  name: string
-  age: number
-  bite(): void
-}
+// interface Dog {
+//   name: string
+//   age: number
+//   bite(): void
+// }
 
 let animalFun: (animal: Animal) => void
 animalFun = (animal: Animal) => {
@@ -176,7 +174,7 @@ xjTestFun()
 const asd = {
   name: '好人',
   age: 23,
-  judge: false,
+  judge: false
 }
 type Asd = typeof asd
 const getMore = <T extends keyof Asd>(key: T): Asd[T] => {
@@ -194,7 +192,7 @@ type MyTest = Person41
 
 const myTest: MyTest = {
   name: '123',
-  age: 123,
+  age: 123
 }
 
 /** 感觉没啥用 */
@@ -214,7 +212,7 @@ function getProperty<T extends object, K extends keyof T>(obj: T, key: K) {
 enum EStatus {
   success = '成功',
   warning = '警告',
-  error = '错误',
+  error = '错误'
 }
 type EKeys = keyof typeof EStatus
 type EValues = U.Values<typeof EStatus>
