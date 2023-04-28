@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-04-10 18:59:58
+ * @LastEditTime: 2023-04-19 09:57:28
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -49,6 +49,7 @@ import shard37 from './components/shard37/index.vue'
 import shard38 from './components/shard38/index.vue'
 import shard39 from './components/shard39/index.vue'
 import shard40 from './components/shard40/index.vue'
+import shard41 from './components/shard41/index.vue'
 // 测试
 // 测试
 /**
@@ -228,6 +229,11 @@ const tabs = computed(() => {
     {
       label: 'npm包',
       component: markRaw(shard40),
+      show: true,
+    },
+    {
+      label: '尝试保证composition',
+      component: markRaw(shard41),
       show: true,
     },
   ].filter((item) => item.show)
