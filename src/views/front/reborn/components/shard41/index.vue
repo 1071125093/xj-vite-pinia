@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 19:37:02
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-04-19 10:46:56
+ * @LastEditTime: 2023-05-12 14:51:21
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard41/index.vue
 -->
@@ -34,7 +34,7 @@ const obj = reactive({
 // })
 </script>
 <template>
-  <div>我我我123</div>
+  <div>我我我</div>
   <!-- <div class="shard" @click="xjTest.queryLake">
     {{ xjTest.lake }}
   </div>
