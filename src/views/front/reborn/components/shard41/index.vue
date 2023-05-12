@@ -34,7 +34,7 @@ const obj = reactive({
 // })
 </script>
 <template>
-  <div>我我我</div>
+  <div>我我我123</div>
   <!-- <div class="shard" @click="xjTest.queryLake">
     {{ xjTest.lake }}
   </div>
