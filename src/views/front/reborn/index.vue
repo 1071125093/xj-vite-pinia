@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-04-19 09:57:28
+ * @LastEditTime: 2023-06-02 17:40:54
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -232,7 +232,7 @@ const tabs = computed(() => {
       show: true,
     },
     {
-      label: '尝试保证composition',
+      label: '很奇怪的echarts地图bug',
       component: markRaw(shard41),
       show: true,
     },
