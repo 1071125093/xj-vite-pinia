@@ -1,10 +1,10 @@
 <!--
  * @Author: HuangXiaojun
  * @Date: 2022-06-30 00:42:54
- * @LastEditors: HuangXiaojun
- * @LastEditTime: 2022-07-01 13:12:34
+ * @LastEditors: XiaoJun
+ * @LastEditTime: 2023-06-05 15:31:51
  * @Description: 组件功能
- * @FilePath: \my-vite\src\views\front\reborn\components\shard8\index.vue
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard8/index.vue
 -->
 <script lang="ts" setup>
 import { ref, computed, onMounted, reactive } from 'vue'
@@ -26,13 +26,13 @@ const queryData = async () => {
           value: 1048,
           name: 'Search Engine',
           itemStyle: {
-            borderColor: 'red',
-          },
+            borderColor: 'red'
+          }
         },
         { value: 735, name: 'Direct' },
         { value: 580, name: 'Email' },
         { value: 484, name: 'Union Ads' },
-        { value: 300, name: 'Video Ads' },
+        { value: 300, name: 'Video Ads' }
       ]
       resolve(data)
     }, 500)
@@ -43,55 +43,52 @@ const moreOption = reactive<ECOption>({})
 onMounted(() => {
   queryData()
 })
-const option = computed<ECOption>(() => {
+
+
+const option = computed<any>(() => {
   return {
-    tooltip: {
-      trigger: 'item',
+    title: {
+      text: 'Les Miserables',
+      subtext: 'Default layout',
+      top: 'bottom',
+      left: 'right'
     },
-    legend: {
-      top: '5%',
-      left: 'center',
-    },
+    tooltip: {},
+    legend: [
+      {
+        // selectedMode: 'single',
+        data: graph.categories.map(function (a) {
+          return a.name
+        })
+      }
+    ],
+    animationDuration: 1500,
+    animationEasingUpdate: 'quinticInOut',
     series: [
       {
-        name: 'Access From',
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2,
-        },
+        name: 'Les Miserables',
+        type: 'graph',
+        layout: 'none',
+        data: graph.nodes,
+        links: graph.links,
+        categories: graph.categories,
+        roam: true,
         label: {
-          show: false,
-          position: 'center',
+          position: 'right',
+          formatter: '{b}'
+        },
+        lineStyle: {
+          color: 'source',
+          curveness: 0.3
         },
         emphasis: {
-          label: {
-            show: true,
-            fontSize: '40',
-            fontWeight: 'bold',
-          },
-        },
-        labelLine: {
-          show: false,
-        },
-        data: [
-          {
-            value: 1048,
-            name: 'Search Engine',
-            itemStyle: {
-              borderColor: 'red',
-            },
-          },
-          { value: 735, name: 'Direct' },
-          { value: 580, name: 'Email' },
-          { value: 484, name: 'Union Ads' },
-          { value: 300, name: 'Video Ads' },
-        ],
-      },
-    ],
+          focus: 'adjacency',
+          lineStyle: {
+            width: 10
+          }
+        }
+      }
+    ]
   }
 })
 const { chartRef } = useInitChart(option)

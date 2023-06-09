@@ -7,7 +7,8 @@
  * @FilePath: /xj-vite-pinia/src/env.d.ts
  */
 /// <reference types="vite/client" />
-/// <reference types="vue/macros-global" />
+// / <reference types="vue/macros-global" />
+export {}
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types

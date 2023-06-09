@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-06-02 17:40:54
+ * @LastEditTime: 2023-06-09 13:46:42
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -50,6 +50,8 @@ import shard38 from './components/shard38/index.vue'
 import shard39 from './components/shard39/index.vue'
 import shard40 from './components/shard40/index.vue'
 import shard41 from './components/shard41/index.vue'
+import shard42 from './components/shard42/index.vue'
+import shard43 from './components/shard43/index.vue'
 // 测试
 // 测试
 /**
@@ -60,182 +62,188 @@ const tabs = computed(() => {
   return [
     {
       label: '工厂模式',
-      component: markRaw(shard1),
+      component: markRaw(shard1)
     },
     {
       label: '单例模式',
-      component: markRaw(shard2),
+      component: markRaw(shard2)
     },
     {
       label: '适配器模式',
-      component: markRaw(shard3),
+      component: markRaw(shard3)
     },
     {
       label: '装饰者模式',
-      component: markRaw(shard4),
+      component: markRaw(shard4)
     },
     {
       label: '状态模式',
-      component: markRaw(shard5),
+      component: markRaw(shard5)
     },
     {
       label: '策略模式',
-      component: markRaw(shard6),
+      component: markRaw(shard6)
     },
     {
       label: 'vueUse',
       component: markRaw(shard7),
-      show: true,
+      show: true
     },
     {
       label: 'echarts',
-      component: markRaw(shard8),
+      component: markRaw(shard8)
     },
     {
       label: 'Ts',
       component: markRaw(shard9),
-      show: true,
+      show: true
     },
     {
       label: '递归组件',
       component: markRaw(shard10),
-      show: true,
+      show: true
     },
     {
       label: 'setup语法糖',
       component: markRaw(shard11),
-      show: true,
+      show: true
     },
     {
       label: 'pinia',
       component: markRaw(shard12),
-      show: true,
+      show: true
     },
     {
       label: 'css布局',
       component: markRaw(shard13),
-      show: true,
+      show: true
     },
     {
       label: '正则表达式',
-      component: markRaw(shard14),
+      component: markRaw(shard14)
     },
     {
       label: '全局&局部组件代码提示',
-      component: markRaw(shard15),
+      component: markRaw(shard15)
     },
     {
       label: '钩子',
       component: markRaw(shard16),
-      show: true,
+      show: true
     },
     {
       label: '过渡效果',
-      component: markRaw(shard17),
+      component: markRaw(shard17)
     },
     {
       label: '异步组件',
-      component: markRaw(shard18),
+      component: markRaw(shard18)
     },
     {
       label: '防抖节流',
-      component: markRaw(shard19),
+      component: markRaw(shard19)
     },
     {
       label: '算法',
-      component: markRaw(shard20),
+      component: markRaw(shard20)
     },
     {
       label: 'd3js',
-      component: markRaw(shard21),
+      component: markRaw(shard21)
     },
     {
       label: '鼠标事件',
-      component: markRaw(shard22),
+      component: markRaw(shard22)
     },
     {
       label: 'setup无根组件形式',
       component: markRaw(shard23),
-      show: true,
+      show: true
     },
     {
       label: 'xjModalDialog',
-      component: markRaw(shard24),
+      component: markRaw(shard24)
     },
     {
       label: 'elementUI生吃',
-      component: markRaw(shard25),
+      component: markRaw(shard25)
     },
     {
       label: 'vue2测试',
-      component: markRaw(shard26),
+      component: markRaw(shard26)
     },
     {
       label: 'vue.draggable',
       component: markRaw(shard27),
-      show: true,
+      show: true
     },
     {
       label: '.env测试',
-      component: markRaw(shard28),
+      component: markRaw(shard28)
     },
     {
       label: '贪吃蛇',
-      component: markRaw(shard29),
+      component: markRaw(shard29)
     },
     {
       label: ':is测试',
-      component: markRaw(shard30),
+      component: markRaw(shard30)
     },
     {
       label: 'node接口',
-      component: markRaw(shard31),
+      component: markRaw(shard31)
     },
     {
       label: 'monaco-editor',
       component: markRaw(shard32),
-      show: true,
+      show: true
     },
     {
       label: 'vitest',
-      component: markRaw(shard33),
+      component: markRaw(shard33)
     },
     {
       label: 'vue3官网',
-      component: markRaw(shard34),
+      component: markRaw(shard34)
     },
     {
       label: 'node接口测试-fsExtra',
-      component: markRaw(shard35),
+      component: markRaw(shard35)
     },
     {
       label: 'TS最新测试+Node+vue3工具类学习',
-      component: markRaw(shard36),
+      component: markRaw(shard36)
     },
     {
       label: 'node文件上传',
-      component: markRaw(shard37),
+      component: markRaw(shard37)
     },
     {
       label: '高德地图',
-      component: markRaw(shard38),
-      show: true,
+      component: markRaw(shard38)
     },
     {
       label: 'tsx测试',
-      component: markRaw(shard39),
-      show: true,
+      component: markRaw(shard39)
     },
     {
       label: 'npm包',
-      component: markRaw(shard40),
-      show: true,
+      component: markRaw(shard40)
     },
     {
       label: '很奇怪的echarts地图bug',
-      component: markRaw(shard41),
-      show: true,
+      component: markRaw(shard41)
     },
+    {
+      label: 'gtmd天地图',
+      component: markRaw(shard42),
+      show: true
+    },
+    {
+      label: 'vue3.3',
+      component: markRaw(shard43),
+      show: true
+    }
   ].filter((item) => item.show)
 })
 const activeTabName = ref('node接口测试-fsExtra')
@@ -246,8 +254,7 @@ const currentTab = computed(() => {
 <template>
   <div class="reborn">
     <el-tabs v-model="activeTabName" class="demo-tabs">
-      <el-tab-pane v-for="tab in tabs" :key="tab.label" :label="tab.label" :name="tab.label">
-      </el-tab-pane>
+      <el-tab-pane v-for="tab in tabs" :key="tab.label" :label="tab.label" :name="tab.label"></el-tab-pane>
     </el-tabs>
     <component :is="currentTab?.component"></component>
     <shard9></shard9>

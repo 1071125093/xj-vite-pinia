@@ -19,6 +19,7 @@ declare module '@vue/runtime-core' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     MyUploader: typeof import('./src/components/myUploader/myUploader.vue')['default']
+    NInput: typeof import('naive-ui')['NInput']
     OnceMore: typeof import('./src/components/onceMore/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

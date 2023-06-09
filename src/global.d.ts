@@ -17,5 +17,9 @@ declare module 'd3' {
   const content: any
   export = content
 }
+declare interface Window {
+  T: any
+  [propName: string]: any
+}
 declare module 'lodash-es'
 declare let XjHappy: number
