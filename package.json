@@ -39,6 +39,7 @@
     "qs": "^6.11.0",
     "vant": "^3.5.2",
     "vue": "^3.3.4",
+    "vue-countup-v3": "^1.2.0",
     "vue-router": "^4.1.6",
     "vuedraggable": "^4.1.0",
     "xiaojun-utils": "^1.0.0"
