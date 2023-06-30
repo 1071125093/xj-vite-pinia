@@ -26,7 +26,7 @@ interface Props {
   // 是否 控制自定义点的列表中的 相同位置的点 做一定偏移
   openShifting?: boolean
   // 区县级别的自定义展示点的列表
-  lngLatList?: { [key: string]: { address?: string; lng_lat?: string; name?: string; unit?: string; type?: '科研机构' | '孵化器' | '高校' }[] }
+  lngLatList?: any[]
   // 地图配置项
   mapOptions?: MapOptions
   // 地区码，配置可更改当前展示的地图块
@@ -37,9 +37,9 @@ interface Props {
   openDefaultMouseMoveHover?: boolean
   // sciPlatform?: boolean
   // 官网生成的map样式，找设计要，官网：https://geohub.amap.com/mapstyle/index
-  mapStyle?: mapOptions
+  mapStyle?: MapOptions
   // 自定义的option选项，可以控制地图是否缩放等内容
-  mapOptionsCustom?: { [key: string]: boolean }
+  mapOptionsCustom?: any
 }
 const props = withDefaults(defineProps<Props>(), {
   isDeep: true,
@@ -69,17 +69,73 @@ const props = withDefaults(defineProps<Props>(), {
     openShifting: false,
     features: ['bg', 'building', 'point'] // 去除边界线
   }),
-  mapOptionsCustom: () => {
-    return {}
-  },
   showTooltipList: () => {
     return {}
   },
   centerValueList: () => {
-    return {}
+    return {
+      inProvinceNum: '',
+      list: [
+        {
+          name: '杭州市',
+          value: 981.38,
+          unit: '亿元'
+        },
+        {
+          name: '宁波市',
+          value: 72.18,
+          unit: '亿元'
+        },
+        {
+          name: '温州市',
+          value: 46.7,
+          unit: '亿元'
+        },
+        {
+          name: '嘉兴市',
+          value: 22.3,
+          unit: '亿元'
+        },
+        {
+          name: '湖州市',
+          value: 115.93,
+          unit: '亿元'
+        },
+        {
+          name: '绍兴市',
+          value: 302.23,
+          unit: '亿元'
+        },
+        {
+          name: '金华市',
+          value: 153.93,
+          unit: '亿元'
+        },
+        {
+          name: '衢州市',
+          value: 19.29,
+          unit: '亿元'
+        },
+        {
+          name: '舟山市',
+          value: 2.47,
+          unit: '亿元'
+        },
+        {
+          name: '台州市',
+          value: 370.43,
+          unit: '亿元'
+        },
+        {
+          name: '丽水市',
+          value: 19.94,
+          unit: '亿元'
+        }
+      ]
+    }
   },
   lngLatList: () => {
-    return {}
+    return []
   },
   customImgDom: '',
   mapStyle: () => ({
@@ -87,14 +143,20 @@ const props = withDefaults(defineProps<Props>(), {
     outerBorderWidth: 2.5, // 外层线的宽度
     innerBorderColor: '#C6DFF9', // 内层线的颜色颜色
     innerBorderWidth: 1.5 // 内层线的宽度
-  })
+  }),
+  mapOptionsCustom: () => {
+    return {
+      dragEnable: true,
+      zoomEnable: true
+    }
+  }
 })
 
 const emit = defineEmits<{ (e: 'handelCityChange', value: string): void; (e: 'backProvince'): void; (e: 'customPointClick', value: string): void }>()
 let hoverTipMaker: any = null
 let renderStatus = false
-const global_width_scale = inject('global_width_scale') as number
-const global_height_scale = inject('global_height_scale') as number
+const global_width_scale = inject('global_width_scale', 1) as number
+const global_height_scale = inject('global_height_scale', 1) as number
 // 这个字段用来存放当前选中的区县，同时用于区分当前地图展示的级别是市级还是区县级
 const currentCityName = ref(['浙江省', '', ''])
 const currentAdCode = ref(['330000', '', ''])
@@ -119,7 +181,9 @@ const {
 } = useBaseMap('mapContainer', { ...props.mapOptions, ...props.mapOptionsCustom })
 
 type Resize = () => void
-const resizeMap = inject('resize') as Resize
+const resizeMap = inject('resize', () => {
+  console.log(123)
+}) as Resize
 // 下钻方法
 // const goProvince = () => {
 //   currentCityName.value[1] = ''
@@ -497,7 +561,7 @@ onMounted(() => {
   color: #fff7ed;
   border-radius: 5px;
   // padding-right: 20px;
-  background: url('~@/assets/img/infowin_country_bg.png') 100% no-repeat;
+  // background: url('~@/assets/img/infowin_country_bg.png') 100% no-repeat;
 }
 </style>
 <style scoped lang="less">

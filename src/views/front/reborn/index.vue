@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-06-30 16:25:21
+ * @LastEditTime: 2023-06-30 18:32:48
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -222,7 +222,7 @@ const tabs = computed(() => {
     },
     {
       label: '高德地图',
-      component: markRaw(shard37),
+      component: markRaw(shard38),
       show: true
     },
     {
@@ -265,11 +265,18 @@ const currentTab = computed(() => {
     <el-tabs v-model="activeTabName" class="demo-tabs">
       <el-tab-pane v-for="tab in tabs" :key="tab.label" :label="tab.label" :name="tab.label"></el-tab-pane>
     </el-tabs>
-    <component :is="currentTab?.component"></component>
-    <shard9></shard9>
+    <component class="the-noob" :is="currentTab?.component"></component>
   </div>
 </template>
 <style lang="less" scoped>
 .reborn {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .the-noob {
+    flex: 1;
+    // min-height: 600px;
+    // height: 100%;
+  }
 }
 </style>

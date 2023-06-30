@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-04-28 17:56:56
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-07 19:53:06
+ * @LastEditTime: 2023-06-30 18:32:33
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/index.vue
 -->
@@ -34,4 +34,8 @@ export default defineComponent({
     <router-view></router-view>
   </div>
 </template>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.default_class{
+  height: 100%;
+}
+</style>
