@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-06-09 13:46:42
+ * @LastEditTime: 2023-06-30 16:25:21
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -52,6 +52,8 @@ import shard40 from './components/shard40/index.vue'
 import shard41 from './components/shard41/index.vue'
 import shard42 from './components/shard42/index.vue'
 import shard43 from './components/shard43/index.vue'
+import shard44 from './components/shard44/index.vue'
+import shard45 from './components/shard45/index.vue'
 // 测试
 // 测试
 /**
@@ -220,7 +222,8 @@ const tabs = computed(() => {
     },
     {
       label: '高德地图',
-      component: markRaw(shard38)
+      component: markRaw(shard37),
+      show: true
     },
     {
       label: 'tsx测试',
@@ -236,13 +239,19 @@ const tabs = computed(() => {
     },
     {
       label: 'gtmd天地图',
-      component: markRaw(shard42),
-      show: true
+      component: markRaw(shard42)
     },
     {
       label: 'vue3.3',
-      component: markRaw(shard43),
-      show: true
+      component: markRaw(shard43)
+    },
+    {
+      label: '事件透传问题',
+      component: markRaw(shard44)
+    },
+    {
+      label: '理解受控和非受控',
+      component: markRaw(shard45)
     }
   ].filter((item) => item.show)
 })

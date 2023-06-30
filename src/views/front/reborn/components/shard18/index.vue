@@ -15,7 +15,7 @@ const asyncPageWithOptions = defineAsyncComponent({
   loader: () => import('./component/one.vue'),
   delay: 3000,
   timeout: 1,
-  errorComponent: loadingComponent,
+  errorComponent: loadingComponent
 })
 console.log('啥玩意 我东西呢')
 </script>

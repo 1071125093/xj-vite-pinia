@@ -16,7 +16,7 @@ const checkType = (function () {
     },
     mobile(str) {
       return /^1[3|4|5|7|8][0-9]{9}$/.test(str)
-    },
+    }
   }
   //暴露接口
   return {
@@ -27,7 +27,7 @@ const checkType = (function () {
     //添加规则
     addRule(type, fn) {
       rules[type] = fn
-    },
+    }
   }
 })()
 //调用方式

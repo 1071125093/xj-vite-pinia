@@ -10,15 +10,15 @@ export default {
   data() {
     return {
       bobo: {
-        age: 13,
+        age: 13
       },
-      age: 14,
+      age: 14
     }
   },
   mounted() {
     this.age = 16
   },
-  methods: {},
+  methods: {}
 }
 </script>
 <style lang="less" scoped></style>

@@ -11,9 +11,7 @@
     <div class="inner-scroll" :style="innerScroll" @mouseenter="onEnter" @mouseleave="onLeave">
       <div class="roll" :style="{ marginTop: marginTop + 'px' }">
         <ul class="list">
-          <li v-for="item in list" :key="item" class="item">
-            我我我测试我我我测试我我我测试我我我测试我我我测试我我我测试我我我测试
-          </li>
+          <li v-for="item in list" :key="item" class="item">我我我测试我我我测试我我我测试我我我测试我我我测试我我我测试我我我测试</li>
         </ul>
       </div>
     </div>
@@ -27,16 +25,16 @@ const props = defineProps({
     type: Array,
     default: () => {
       return [1, 2, 3, 4, 5, 6, 7, 8]
-    },
+    }
   },
   styleHeigth: {
     type: Number,
-    default: 230,
+    default: 230
   },
   marginTopNum: {
     type: Number,
-    default: -200,
-  },
+    default: -200
+  }
 })
 const timer = ref(0)
 const currentList = ref([])
@@ -86,7 +84,7 @@ function scroll() {
 const auto = ref(false)
 const innerScroll = computed(() => {
   return {
-    overflow: auto.value ? 'auto' : 'hidden',
+    overflow: auto.value ? 'auto' : 'hidden'
     // transform: 'translate3d(0px, 0px, 0px)'
   }
 })

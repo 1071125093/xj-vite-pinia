@@ -10,7 +10,7 @@
 import { ref, reactive } from 'vue'
 import draggable from 'vuedraggable'
 const asd: any = {
-  name: 123,
+  name: 123
 }
 /*
 draggable 对CSS样式没有什么要求万物皆可拖拽
@@ -26,8 +26,8 @@ const state = reactive({
   list: [
     { name: 'www.itxst.com', id: 0 },
     { name: 'www.baidu.com', id: 1 },
-    { name: 'www.google.com', id: 2 },
-  ],
+    { name: 'www.google.com', id: 2 }
+  ]
 })
 
 //拖拽开始的事件
@@ -45,23 +45,23 @@ const tableData = ref([
   {
     date: '2016-05-03',
     name: 'Tom1',
-    address: 'No. 189, Grove St, Los Angeles',
+    address: 'No. 189, Grove St, Los Angeles'
   },
   {
     date: '2016-05-02',
     name: 'Tom2',
-    address: 'No. 189, Grove St, Los Angeles',
+    address: 'No. 189, Grove St, Los Angeles'
   },
   {
     date: '2016-05-04',
     name: 'Tom3',
-    address: 'No. 189, Grove St, Los Angeles',
+    address: 'No. 189, Grove St, Los Angeles'
   },
   {
     date: '2016-05-01',
     name: 'Tom4',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
+    address: 'No. 189, Grove St, Los Angeles'
+  }
 ])
 //#endregion *** el-table区域 end   **********/
 </script>
@@ -74,15 +74,7 @@ const tableData = ref([
         <el-table-column prop="address" label="Address" />
       </el-table> -->
       {{ tableData }}
-      <draggable
-        :list="tableData"
-        ghost-class="ghost"
-        chosen-class="chosenClass"
-        animation="300"
-        item-key="id"
-        @start="onStart"
-        @end="onEnd"
-      >
+      <draggable :list="tableData" ghost-class="ghost" chosen-class="chosenClass" animation="300" item-key="id" @start="onStart" @end="onEnd">
         <template #item="{ element }">
           <div class="item">
             {{ element.name }}

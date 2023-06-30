@@ -36,13 +36,7 @@ import * as d3 from 'd3'
           <rect x="0" y="0" width="100" height="30" style="stroke: none; fill: #ffffff" />
         </mask>
       </defs>
-      <rect
-        x="1"
-        y="1"
-        width="100"
-        height="200"
-        style="stroke: none; fill: #87ceeb; mask: url(#mask1)"
-      />
+      <rect x="1" y="1" width="100" height="200" style="stroke: none; fill: #87ceeb; mask: url(#mask1)" />
     </svg>
   </div>
 </template>

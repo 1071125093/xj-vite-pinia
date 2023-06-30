@@ -36,7 +36,7 @@ const initMap = async () => {
   const AMap = await AMapLoader.load({
     key: '9ff74af1cfa9a4b78433149e22f1f0ec', // 申请好的Web端开发者Key，首次调用 load 时必填
     version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-    plugins: [''], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+    plugins: [''] // 需要使用的的插件列表，如比例尺'AMap.Scale'等
   }).catch((err) => {
     console.log('地图初始化错误')
   })
@@ -54,10 +54,10 @@ const initMap = async () => {
       // new AMap.TileLayer.Satellite(),
       // new AMap.TileLayer.RoadNet(),
     ],
-    zooms: [4, 18], //设置地图级别范围
+    zooms: [4, 18] //设置地图级别范围
   })
   const trafficLayer = new AMap.TileLayer.Traffic({
-    zIndex: 10,
+    zIndex: 10
   })
 }
 
@@ -66,7 +66,7 @@ const xjTest = () => {
     //创建一个实例
     districtExplorer.value = new DistrictExplorer({
       eventSupport: true, //打开事件支持
-      map: mapInstance,
+      map: mapInstance
     })
     console.log(DistrictExplorer)
     console.log(districtExplorer)
@@ -74,7 +74,7 @@ const xjTest = () => {
     tipMarker = new AMap.Marker({
       content: '213',
       offset: new AMap.Pixel(60, 40),
-      bubble: true,
+      bubble: true
     })
     // 监听feature的点击事件
     districtExplorer.value.on('featureClick', handleFeatureClick)
@@ -92,7 +92,7 @@ const xjTest = () => {
           }
         },
         {
-          levelLimit: 2,
+          levelLimit: 2
         }
       )
     })
@@ -145,7 +145,7 @@ const renderAreaPolygons = (areaNode) => {
       strokeOpacity: 1, //线透明度
       strokeWeight: 1, //线宽
       fillColor: fillColor, //填充色
-      fillOpacity: 1, //填充透明度
+      fillOpacity: 1 //填充透明度
     }
   })
   //绘制父区域
@@ -156,7 +156,7 @@ const renderAreaPolygons = (areaNode) => {
     strokeOpacity: 1, //线透明度
     strokeWeight: 1, //线宽
     fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
-    fillOpacity: 0.35, //填充透明度
+    fillOpacity: 0.35 //填充透明度
   })
 }
 const loadAreaNode = (adcode, callback) => {

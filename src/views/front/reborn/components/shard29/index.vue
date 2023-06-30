@@ -1,8 +1,6 @@
 <template>
   <div class="snake_container">
-    <button @click="snakeStatus = snakeStatus === 'start' ? 'pause' : 'start'">
-      {{ snakeStatus === 'start' ? '暂停' : '开始' }}游戏
-    </button>
+    <button @click="snakeStatus = snakeStatus === 'start' ? 'pause' : 'start'">{{ snakeStatus === 'start' ? '暂停' : '开始' }}游戏</button>
     <div style="height: 10px"></div>
     <div>得分: {{ score }}</div>
     <div style="height: 10px"></div>
@@ -32,16 +30,16 @@ const config = {
     [10, 100],
     [20, 100],
     [30, 100],
-    [40, 100],
+    [40, 100]
   ],
-  time: 15,
+  time: 15
 }
 // type TDirection = 'ArrowRight' | 'ArrowLeft' | 'ArrowUp' | 'ArrowDown'
 enum TDirectionEnum {
   ArrowRight,
   ArrowLeft,
   ArrowUp,
-  ArrowDown,
+  ArrowDown
 }
 type TDirection = keyof typeof TDirectionEnum
 type TStatus = 'unStart' | 'start' | 'pause'
@@ -76,7 +74,7 @@ const authorityMap = new Map<TDirection, [TDirection, TDirection]>([
   ['ArrowRight', ['ArrowUp', 'ArrowDown']],
   ['ArrowLeft', ['ArrowUp', 'ArrowDown']],
   ['ArrowUp', ['ArrowLeft', 'ArrowRight']],
-  ['ArrowDown', ['ArrowLeft', 'ArrowRight']],
+  ['ArrowDown', ['ArrowLeft', 'ArrowRight']]
 ])
 document.addEventListener('keydown', (e) => {
   e.preventDefault()

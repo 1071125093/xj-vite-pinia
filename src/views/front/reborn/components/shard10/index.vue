@@ -18,11 +18,11 @@ const treeList = ref<any[]>([
         children: [
           {
             label: '1-1-1',
-            children: [],
-          },
-        ],
-      },
-    ],
+            children: []
+          }
+        ]
+      }
+    ]
   },
   {
     label: '2',
@@ -32,12 +32,12 @@ const treeList = ref<any[]>([
         children: [
           {
             label: '2-1-1',
-            children: [],
-          },
-        ],
-      },
-    ],
-  },
+            children: []
+          }
+        ]
+      }
+    ]
+  }
 ])
 </script>
 <template>

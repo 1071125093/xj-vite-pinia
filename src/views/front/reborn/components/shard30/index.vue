@@ -14,16 +14,16 @@ const calcTabs = computed(() => {
   return [
     {
       label: 'pageOne',
-      component: pageOne,
+      component: pageOne
     },
     {
       label: 'pageTwo',
-      component: pageTwo,
+      component: pageTwo
     },
     {
       label: 'pageThree',
-      component: pageThree,
-    },
+      component: pageThree
+    }
   ]
 })
 const activeTabName = ref('ProvideInject')
@@ -38,8 +38,7 @@ const currentTab = computed(() => {
 <template>
   <div class="default_class">
     <el-tabs v-model="activeTabName" class="demo-tabs">
-      <el-tab-pane v-for="tab in calcTabs" :key="tab.label" :label="tab.label" :name="tab.label">
-      </el-tab-pane>
+      <el-tab-pane v-for="tab in calcTabs" :key="tab.label" :label="tab.label" :name="tab.label"></el-tab-pane>
     </el-tabs>
     {{ currentTab?.label }}
     <component :is="currentTab?.component"></component>

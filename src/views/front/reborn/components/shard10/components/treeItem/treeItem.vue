@@ -10,8 +10,8 @@
 import { ref } from 'vue'
 const props = defineProps({
   node: {
-    type: Object,
-  },
+    type: Object
+  }
 })
 </script>
 <template>

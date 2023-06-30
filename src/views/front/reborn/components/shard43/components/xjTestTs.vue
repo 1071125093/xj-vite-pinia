@@ -12,8 +12,6 @@ interface One extends Product {
   type: 'digital'
 }
 
-
-
 // #endregion ******* 通用部分 ~end~ **************/
 
 // #region ********** 测试区域 start **************/

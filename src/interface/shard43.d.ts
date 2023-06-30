@@ -1,5 +1,5 @@
 declare namespace Shard43 {
-  interface ListItem {
+  type  ListItem =  {
     type: 'happy'
     label: string
     value: number

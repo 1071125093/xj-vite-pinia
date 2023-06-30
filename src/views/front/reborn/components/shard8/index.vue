@@ -44,7 +44,6 @@ onMounted(() => {
   queryData()
 })
 
-
 const option = computed<any>(() => {
   return {
     title: {

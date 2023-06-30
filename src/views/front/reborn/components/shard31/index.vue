@@ -15,12 +15,12 @@ import { ref } from 'vue'
 
 enum Kai {
   男 = 123,
-  女 = 456,
+  女 = 456
 }
 const kai = {
   '0': '男',
   '1': '女',
-  '2': '人妖',
+  '2': '人妖'
 }
 </script>
 <template>

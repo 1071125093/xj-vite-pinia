@@ -11,7 +11,7 @@ import { xjFormOne, xjFormTwo } from './components/xjForm/index'
 // import { xjFormOne, xjFormTwo } from './components/xjForm/index'
 import { ref, reactive } from 'vue'
 const xjTestObj = reactive({
-  width: '600px',
+  width: '600px'
 })
 interface Asd {
   name: string
@@ -22,7 +22,7 @@ interface Asd {
 const asd = {
   name: '123',
   age: 333,
-  bobo: 333,
+  bobo: 333
 }
 </script>
 <template>

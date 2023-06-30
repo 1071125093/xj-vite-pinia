@@ -23,83 +23,83 @@ const props = defineProps({
   acceptStr: {
     //文件格式限制
     type: String,
-    default: 'jpg,jpeg,png,pdf',
+    default: 'jpg,jpeg,png,pdf'
   },
   maxFileNum: {
     // 文件数量限制
     type: Number,
-    default: 10,
+    default: 10
   },
   maxFileSize: {
     // 文件大小限制
     type: Number,
-    default: 10,
+    default: 10
   },
   btnType: {
     // 按钮Btn种类 目前支持 big mini
     type: String, //
-    default: 'mini',
+    default: 'mini'
   },
   showTips: {
     // 是否展示tips 目前只影响 mini型
     type: Boolean,
-    default: true,
+    default: true
   },
   fileIds: {
     // 附件ids
     type: [String, Number],
-    default: '',
+    default: ''
   },
   disabled: {
     // 禁用模式 （禁用上传，删除）
     // 效果等于canUpload,canDelete为false
     type: Boolean,
-    default: false,
+    default: false
   },
   canUpload: {
     // 可上传
     type: Boolean,
-    default: true,
+    default: true
   },
   canDelete: {
     // 可删除
     type: Boolean,
-    default: true,
+    default: true
   },
   canPreview: {
     // 可预览
     type: Boolean,
-    default: true,
+    default: true
   },
   canDownload: {
     // 可下载
     type: Boolean,
-    default: true,
+    default: true
   },
   action: {
     // 接口action
     type: String,
     default: () => {
       return `${import.meta.env.VITE_NODE_URL}/fsExtra/uploadFile`
-    },
+    }
   },
   title: {
     // 按钮展示文字 目前只影响mini型
     type: String,
-    default: '点击上传',
+    default: '点击上传'
   },
   preIconClass: {
     type: String,
-    default: 'el-icon-upload',
+    default: 'el-icon-upload'
   },
   canPaste: {
     type: Boolean,
-    default: true,
+    default: true
   },
   loading: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 })
 const calcLoading = computed({
   get() {
@@ -107,7 +107,7 @@ const calcLoading = computed({
   },
   set(newV) {
     emit('update:loading', newV)
-  },
+  }
 })
 //#endregion ******* 通用部分 ~end~ **************/
 
@@ -146,9 +146,7 @@ const acceptPreviewImg = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'tif', 'bmp']
 /** El-Image可预览的附件列表*/
 const calcPictures = computed(() => {
   try {
-    return innerFiles.value
-      .filter((o) => acceptPreviewImg.includes(getExtension(o.fileName)))
-      .map((item) => item.url)
+    return innerFiles.value.filter((o) => acceptPreviewImg.includes(getExtension(o.fileName))).map((item) => item.url)
   } catch (e) {
     console.log(e)
     return []
@@ -158,7 +156,7 @@ const calcPictures = computed(() => {
 /** 弹窗总控制 */
 const dialog = reactive({
   visible: false,
-  loading: false,
+  loading: false
 })
 
 /** 可预览的pdf文件 */
@@ -168,7 +166,7 @@ const acceptPreviewPdf = ['pdf']
 const previewPdfOption = reactive({
   pages: null,
   src: null,
-  loading: null,
+  loading: null
 })
 
 /** pdf预览操作 */
@@ -184,7 +182,7 @@ const acceptPreviewOthers = ['doc', 'docx', 'xls', 'xlxs']
 
 /** 其他文件预览配置 */
 const othersFileOption = reactive({
-  src: null,
+  src: null
 })
 
 /** iframeDom实例 */
@@ -257,7 +255,7 @@ const stopWatch = watch(
   },
   {
     immediate: true,
-    deep: true,
+    deep: true
   }
 )
 watch(
@@ -279,7 +277,7 @@ const beforeUpload = async (file) => {
     if (!acceptArr.includes(extension)) {
       ElMessage({
         type: 'error',
-        message: `上传失败，仅支持${props.acceptStr}格式`,
+        message: `上传失败，仅支持${props.acceptStr}格式`
       })
       reject()
     }
@@ -287,14 +285,14 @@ const beforeUpload = async (file) => {
     if (file.size / 1024 / 1024 > props.maxFileSize) {
       ElMessage({
         type: 'warning',
-        message: `文件大小不能超过${props.maxFileSize}MB!`,
+        message: `文件大小不能超过${props.maxFileSize}MB!`
       })
       reject()
     }
     if (!file.size) {
       ElMessage({
         type: 'error',
-        message: '文件大小不能为空',
+        message: '文件大小不能为空'
       })
       // uploadRef.value.clearFiles();
       reject()
@@ -307,7 +305,7 @@ const beforeUpload = async (file) => {
     if (fileName > 30) {
       ElMessage({
         type: 'warning',
-        message: `文件名称长度需限制在30及以内，请修改文件名称后再上传！`,
+        message: `文件名称长度需限制在30及以内，请修改文件名称后再上传！`
       })
       reject()
     }
@@ -326,7 +324,7 @@ const onSuccess = (resp, file, fileList) => {
   // 文件上传功能区
   ElMessage({
     type: code === 0 ? 'success' : 'error',
-    message: code === 0 ? '文件上传成功' : message,
+    message: code === 0 ? '文件上传成功' : message
   })
   if (code !== 0) {
     return
@@ -390,18 +388,18 @@ const calcOperationList = computed(() => {
       {
         iconfont: 'el-icon-delete',
         method: deleteAppendix,
-        visible: props.canDelete && !props.disabled && !file.readonly,
+        visible: props.canDelete && !props.disabled && !file.readonly
       },
       {
         iconfont: 'el-icon-zoom-in',
         method: previewFile,
-        visible: props.canPreview && judgePreviewFile,
+        visible: props.canPreview && judgePreviewFile
       },
       {
         iconfont: 'el-icon-download',
         method: download,
-        visible: props.canDownload,
-      },
+        visible: props.canDownload
+      }
     ].filter((o) => o.visible)
     return OPERATION_LIST
   }
@@ -435,11 +433,11 @@ const token = localStorage.getItem('TALENT_token') || ''
         :show-file-list="false"
         :action="action"
         :data="{
-          type: 'a',
+          type: 'a'
         }"
         :headers="{
           'X-Access-Token': token,
-          Authorization: piniaSystem.token,
+          Authorization: piniaSystem.token
         }"
         multiple
         :file-list="innerFiles"
@@ -482,9 +480,7 @@ const token = localStorage.getItem('TALENT_token') || ''
               ></el-input> -->
             </div>
 
-            <p v-if="showTips" class="tips" @click.stop>
-              支持上传{{ maxFileNum }}个附件，每个不超过{{ maxFileSize }}M
-            </p>
+            <p v-if="showTips" class="tips" @click.stop>支持上传{{ maxFileNum }}个附件，每个不超过{{ maxFileSize }}M</p>
           </div>
         </slot>
         <template #tip></template>
@@ -495,7 +491,7 @@ const token = localStorage.getItem('TALENT_token') || ''
         v-if="innerFiles.length"
         class="appendix_list"
         :class="{
-          has_margin_top: canUpload && !disabled,
+          has_margin_top: canUpload && !disabled
         }"
       >
         <li v-for="item in innerFiles" :key="item.fileId" class="appendix_item">
@@ -504,12 +500,7 @@ const token = localStorage.getItem('TALENT_token') || ''
           </div>
           <!-- <div class="size">{{ formatSize(item.size) }}</div> -->
           <ul class="operation_list shard">
-            <li
-              v-for="subItem in calcOperationList(item)"
-              :key="subItem.iconfont"
-              class="operation_button"
-              @click="subItem.method(item)"
-            >
+            <li v-for="subItem in calcOperationList(item)" :key="subItem.iconfont" class="operation_button" @click="subItem.method(item)">
               <i class="iconfont" :class="subItem.iconfont"></i>
             </li>
           </ul>

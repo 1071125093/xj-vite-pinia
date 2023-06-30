@@ -1,4 +1,5 @@
-// <!--
+//
+<!--
 //  * @Author: XiaoJun
 //  * @Date: 2022-07-07 19:37:02
 //  * @LastEditors: XiaoJun
@@ -6,7 +7,8 @@
 //  * @Description: 组件功能
 //  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard42/index.vue
 // -->
-// <script lang="ts" setup>
+//
+<script lang="ts" setup>
 //   var map;
 //         var zoom = 12;
 //         function onLoad() {
@@ -22,17 +24,23 @@
 //             });
 //             //创建地图文本对象
 //             console.log(map);
-            
+
 //             map.addOverLay(label);
 //         }
 // onMounted(() => {
 //   onLoad()
 // })
-// </script>
-// <template>
-//   <div id="mapDiv" style="position: absolute; width: 800px; height: 600px"></div>
-// </template>
-// <style lang="less" scoped>
+//
+</script>
+//
+<template>
+  //
+  <div id="mapDiv" style="position: absolute; width: 800px; height: 600px"></div>
+  //
+</template>
+//
+<style lang="less" scoped>
 // .shard {
 // }
-// </style>
+//
+</style>

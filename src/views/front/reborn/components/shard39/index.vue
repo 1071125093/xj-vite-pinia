@@ -15,17 +15,17 @@ const testValue = ref(1)
 const xjList = [
   {
     label: '123',
-    value: 12313,
+    value: 12313
   },
   {
     label: '444',
-    value: 12313,
-  },
+    value: 12313
+  }
 ] as const
 
 const xjTestObj = {
   label: '我是表头',
-  value: '我是返回值',
+  value: '我是返回值'
 }
 
 /** 划重点 */

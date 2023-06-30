@@ -23,7 +23,7 @@ import {
   useElementByPoint,
   useElementBounding,
   useEventListener,
-  UseElementByPointOptions,
+  UseElementByPointOptions
 } from '@vueuse/core'
 // import { UseFocusTrap } from '@vueuse/integrations/useFocusTrap/component'
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
@@ -105,11 +105,7 @@ const onHover = (state: boolean) => {
 //#endregion *** vElementHover  end   **********/
 
 //#region ****** watchOnce start **********/
-function watchOnce<Immediate extends Readonly<boolean> = false>(
-  source: any,
-  cb: any,
-  options?: WatchOptions<Immediate>
-): void {
+function watchOnce<Immediate extends Readonly<boolean> = false>(source: any, cb: any, options?: WatchOptions<Immediate>): void {
   // 精髓部分 vue-watch的返回值可以结束该监听 基础不牢固的后果
   const stop = watch(
     source,
@@ -135,18 +131,7 @@ const clickedFn = () => {
 
 //#region ****** useIntervalFn start **********/
 
-const greetings = [
-  'Hello',
-  'Hi',
-  'Yo!',
-  'Hey',
-  'Hola',
-  'こんにちは',
-  'Bonjour',
-  'Salut!',
-  '你好',
-  'Привет',
-]
+const greetings = ['Hello', 'Hi', 'Yo!', 'Hey', 'Hola', 'こんにちは', 'Bonjour', 'Salut!', '你好', 'Привет']
 const word = ref('Hello')
 const interval = ref(1000)
 const { pause, resume, isActive } = useIntervalFn(() => {

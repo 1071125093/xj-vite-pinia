@@ -44,51 +44,51 @@ const D3Line = defineComponent({
   props: {
     color: {
       type: String,
-      default: '#06ABF3',
+      default: '#06ABF3'
     },
     x1: {
       type: [Number, String],
-      default: 0,
+      default: 0
     },
     y1: {
       type: [Number, String],
-      default: 0,
+      default: 0
     },
     x2: {
-      type: [Number, String],
+      type: [Number, String]
     },
     y2: {
-      type: [Number, String],
+      type: [Number, String]
     },
     highlights: {
       type: Boolean,
-      default: false,
+      default: false
     },
     lineDuration: {
       type: [Number, String],
-      default: 2000,
+      default: 2000
     },
     // 随机出现闪点
     randomFlash: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // 闪点持续时间
     flashDuration: {
       type: [Number, String],
-      default: 1e3,
+      default: 1e3
     },
     path: {
-      type: Array,
+      type: Array
     },
     lineWidth: {
       type: [Number, String],
-      default: 1,
+      default: 1
     },
     flashLineWidth: {
       type: [Number, String],
-      default: 1,
-    },
+      default: 1
+    }
   },
   setup(props) {
     const svgDom = ref('')
@@ -314,9 +314,9 @@ const D3Line = defineComponent({
     })
     return {
       svgDom,
-      domId,
+      domId
     }
-  },
+  }
 })
 export default D3Line
 </script>

@@ -21,7 +21,6 @@ const xjGo = () => {
   props.list.forEach((f) => {
     console.log(f.label + '我是好人')
   })
-  
 }
 xjGo()
 

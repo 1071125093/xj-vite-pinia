@@ -23,16 +23,12 @@ const path = require('path')
 //   console.log('文件复制完成')
 // })
 // 该copy不同于writeFile 会创建深层目录
-fs.copy(
-  path.join(__dirname, './shard1/asd.json'),
-  path.join(__dirname, './shard2/test/asd2.json'),
-  {
-    filter(src, dest) {
-      console.log(src, dest)
-      // 有filter必须return
-      return true
-    },
+fs.copy(path.join(__dirname, './shard1/asd.json'), path.join(__dirname, './shard2/test/asd2.json'), {
+  filter(src, dest) {
+    console.log(src, dest)
+    // 有filter必须return
+    return true
   }
-).then(() => {
+}).then(() => {
   console.log('文件复制完成')
 })

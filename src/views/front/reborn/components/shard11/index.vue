@@ -7,23 +7,14 @@
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard11/index.vue
 -->
 <script lang="ts" setup>
-import {
-  ref,
-  onUpdated,
-  onBeforeUpdate,
-  reactive,
-  computed,
-  defineCustomElement,
-  markRaw,
-  VNodeRef,
-} from 'vue'
+import { ref, onUpdated, onBeforeUpdate, reactive, computed, defineCustomElement, markRaw, VNodeRef } from 'vue'
 import test from './components/test.vue'
 // // 子组件实例数组
 //#region ****** 动态数组模块 start **********/
 type GetType<T> = T extends (infer R)[] ? R : never
 const cptArr = ref([
   { type: 'imgCpt', dom: null },
-  { type: 'advCpt', dom: null },
+  { type: 'advCpt', dom: null }
 ])
 type CptType = GetType<typeof cptArr.value>
 // let itemRefs: any[] = [];

@@ -23,9 +23,9 @@ export default defineComponent({
     }
     type asd = keyof Asd
     return {
-      ...toRefs(state),
+      ...toRefs(state)
     }
-  },
+  }
 })
 </script>
 <template>

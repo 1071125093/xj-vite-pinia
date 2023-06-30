@@ -57,17 +57,17 @@ import { ref } from 'vue'
 
 const basicArray = [
   {
-    name: '默认1',
+    name: '默认1'
   },
   {
-    name: '默认2',
+    name: '默认2'
   },
   {
-    name: '默认3',
-  },
+    name: '默认3'
+  }
 ]
 const insertObj = {
-  name: '插入对象',
+  name: '插入对象'
 }
 const addArr = [insertObj, insertObj, insertObj]
 const tranferArray = () => {

@@ -25,8 +25,8 @@ onMounted(() => {
 const xjTest = () => {
   router.push({
     query: {
-      paramsStr: `{name:123}`,
-    },
+      paramsStr: `{name:123}`
+    }
   })
 }
 // #endregion ******* 测试区域 ~end~ **************/
@@ -34,7 +34,7 @@ const xjTest = () => {
 <template>
   <div class="default_class">
     {{ asd }}我是asd
-    <el-button type="primary" @click="xjTest">点我 </el-button>
+    <el-button type="primary" @click="xjTest">点我</el-button>
   </div>
 </template>
 <style lang="less" scoped>

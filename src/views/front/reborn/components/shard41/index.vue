@@ -787,10 +787,12 @@ const graph = {
       value: 20.457146,
       category: 8
     }
-  ].map((item: any) => {
-    item.symbol = 'roundRect'
-    return item
-  }).slice(0,10),
+  ]
+    .map((item: any) => {
+      item.symbol = 'roundRect'
+      return item
+    })
+    .slice(0, 10),
   links: [
     {
       source: '1',

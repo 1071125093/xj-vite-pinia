@@ -13,15 +13,15 @@ export default defineComponent({
   props: {
     title: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   setup() {
     const state = reactive({})
     return {
-      ...toRefs(state),
+      ...toRefs(state)
     }
-  },
+  }
 })
 </script>
 <template>

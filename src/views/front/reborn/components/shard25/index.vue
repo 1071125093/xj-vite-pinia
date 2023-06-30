@@ -12,8 +12,8 @@ const calcOps = computed(() => {
   return [
     {
       name: 123,
-      method: asd,
-    },
+      method: asd
+    }
   ]
 })
 const asd = () => {}
