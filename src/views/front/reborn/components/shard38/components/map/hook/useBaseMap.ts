@@ -5,27 +5,15 @@
  * @LastEditors: zhangqiyue
  * @LastEditTime: 2023-05-19 18:52:28
  * @FilePath: \fd-dongyang-architectural-brain\src\components\map\hook\useBaseMap.ts
- * @Description: 
- * 
- * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import { reactive, shallowRef } from 'vue'
 import side from './side.png'
-import AMapLoader from '@amap/amap-jsapi-loader';
-interface mapOptions {
-  [propName: string]: any
-}
-interface styleOption {
-  zIndex?: number
-  color?: string
-  lineWidth?: number
-  altitude?: number
-  headColor?: string
-  trailColor?: string
-  [propName: string]: any
-}
+import AMapLoader from '@amap/amap-jsapi-loader'
 
-export default function useBaseMap(dom: string, mapOptions: mapOptions) {
+export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
   const map: any = shallowRef(null)
   // let mapLoca: { add: (arg0: any) => void; animate: { start: () => void; }; }
   const districtExplorer: any = shallowRef(null)
@@ -43,57 +31,61 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
   const _createMap = async () => {
     return new Promise((resolve) => {
       AMapLoader.load({
-        key: "60fdb942e15dfeefff0d5595c58a8de3", // 申请好的Web端开发者Key，首次调用 load 时必填
+        key: '60fdb942e15dfeefff0d5595c58a8de3', // 申请好的Web端开发者Key，首次调用 load 时必填
         // key:"9ff74af1cfa9a4b78433149e22f1f0ec", // 产业雷达
-        version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-        plugins: ['AMap.Scale', 'AMap.ToolBar', 'AMap.Marker'],  // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+        version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+        plugins: ['AMap.Scale', 'AMap.ToolBar', 'AMap.Marker'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
         AMapUI: {
           // 是否加载 AMapUI，缺省不加载
-          version: '1.1', // AMapUI 版本
+          version: '1.1' // AMapUI 版本
         },
         Loca: {
           // 是否加载 Loca， 缺省不加载
           version: '2.0' // Loca 版本
         }
-      }).then(async(AMap) => {
+      }).then(async (AMap) => {
         window.AMap = AMap
         map.value = new window.AMap.Map(dom, mapOptions)
         await window.AMapUI.load(['ui/geo/DistrictExplorer'], (DistrictExplorer: any) => {
-            districtExplorer.value = new DistrictExplorer({
-              eventSupport: true,
-              map: map.value,
-              preload: [mapOptions.adcode] //预加载
-            })
-            resolve( districtExplorer.value )
+          districtExplorer.value = new DistrictExplorer({
+            eventSupport: true,
+            map: map.value,
+            preload: [mapOptions.adcode] //预加载
           })
+          resolve(districtExplorer.value)
+        })
         // 创建高德ui组件
         // map.value.on('complete', async () => {
         //   console.log(11);
-          
+
         //   // 地图图块加载完成后触发
         //   // this.drawCountry("杭州市");
-         
+
         // })
       })
     })
   }
 
   // 展示地图各地区中心点的标记及其名称
-  const mapShowTitle = (item: { lngLat: number[]; name: string | number | symbol; value?:number, unit: string }, index: number, maxValue: number = 300) => {
+  const mapShowTitle = (
+    item: { lngLat: number[]; name: string | number | symbol; value?: number; unit: string },
+    index: number,
+    maxValue: number = 300
+  ) => {
     // eslint-disable-next-line prefer-const
-    let { lngLat, name, value, unit }: { lngLat: Array<number>; name: keyof typeof tipSubMarkers; value?: number ;unit: string; } = item
+    let { lngLat, name, value, unit }: { lngLat: Array<number>; name: keyof typeof tipSubMarkers; value?: number; unit: string } = item
     const markName = `${name as unknown as string}-name`
     // part1: 区域名称模块： markName
     if (tipMarkers[markName]) {
       tipMarkers[markName].setMap(null)
     }
-    const ratio = (value / maxValue) || 0
+    const ratio = value / maxValue || 0
     const prismHeight = 170 * ratio
     // 调整位置控制name不要展示重合
-    const textValue = `top: ${prismHeight ? '14px' : '-7px'};left: -${String(name).length * 16 / 2 - 4 - (String(name).length - 1)}px;`
+    const textValue = `top: ${prismHeight ? '14px' : '-7px'};left: -${(String(name).length * 16) / 2 - 4 - (String(name).length - 1)}px;`
+
     tipMarkers[markName] = new window.AMap.Marker({
-      content: 
-      `<div
+      content: `<div
         style="
           position: absolute;
           z-index: -1;
@@ -112,9 +104,9 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
       offset: new window.AMap.Pixel(0, 0),
       bubble: true,
       anchor: 'center',
-      zIndex: 10,
+      zIndex: 10
     })
-    
+
     tipMarkers[markName].setPosition(lngLat)
     tipMarkers[markName].setMap(map.value)
 
@@ -125,7 +117,7 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
     // 没有数据的不展示柱形图以及信息板
     if (!value) return
     tipMarkers[name] = new window.AMap.Marker({
-      content: null,
+      content: undefined,
       offset: new window.AMap.Pixel(0, 0),
       bubble: false,
       anchor: 'center',
@@ -144,16 +136,15 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
     // 监听feature的点击事件
     tipMarkers[name].on('mouseover', () => {
       console.log('click tipMarkers')
-      Object.keys(tipMarkers).forEach(key => {
-        if (key.includes('-board'))
-        {
+      Object.keys(tipMarkers).forEach((key) => {
+        if (key.includes('-board')) {
           tipMarkers[key].hide()
         }
       })
       // 点击时展示信息板board
       tipMarkers[boardName].show()
     })
-    
+
     // part3: 信息板模块
     const boardName = `${name as unknown as string}-board`
     if (tipMarkers[boardName]) {
@@ -182,7 +173,7 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
   // const mapShowDongYangTitle = (item: { lngLat: number[]; name: string | number | symbol; value?: any },
   //   index: number, maxValue: number = 300, 省内产值: number) => {
   //     console.log(item, index, maxValue, 省内产值, '省内产值');
-      
+
   //   // eslint-disable-next-line prefer-const
   //   let { lngLat, name, value }: { lngLat: Array<number>; name: keyof typeof tipSubMarkers; value?:any } = item
   //   if (tipSubMarkers[name]) {
@@ -247,9 +238,7 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
       </div>`
   }
   // 展示传入地图对应点的标记 (可传入dom字符串（customImgDom），或者直接传图片地址（customImg）)，给了一个默认的30px宽高的样式可以用
-  const mapShowCustomPoint = (
-    data: { lngLat: number[]; name: string }, customImgDom: string, callback: (data: any) => void, customImg?: string
-  ) => {
+  const mapShowCustomPoint = (data: { lngLat: number[]; name: string }, customImgDom: string, callback: (data: any) => void, customImg?: string) => {
     const { lngLat, name }: { lngLat: Array<number>; name: keyof typeof tipMarkers } = data
     // 无法绘制没有坐标值数据
     if (lngLat.length === 0) return
@@ -265,12 +254,7 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
     })
     tipMarkers[name].setContent(`
         <div style="position: relative">
-          ${customImg
-        ? `<img src="${customImg}" style="width: 30px;height: 30px;display: inline-block;"/>`
-        : customImgDom
-          ? customImgDom
-          : ``
-      }
+          ${customImg ? `<img src="${customImg}" style="width: 30px;height: 30px;display: inline-block;"/>` : customImgDom ? customImgDom : ``}
         </div>`)
     tipMarkers[name].setPosition(lngLat)
     tipMarkers[name].setMap(map.value)
@@ -372,7 +356,7 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
     // })
   }
   // 创建线图层
-  const setboundLinelayer = ({ areaNode, styleOption = { altitude: 5 } }: { areaNode: any; styleOption?: styleOption }) => {
+  const setboundLinelayer = ({ areaNode, styleOption = { altitude: 5 } }: { areaNode: any; styleOption?: Loca.PulseLineLayer.StyleOptions }) => {
     /**
      * @param {Object} areaNode  //哪个城市的线条
      * @param {Object} styleobj  //线条颜色
@@ -396,7 +380,7 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
   }
 
   // 创建动画图层
-  const setPluseLineLayer = ({ areaNode, styleOption = {} }: { areaNode: any; styleOption?: styleOption }) => {
+  const setPluseLineLayer = ({ areaNode, styleOption = {} }: { areaNode: any; styleOption?: Loca.PulseLineLayer.BothOptions }) => {
     const { zIndex } = styleOption
     const data = boundLinelayerDataSet(areaNode)
     const pulseLineLayer = new window.Loca.PulseLineLayer({
@@ -406,7 +390,7 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
     })
     pulseLineLayer.setSource(data)
     // 样式
-    pulseLineLayer.setStyle({
+    const innerOption: Loca.PulseLineLayer.BothOptions = {
       lineWidth: 0,
       // headColor: 'rgba(125, 234, 255,0.2)',
       trailColor: 'rgba(0,0,0,0)',
@@ -414,7 +398,8 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
       altitude: 5,
       duration: 30000,
       ...styleOption
-    })
+    }
+    pulseLineLayer.setStyle(innerOption)
     if (prismLayer.value) {
       prismLayer.value.show(500)
       prismLayer.value.addAnimate({
@@ -424,16 +409,15 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
         easing: 'Linear',
         transform: 2000,
         random: true,
-        delay: 8000,
-        });
-      }
+        delay: 8000
+      })
+    }
     mapLoca.value.add(pulseLineLayer)
     mapLoca.value.animate.start()
     return pulseLineLayer
   }
   // 创建3d图层
   const setboundPolygonLayer = (areaNode: any, cityHight: number) => {
-
     // 当需要渲染最后一级时，不存在lngLatSubList，使用lngLatParent来渲染当前层
     const { lngLatSubList, lngLatParent } = areaNode._data.geoData
     if (!lngLatSubList && !lngLatParent) {
@@ -457,7 +441,7 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
       cullface: 'none',
       shininess: 10,
       hasSide: true
-    })
+    } as Loca.PolygonLayer.LayerOptions)
     _boundPolygonLayer.setSource(geo)
     // 样式
     _boundPolygonLayer.setStyle({
@@ -477,14 +461,14 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
       },
       altitude: 0 - cityHight, // 地图偏移量
       texture: side
-    })
+    } as Loca.PolygonLayer.StyleOptions)
     mapLoca.value.add(_boundPolygonLayer)
     return _boundPolygonLayer
   }
   function addLight(level: string) {
     let centerPoint = mapLoca.value.getCenter()
     let addLength = 0
-    switch(level) {
+    switch (level) {
       case 'city':
         addLength = 0.8
         break
@@ -501,96 +485,96 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
       position: centerPoint,
       intensity: 1000,
       // 距离表示从光源到光照强度为 0 的位置，0 就是光不会消失。
-      distance: 900000,
-    };
+      distance: 900000
+    }
     mapLoca.value.dirLight.position = [0, 0, 0]
     mapLoca.value.ambLight.color = '#3e98b5'
     mapLoca.value.ambLight.intensity = 0.7
   }
-//   function addPrism(pointList = [{ 
-//     "id": 20,
-//     "名称": "杭州市",
-//     "人口": 870.04,
-//     "value": 5945.82,
-//     coordinates: [120.15507, 30.274084]
-//   }]) {
-//     // const geoUrl = new window.Loca.GeoJSONSource({
-//     //   url: 'https://a.amap.com/Loca/static/loca-v2/demos/mock_data/gdp.json',
-//     // });
-//     // 维护geoJSON数据格式
-//     const geo = new window.Loca.GeoJSONSource({
-//       data: {
-//         type: 'FeatureCollection',
-//         features: pointList.map(item => {
-//           const featuresItem = {
-//             "type": "Feature",
-//             "properties": {},
-//             "geometry": {
-//               "type": "Point",
-//               "coordinates": [0, 0]
-//             }
-//           }
-//           featuresItem.properties = item
-//           featuresItem.geometry.coordinates = item.coordinates
-//           return featuresItem
-//         })
-//       }
-//     })
-//     prismLayer.value = new window.Loca.PrismLayer({
-//       zIndex: 20001,
-//       opacity: 1,
-//       visible: false,
-//       hasSide: true,
-//     });
+  //   function addPrism(pointList = [{
+  //     "id": 20,
+  //     "名称": "杭州市",
+  //     "人口": 870.04,
+  //     "value": 5945.82,
+  //     coordinates: [120.15507, 30.274084]
+  //   }]) {
+  //     // const geoUrl = new window.Loca.GeoJSONSource({
+  //     //   url: 'https://a.amap.com/Loca/static/loca-v2/demos/mock_data/gdp.json',
+  //     // });
+  //     // 维护geoJSON数据格式
+  //     const geo = new window.Loca.GeoJSONSource({
+  //       data: {
+  //         type: 'FeatureCollection',
+  //         features: pointList.map(item => {
+  //           const featuresItem = {
+  //             "type": "Feature",
+  //             "properties": {},
+  //             "geometry": {
+  //               "type": "Point",
+  //               "coordinates": [0, 0]
+  //             }
+  //           }
+  //           featuresItem.properties = item
+  //           featuresItem.geometry.coordinates = item.coordinates
+  //           return featuresItem
+  //         })
+  //       }
+  //     })
+  //     prismLayer.value = new window.Loca.PrismLayer({
+  //       zIndex: 20001,
+  //       opacity: 1,
+  //       visible: false,
+  //       hasSide: true,
+  //     });
 
-//     prismLayer.value.setSource(geo);
-//     // top3 的城市增加文字
-//     const topConf = {
-//       '杭州市': 'https://a.amap.com/Loca/static/loca-v2/demos/images/top-one.png',
-//       '北京市': 'https://a.amap.com/Loca/static/loca-v2/demos/images/top-two.png',
-//       '广州市': 'https://a.amap.com/Loca/static/loca-v2/demos/images/top-three.png',
-//     };
-//     prismLayer.value.setStyle({
-//       unit: 'meter',
-//       sideNumber: 4,
-//       topColor: (_index: any, f: { properties: { [x: string]: any; }; }) => {
-//         const n = f.properties['value'];
-//         return n > 7000 ? '#E97091' : '#2852F1';
-//       },
-//       sideTopColor: (_index: any, f: { properties: { [x: string]: any; }; }) => {
-//         const n = f.properties['value'];
-//         return n > 7000 ? '#E97091' : '#2852F1';
-//       },
-//       sideBottomColor: '#002bb9',
-//       radius: 3000,
-//       height: (_index: any, f: { properties: any; coordinates: any[]; }) => {
-//         const props = f.properties;
-//         const height = Math.max(10, Math.sqrt(props['value']) * 900 - 5000);
-//         const conf = topConf[props['名称']];
-//         // top3 的数据，增加文字表达
-//         if (conf) {
-//           map.value.add(
-//             new window.AMap.Marker({
-//               anchor: 'bottom-center',
-//               position: [f.coordinates[0], f.coordinates[1], height],
-//               content: '<div style="margin-bottom: 10px; float: left; font-size: 14px;height: 57px;
-//  width: 180px; color:#fff; background: no-repeat url(' +
-//                 conf +
-//                 '); background-size: 100%;"><p style="margin: 7px 0 0 35px; height: 20px; line-height:20px;">' +
-//                 props['名称'] + '人口 ' + props['人口'] + '</p>' +
-//                 '<p style="margin: 4px 0 0 35px; height: 20px; line-height:20px; color: #00a9ff; font-size: 13px;">' +
-//                 props['value'] + ' 元' +
-//                 '</p></div>',
-//             }),
-//           );
-//         }
-//         return height;
-//       },
-//       rotation: 360,
-//       altitude: 0,
-//     });
-//     mapLoca.value.add(prismLayer.value);
-//  }
+  //     prismLayer.value.setSource(geo);
+  //     // top3 的城市增加文字
+  //     const topConf = {
+  //       '杭州市': 'https://a.amap.com/Loca/static/loca-v2/demos/images/top-one.png',
+  //       '北京市': 'https://a.amap.com/Loca/static/loca-v2/demos/images/top-two.png',
+  //       '广州市': 'https://a.amap.com/Loca/static/loca-v2/demos/images/top-three.png',
+  //     };
+  //     prismLayer.value.setStyle({
+  //       unit: 'meter',
+  //       sideNumber: 4,
+  //       topColor: (_index: any, f: { properties: { [x: string]: any; }; }) => {
+  //         const n = f.properties['value'];
+  //         return n > 7000 ? '#E97091' : '#2852F1';
+  //       },
+  //       sideTopColor: (_index: any, f: { properties: { [x: string]: any; }; }) => {
+  //         const n = f.properties['value'];
+  //         return n > 7000 ? '#E97091' : '#2852F1';
+  //       },
+  //       sideBottomColor: '#002bb9',
+  //       radius: 3000,
+  //       height: (_index: any, f: { properties: any; coordinates: any[]; }) => {
+  //         const props = f.properties;
+  //         const height = Math.max(10, Math.sqrt(props['value']) * 900 - 5000);
+  //         const conf = topConf[props['名称']];
+  //         // top3 的数据，增加文字表达
+  //         if (conf) {
+  //           map.value.add(
+  //             new window.AMap.Marker({
+  //               anchor: 'bottom-center',
+  //               position: [f.coordinates[0], f.coordinates[1], height],
+  //               content: '<div style="margin-bottom: 10px; float: left; font-size: 14px;height: 57px;
+  //  width: 180px; color:#fff; background: no-repeat url(' +
+  //                 conf +
+  //                 '); background-size: 100%;"><p style="margin: 7px 0 0 35px; height: 20px; line-height:20px;">' +
+  //                 props['名称'] + '人口 ' + props['人口'] + '</p>' +
+  //                 '<p style="margin: 4px 0 0 35px; height: 20px; line-height:20px; color: #00a9ff; font-size: 13px;">' +
+  //                 props['value'] + ' 元' +
+  //                 '</p></div>',
+  //             }),
+  //           );
+  //         }
+  //         return height;
+  //       },
+  //       rotation: 360,
+  //       altitude: 0,
+  //     });
+  //     mapLoca.value.add(prismLayer.value);
+  //  }
   function addHeat(pointList = [{ count: 10, coordinates: [120.22047498787455, 30.185354564274313] }]) {
     // 每次进来先清除
     // const geoHeat = new window.Loca.GeoJSONSource({
@@ -602,15 +586,15 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
     const geoHeat = new window.Loca.GeoJSONSource({
       data: {
         type: 'FeatureCollection',
-        features: pointList.map(item => {
+        features: pointList.map((item) => {
           const featuresItem = {
-            "type": "Feature",
-            "properties": {
-              "count": 0
+            type: 'Feature',
+            properties: {
+              count: 0
             },
-            "geometry": {
-              "type": "Point",
-              "coordinates": [0, 0]
+            geometry: {
+              type: 'Point',
+              coordinates: [0, 0]
             }
           }
           maxCount = Math.max(maxCount, item.count)
@@ -626,8 +610,8 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
       zIndex: 20000,
       opacity: 1,
       visible: true,
-      zooms: [2, 22],
-    });
+      zooms: [2, 22]
+    })
 
     heatmap.value.setSource(geoHeat, {
       radius: 15,
@@ -649,15 +633,14 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
         0.95: '#d62316',
         1: '#c4141f'
       },
-      value: function (_index: any, feature: { properties: { count: any; }; }) {
-        return feature.properties.count;
+      value: function (_index: any, feature: { properties: { count: any } }) {
+        return feature.properties.count
       },
       min: 0,
-      max: maxCount,  //4.6
-      heightBezier: [0, .53, .37, .98],
-    });
-    mapLoca.value.add(heatmap.value);
-
+      max: maxCount, //4.6
+      heightBezier: [0, 0.53, 0.37, 0.98]
+    })
+    mapLoca.value.add(heatmap.value)
   }
   // 渲染图层
   const _renderlayer = async ({ areaNode, cityHight, level }: { areaNode: any; cityHight: number; level: string }) => {
@@ -714,7 +697,7 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
         zIndex: 1000
       }
     })
-    
+
     // const dat = new window.Loca.Dat()
 
     // dat.addLight(mapLoca.value.ambLight, mapLoca.value, '环境光');
@@ -787,4 +770,3 @@ export default function useBaseMap(dom: string, mapOptions: mapOptions) {
     addHeat
   }
 }
-

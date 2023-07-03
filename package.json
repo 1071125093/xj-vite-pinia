@@ -45,6 +45,7 @@
     "xiaojun-utils": "^1.0.0"
   },
   "devDependencies": {
+    "@amap/amap-jsapi-types": "^0.0.13",
     "@types/node": "^18.15.11",
     "@types/qs": "^6.9.7",
     "@typescript-eslint/eslint-plugin": "^5.59.9",

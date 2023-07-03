@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@amap/amap-jsapi-loader': ^1.0.1
+  '@amap/amap-jsapi-types': ^0.0.13
   '@types/node': ^18.15.11
   '@types/qs': ^6.9.7
   '@typescript-eslint/eslint-plugin': ^5.59.9
@@ -89,6 +90,7 @@ dependencies:
   xiaojun-utils: 1.0.0
 
 devDependencies:
+  '@amap/amap-jsapi-types': 0.0.13
   '@types/node': 18.16.16
   '@types/qs': 6.9.7
   '@typescript-eslint/eslint-plugin': 5.59.9_3cembfv4vokiyn6g4ljynjc5d4
@@ -127,6 +129,10 @@ packages:
   /@amap/amap-jsapi-loader/1.0.1:
     resolution: {integrity: sha512-nPyLKt7Ow/ThHLkSvn2etQlUzqxmTVgK7bIgwdBRTg2HK5668oN7xVxkaiRe3YZEzGzfV2XgH5Jmu2T73ljejw==}
     dev: false
+
+  /@amap/amap-jsapi-types/0.0.13:
+    resolution: {integrity: sha512-hwp36URjQT9vDTmoUPYph3SEAiOvoUB+PGK0jZeZamgvaxew7rgc1XZWL/HphyMfRAqKwIYsAvXm9v8DTSjjzA==}
+    dev: true
 
   /@antfu/utils/0.7.4:
     resolution: {integrity: sha512-qe8Nmh9rYI/HIspLSTwtbMFPj6dISG6+dJnOguTlPNXtCvS2uezdxscVBb7/3DrmNbQK49TDqpkSQ1chbRGdpQ==}

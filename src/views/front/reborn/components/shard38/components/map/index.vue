@@ -1,11 +1,11 @@
 <template>
   <div id="content_box" class="container-map">
-    <div id="mapContainer" :style="{ width: `${global_width_scale * 100}%`, height: `${global_height_scale * 120}%`, marginTop: '-100px' }"></div>
-    <!-- <div v-if="currentCityName?.length > 0" class="back">
+    <div id="mapContainer" :style="{ width: `${global_width_scale * 100}%`, height: `${global_height_scale * 100}%`}"></div>
+    <div v-if="currentCityName?.length > 0" class="back">
       <span @click="goProvince">{{ currentCityName[0] }}</span>
       <span v-if="currentCityName[1]" @click="goCity">{{ currentCityName[1] }}</span>
       <span v-if="currentCityName[2]">{{ currentCityName[2] }}</span>
-    </div> -->
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -14,9 +14,6 @@ import useBaseMap from './hook/useBaseMap'
 // import iconImg2 from '@/assets/img/IndustrialEnvironment/map-icon2.png'
 // import iconImg3 from '@/assets/img/IndustrialEnvironment/map-icon3.png'
 
-interface MapOptions {
-  [propName: string]: any
-}
 interface Props {
   // 市级的hover展示的弹窗信息
   showTooltipList?: { [key: string]: { title: string; value: string; unit: string }[] }
@@ -28,7 +25,7 @@ interface Props {
   // 区县级别的自定义展示点的列表
   lngLatList?: any[]
   // 地图配置项
-  mapOptions?: MapOptions
+  mapOptions?: AMap.MapOptions
   // 地区码，配置可更改当前展示的地图块
   adcode?: number
   // 是否下钻
@@ -37,7 +34,7 @@ interface Props {
   openDefaultMouseMoveHover?: boolean
   // sciPlatform?: boolean
   // 官网生成的map样式，找设计要，官网：https://geohub.amap.com/mapstyle/index
-  mapStyle?: MapOptions
+  mapStyle?: any
   // 自定义的option选项，可以控制地图是否缩放等内容
   mapOptionsCustom?: any
 }
@@ -146,8 +143,8 @@ const props = withDefaults(defineProps<Props>(), {
   }),
   mapOptionsCustom: () => {
     return {
-      dragEnable: true,
-      zoomEnable: true
+      dragEnable: false,
+      zoomEnable: false
     }
   }
 })
@@ -185,41 +182,48 @@ const resizeMap = inject('resize', () => {
   console.log(123)
 }) as Resize
 // 下钻方法
-// const goProvince = () => {
-//   currentCityName.value[1] = ''
-//   currentCityName.value[2] = ''
-//   currentAdCode.value[2] = ''
-//   currentAdCode.value[1] = ''
-//   _renderDistrictArea(currentAdCode.value[0], 40000, 'province', currentAdCode.value[0])
-//   emit('handelCityChange', currentCityName.value, 'province')
-// }
-// const goCity = () => {
-//   currentCityName.value[2] = ''
-//   currentAdCode.value[2] = ''
-//   _renderDistrictArea(currentAdCode.value[1], 40000, 'city', currentAdCode.value[1])
-//   emit('handelCityChange', currentCityName.value, 'city')
-// }
+const goProvince = () => {
+  currentCityName.value[1] = ''
+  currentCityName.value[2] = ''
+  currentAdCode.value[2] = ''
+  currentAdCode.value[1] = ''
+  _renderDistrictArea(currentAdCode.value[0], 40000, 'province', currentAdCode.value[0])
+  emit('handelCityChange', currentCityName.value, 'province')
+}
+const goCity = () => {
+  currentCityName.value[2] = ''
+  currentAdCode.value[2] = ''
+  _renderDistrictArea(currentAdCode.value[1], 40000, 'city', currentAdCode.value[1])
+  emit('handelCityChange', currentCityName.value, 'city')
+}
 
 // 弹窗内容
-// const techFinanceMarkerContent = (name: string) => {
-//   return `
-//     <div class="map-content" id="map-content" style="min-width: 179px">
-//       <div class="title">${name}</div>
-//       ${props.showTooltipList[name] ? props.showTooltipList[name].reduce((pre, item) => {
-//         return pre + `
-//           <div class="list-item">
-//             <span>${item.title}：</span>
-//             <span>
-//               ${item.value}
-//               ${item.unit ? `<span class="unit">${item.unit}</span>` : ''}
-//             </span>
-//           </div>
-//         `
-//       }, '') : `<div class="list-item">
-//             <span> - 暂无信息 - </span>
-//           </div>`}
-//     </div>`
-// }
+const techFinanceMarkerContent = (name: string) => {
+  return `
+    <div class="map-content" id="map-content" style="min-width: 179px">
+      <div class="title">${name}</div>
+      ${
+        props.showTooltipList[name]
+          ? props.showTooltipList[name].reduce((pre, item) => {
+              return (
+                pre +
+                `
+          <div class="list-item">
+            <span>${item.title}：</span>
+            <span>
+              ${item.value}
+              ${item.unit ? `<span class="unit">${item.unit}</span>` : ''}
+            </span>
+          </div>
+        `
+              )
+            }, '')
+          : `<div class="list-item">
+            <span> - 暂无信息 - </span>
+          </div>`
+      }
+    </div>`
+}
 
 /** 地图操作
  * ---------------------------------------------------------------------------------------------------------------------------------------
@@ -248,26 +252,28 @@ const handleFeatureClick = async (e: any, feature: any) => {
   emit('handelCityChange', currentCityName.value, level)
   await nextTick()
   // 加载某个区域的浏览-------------------------下钻暂时取消
-  // _renderDistrictArea(_adcode, 40000, level, name)
+  _renderDistrictArea(_adcode, 40000, level, name)
 }
 // 鼠标悬浮
-// const handleFeatureMouseoverAndOut = (e: any, feature: any) => {
-//   // 展开区县级别地图时不展示此级别的悬浮框
-//   if (currentCityName.value[2]) return
-//   const isHover = e.type === 'featureMouseover' || e.type === 'featureMousemove'
-//   const { adcode: _adcode, level, name } = feature.properties
-//   if (Object.keys(props.showTooltipList).length > 0) {
-//     hoverTipMaker.setContent(techFinanceMarkerContent(name))
-//   }
-//   const polys = districtExplorer.value.findFeaturePolygonsByAdcode(_adcode)
-//   polys.forEach((item: any) => {
-//     item.setOptions({
-//       cursor: level === 'city' ? 'default' : 'pointer',
-//       fillOpacity: isHover ? 0.35 : 1
-//     })
-//   })
-//   hoverTipMaker.setMap(isHover ? map.value : null)
-// }
+const handleFeatureMouseoverAndOut = (e: any, feature: any) => {
+  // 展开区县级别地图时不展示此级别的悬浮框
+  if (currentCityName.value[2]) return
+  const isHover = e.type === 'featureMouseover' || e.type === 'featureMousemove'
+  const { adcode: _adcode, level, name } = feature.properties
+  hoverTipMaker.setContent('<div class="map-content" id="map-content">我裂开了</div>')
+  // if (Object.keys(props.showTooltipList).length > 0) {
+  //   hoverTipMaker.setContent(techFinanceMarkerContent(name))
+  // }
+  const polys = districtExplorer.value.findFeaturePolygonsByAdcode(_adcode)
+  polys.forEach((item: any) => {
+    item.setOptions({
+      cursor: level === 'city' ? 'default' : 'pointer',
+      fillOpacity: isHover ? 0.35 : 1
+    })
+  })
+  hoverTipMaker.setMap(isHover ? map.value : null)
+  console.log(hoverTipMaker)
+}
 // 开始distroctExplorer监听事件
 const featureListener = () => {
   // 监听feature的点击事件
@@ -275,55 +281,57 @@ const featureListener = () => {
   // 监听feature的hover事件
   // props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMouseout featureMouseover', handleFeatureMouseoverAndOut)
   // 监听鼠标在feature上滑动
-  // props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMousemove', handleFeatureMouseMove)
+  props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMousemove', handleFeatureMouseMove)
 }
 // 获取位置在滑动时动态计算位置来显示弹窗的方法
-// const handleFeatureMouseMove = (e: { originalEvent: any; originEvent: any; }, feature?: any) => {
-//   // 展开区县级别地图时不展示此级别的悬浮框
-//   if (currentCityName.value[2]) return
-//   if (!hoverTipMaker.getMap()) {
-//     handleFeatureMouseoverAndOut(e, feature)
-//   }
-//   const originalEvent = e.originalEvent || e.originEvent
-//   const { x, y } = originalEvent.pixel
-//   const content = hoverTipMaker.getContent()
-//   if (!content) return
-//   const strArr = content.match(/(id="=?)(\S*)(?=")/)
-//   const id = strArr[strArr.length - 1]
-//   const Ele = document.getElementById(id) as HTMLElement
-//   const anchor = getPointOffset('mapContainer', Ele.clientWidth, Ele.clientHeight, x, y)
-//   hoverTipMaker.setPosition(originalEvent.lnglat)
-//   hoverTipMaker.setAnchor(anchor)
-//   if (anchor.includes('top')) {
-//     hoverTipMaker.setOffset(new window.AMap.Pixel(0, 20))
-//   } else if (anchor.includes('bottom')) {
-//     hoverTipMaker.setOffset(new window.AMap.Pixel(0, -10))
-//   }
-// }
-// const getPointOffset = (dom: string, width: number, height: number, x: number, y: number): string => {
-//   const { clientWidth } = document.getElementById(dom) as HTMLElement
-//   let horizontal = 'center'
-//   let vertical = 'bottom'
-//   if (x < width) {
-//     horizontal = 'left'
-//   } else if (clientWidth - x < width) {
-//     horizontal = 'right'
-//   }
-//   if (y < height) {
-//     vertical = 'top'
-//   }
-//   return `${vertical}-${horizontal}`
-// }
-// function filterIndex = (level: string) {
-//   switch(level) {
-//     case 'city':
-//       return 1
-//     case 'district':
-//       return 2
-//     default:
-//       return 0
-//   }
-// }
+const handleFeatureMouseMove = (e: { originalEvent: any; originEvent: any }, feature?: any) => {
+  // 展开区县级别地图时不展示此级别的悬浮框
+  if (currentCityName.value[2]) return
+  if (!hoverTipMaker.getMap()) {
+    handleFeatureMouseoverAndOut(e, feature)
+  }
+  const originalEvent = e.originalEvent || e.originEvent
+  const { x, y } = originalEvent.pixel
+  const content = hoverTipMaker.getContent()
+  if (!content) return
+  const strArr = content.match(/(id="=?)(\S*)(?=")/)
+  const id = strArr[strArr.length - 1]
+  const Ele = document.getElementById(id) as HTMLElement
+  const anchor = getPointOffset('mapContainer', Ele.clientWidth, Ele.clientHeight, x, y)
+  hoverTipMaker.setPosition(originalEvent.lnglat)
+  hoverTipMaker.setAnchor(anchor)
+  if (anchor.includes('top')) {
+    hoverTipMaker.setOffset(new window.AMap.Pixel(0, 20))
+  } else if (anchor.includes('bottom')) {
+    hoverTipMaker.setOffset(new window.AMap.Pixel(0, -10))
+  }
+}
+const getPointOffset = (dom: string, width: number, height: number, x: number, y: number): string => {
+  const { clientWidth } = document.getElementById(dom) as HTMLElement
+  let horizontal = 'center'
+  let vertical = 'bottom'
+  if (x < width) {
+    horizontal = 'left'
+  } else if (clientWidth - x < width) {
+    horizontal = 'right'
+  }
+  // console.log(height,y);
+  
+  if (y < height) {
+    vertical = 'top'
+  }
+  return `${vertical}-${horizontal}`
+}
+function filterIndex(level: string) {
+  switch (level) {
+    case 'city':
+      return 1
+    case 'district':
+      return 2
+    default:
+      return 0
+  }
+}
 // 使用根据adcode获取的areaNode数据来渲染区域浏览
 const _renderAreaNode = async (areaNode: any, name: string, level: string) => {
   // 清除已经有的地图
@@ -425,12 +433,7 @@ function setMapShowTitle(name?: string, level: stirng) {
         curItem = item
       }
     })
-    if (setName === '昆明市') {
-      // mapShowDongYangTitle({...curItem, value: filterListItem(props.centerValueList.list, curItem.name)},
-      // 1, maxValue.value, props.centerValueList.inProvinceNum)
-    } else {
-      mapShowTitle({ ...curItem, value: filterListItem(props.centerValueList.list, curItem.name) }, 1, maxValue.value)
-    }
+    mapShowTitle({ ...curItem, value: filterListItem(props.centerValueList.list, curItem.name) }, 1, maxValue.value)
   } else {
     // 展示 各区县名称
     subFeaturesInfosList.value.forEach((item) => {

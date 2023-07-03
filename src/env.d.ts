@@ -7,6 +7,8 @@
  * @FilePath: /xj-vite-pinia/src/env.d.ts
  */
 /// <reference types="vite/client" />
+/// <reference types="@amap/amap-jsapi-types" />
+/// <reference types="./global.d.ts" />
 // / <reference types="vue/macros-global" />
 export {}
 declare module '*.vue' {
