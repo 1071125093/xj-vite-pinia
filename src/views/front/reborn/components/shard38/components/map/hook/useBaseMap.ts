@@ -27,14 +27,14 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
   const pluseLineLayer1: any = shallowRef(null)
   const prismLayer: any = shallowRef(null)
   const heatmap: any = shallowRef(null)
-
+  /** 异步创建地图 */
   const _createMap = async () => {
     return new Promise((resolve) => {
       AMapLoader.load({
         key: '60fdb942e15dfeefff0d5595c58a8de3', // 申请好的Web端开发者Key，首次调用 load 时必填
         // key:"9ff74af1cfa9a4b78433149e22f1f0ec", // 产业雷达
         version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-        plugins: ['AMap.Scale', 'AMap.ToolBar', 'AMap.Marker'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+        plugins: ['AMap.Scale', 'AMap.ToolBar', 'AMap.Marker', 'AMap.ElasticMarker'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
         AMapUI: {
           // 是否加载 AMapUI，缺省不加载
           version: '1.1' // AMapUI 版本
@@ -169,63 +169,6 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
     tipMarkers[boardName].setPosition(lngLat)
     tipMarkers[boardName].setMap(map.value)
   }
-  // 展示东阳地图各地区中心点的标记及其名称
-  // const mapShowDongYangTitle = (item: { lngLat: number[]; name: string | number | symbol; value?: any },
-  //   index: number, maxValue: number = 300, 省内产值: number) => {
-  //     console.log(item, index, maxValue, 省内产值, '省内产值');
-
-  //   // eslint-disable-next-line prefer-const
-  //   let { lngLat, name, value }: { lngLat: Array<number>; name: keyof typeof tipSubMarkers; value?:any } = item
-  //   if (tipSubMarkers[name]) {
-  //     tipSubMarkers[name].setMap(null)
-  //   }
-  //   tipSubMarkers[name] = new window.AMap.Marker({
-  //     content: null,
-  //     offset: new window.AMap.Pixel(0, 0),
-  //     bubble: true,
-  //     anchor: 'center',
-  //     zIndex: 1000
-  //   })
-  //   const ratio = (省内产值 / maxValue) || 0
-  //   const prismHeight = 200 * 1
-  //   const prismHeight2 = 200 * ratio
-  //   // 调整位置控制name不要展示重合
-  //   const textValue = `top: ${prismHeight ? '14px' : '-7px'};left: -${String(name).length * 16 / 2 - 4 - (String(name).length - 1)}px;`
-  //   tipSubMarkers[name].setContent(`
-  //     <div class="prism-content" style="--height: ${prismHeight}px;position: relative; width: 10px">
-  //         <div class="prism-item prism-item-out" style="display: ${prismHeight ? 'block' : 'none'};"></div>
-  //         <div class="prism-item" style="display: ${prismHeight2 ? 'block' : 'none'};--height: ${prismHeight2}px;
-  //         transform: translate(-50%, 0px) scaleX(0.91);"></div>
-  //       <div class="prism-board" style="display: none;height: 88px;width: 230px;top: -44px;">
-  //         <div class="prism-board-content">
-  //           <span class="prism-board-content-title">总产值</span>
-  //           <span class="prism-board-content-num">${value}亿元</span>
-  //         </div>
-  //         <div class="prism-board-content">
-  //           <span class="prism-board-content-title">省内产值</span>
-  //           <span class="prism-board-content-num">${省内产值}亿元</span>
-  //         </div>
-  //       </div>
-  //       <div
-  //         style="
-  //           position: absolute;
-  //           z-index: -1;
-  //           ${textValue}
-  //           width: ${String(name).length * 17}px;
-  //           font-size: 16px;
-  //           font-family: MicrosoftYaHeiUI;
-  //           color: #B4D6FF;
-  //           line-height: 16px;
-  //           letter-spacing: 1px;
-  //           text-shadow: 0px 2px 5px rgba(0,0,0,0.5);
-  //         "
-  //       >
-  //         ${String(name)}
-  //       </div>
-  //     </div>`)
-  //   tipSubMarkers[name].setPosition(lngLat)
-  //   tipSubMarkers[name].setMap(map.value)
-  // }
   const handleMouseOverContent = (name: string) => {
     return `
       <div class="frame-wrap">
@@ -418,6 +361,9 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
   }
   // 创建3d图层
   const setboundPolygonLayer = (areaNode: any, cityHight: number) => {
+    if (boundPolygonLayer.value) {
+      boundPolygonLayer.value.destroy()
+    }
     // 当需要渲染最后一级时，不存在lngLatSubList，使用lngLatParent来渲染当前层
     const { lngLatSubList, lngLatParent } = areaNode._data.geoData
     if (!lngLatSubList && !lngLatParent) {
@@ -491,95 +437,94 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
     mapLoca.value.ambLight.color = '#3e98b5'
     mapLoca.value.ambLight.intensity = 0.7
   }
-  //   function addPrism(pointList = [{
-  //     "id": 20,
-  //     "名称": "杭州市",
-  //     "人口": 870.04,
-  //     "value": 5945.82,
-  //     coordinates: [120.15507, 30.274084]
-  //   }]) {
-  //     // const geoUrl = new window.Loca.GeoJSONSource({
-  //     //   url: 'https://a.amap.com/Loca/static/loca-v2/demos/mock_data/gdp.json',
-  //     // });
-  //     // 维护geoJSON数据格式
-  //     const geo = new window.Loca.GeoJSONSource({
-  //       data: {
-  //         type: 'FeatureCollection',
-  //         features: pointList.map(item => {
-  //           const featuresItem = {
-  //             "type": "Feature",
-  //             "properties": {},
-  //             "geometry": {
-  //               "type": "Point",
-  //               "coordinates": [0, 0]
-  //             }
+  // function addPrism(
+  //   pointList = [
+  //     {
+  //       id: 20,
+  //       名称: '杭州市',
+  //       人口: 870.04,
+  //       value: 5945.82,
+  //       coordinates: [120.15507, 30.274084]
+  //     }
+  //   ]
+  // ) {
+  //   // const geoUrl = new window.Loca.GeoJSONSource({
+  //   //   url: 'https://a.amap.com/Loca/static/loca-v2/demos/mock_data/gdp.json',
+  //   // });
+  //   // 维护geoJSON数据格式
+  //   const geo = new window.Loca.GeoJSONSource({
+  //     data: {
+  //       type: 'FeatureCollection',
+  //       features: pointList.map((item) => {
+  //         const featuresItem = {
+  //           type: 'Feature',
+  //           properties: {},
+  //           geometry: {
+  //             type: 'Point',
+  //             coordinates: [0, 0]
   //           }
-  //           featuresItem.properties = item
-  //           featuresItem.geometry.coordinates = item.coordinates
-  //           return featuresItem
-  //         })
-  //       }
-  //     })
-  //     prismLayer.value = new window.Loca.PrismLayer({
-  //       zIndex: 20001,
-  //       opacity: 1,
-  //       visible: false,
-  //       hasSide: true,
-  //     });
-
-  //     prismLayer.value.setSource(geo);
-  //     // top3 的城市增加文字
-  //     const topConf = {
-  //       '杭州市': 'https://a.amap.com/Loca/static/loca-v2/demos/images/top-one.png',
-  //       '北京市': 'https://a.amap.com/Loca/static/loca-v2/demos/images/top-two.png',
-  //       '广州市': 'https://a.amap.com/Loca/static/loca-v2/demos/images/top-three.png',
-  //     };
-  //     prismLayer.value.setStyle({
-  //       unit: 'meter',
-  //       sideNumber: 4,
-  //       topColor: (_index: any, f: { properties: { [x: string]: any; }; }) => {
-  //         const n = f.properties['value'];
-  //         return n > 7000 ? '#E97091' : '#2852F1';
-  //       },
-  //       sideTopColor: (_index: any, f: { properties: { [x: string]: any; }; }) => {
-  //         const n = f.properties['value'];
-  //         return n > 7000 ? '#E97091' : '#2852F1';
-  //       },
-  //       sideBottomColor: '#002bb9',
-  //       radius: 3000,
-  //       height: (_index: any, f: { properties: any; coordinates: any[]; }) => {
-  //         const props = f.properties;
-  //         const height = Math.max(10, Math.sqrt(props['value']) * 900 - 5000);
-  //         const conf = topConf[props['名称']];
-  //         // top3 的数据，增加文字表达
-  //         if (conf) {
-  //           map.value.add(
-  //             new window.AMap.Marker({
-  //               anchor: 'bottom-center',
-  //               position: [f.coordinates[0], f.coordinates[1], height],
-  //               content: '<div style="margin-bottom: 10px; float: left; font-size: 14px;height: 57px;
-  //  width: 180px; color:#fff; background: no-repeat url(' +
-  //                 conf +
-  //                 '); background-size: 100%;"><p style="margin: 7px 0 0 35px; height: 20px; line-height:20px;">' +
-  //                 props['名称'] + '人口 ' + props['人口'] + '</p>' +
-  //                 '<p style="margin: 4px 0 0 35px; height: 20px; line-height:20px; color: #00a9ff; font-size: 13px;">' +
-  //                 props['value'] + ' 元' +
-  //                 '</p></div>',
-  //             }),
-  //           );
   //         }
-  //         return height;
-  //       },
-  //       rotation: 360,
-  //       altitude: 0,
-  //     });
-  //     mapLoca.value.add(prismLayer.value);
-  //  }
+  //         featuresItem.properties = item
+  //         featuresItem.geometry.coordinates = item.coordinates
+  //         return featuresItem
+  //       })
+  //     }
+  //   })
+  //   prismLayer.value = new window.Loca.PrismLayer({
+  //     zIndex: 20001,
+  //     opacity: 1,
+  //     visible: false,
+  //     hasSide: true
+  //   })
+
+  //   prismLayer.value.setSource(geo)
+  //   // top3 的城市增加文字
+  //   prismLayer.value.setStyle({
+  //     unit: 'meter',
+  //     sideNumber: 4,
+  //     topColor: (_index: any, f: { properties: { [x: string]: any } }) => {
+  //       const n = f.properties['value']
+  //       return n > 7000 ? '#E97091' : '#2852F1'
+  //     },
+  //     sideTopColor: (_index: any, f: { properties: { [x: string]: any } }) => {
+  //       const n = f.properties['value']
+  //       return n > 7000 ? '#E97091' : '#2852F1'
+  //     },
+  //     sideBottomColor: '#002bb9',
+  //     radius: 3000,
+  //     height: (_index: any, f: { properties: any; coordinates: any[] }) => {
+  //       const props = f.properties
+  //       const height = Math.max(10, Math.sqrt(props['value']) * 900 - 5000)
+  //       // top3 的数据，增加文字表达
+  //       map.value.add(
+  //         new window.AMap.Marker({
+  //           anchor: 'bottom-center',
+  //           position: [f.coordinates[0], f.coordinates[1], height],
+  //           content:
+  //             '<div style="margin-bottom: 10px; float: left; font-size: 14px;height: 57px; width: 180px; color:#fff; background:red; background-size: 100%;"><p style="margin: 7px 0 0 35px; height: 20px; line-height:20px;">' +
+  //             props['名称'] +
+  //             '人口 ' +
+  //             props['人口'] +
+  //             '</p>' +
+  //             '<p style="margin: 4px 0 0 35px; height: 20px; line-height:20px; color: #00a9ff; font-size: 13px;">' +
+  //             props['value'] +
+  //             ' 元' +
+  //             '</p></div>'
+  //         })
+  //       )
+  //       return height
+  //     },
+  //     rotation: 360,
+  //     altitude: 0
+  //   })
+  //   mapLoca.value.add(prismLayer.value)
+  // }
+  /**
+   * @description: 热力图
+   * https://lbs.amap.com/api/loca-v2/api#heatmaplayer
+   * @param {*} pointList
+   */
   function addHeat(pointList = [{ count: 10, coordinates: [120.22047498787455, 30.185354564274313] }]) {
-    // 每次进来先清除
-    // const geoHeat = new window.Loca.GeoJSONSource({
-    //   url: 'https://a.amap.com/Loca/static/loca-v2/demos/mock_data/hz_house_order.json',
-    // });
     // 维护geoJSON数据格式
     // 最大数量
     let maxCount = 0
@@ -613,7 +558,8 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
       zooms: [2, 22]
     })
 
-    heatmap.value.setSource(geoHeat, {
+    heatmap.value.setSource(geoHeat)
+    heatmap.value.setStyle({
       radius: 15,
       unit: 'px',
       height: 20,
@@ -642,6 +588,64 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
     })
     mapLoca.value.add(heatmap.value)
   }
+  const renderEs = () => {
+    // 样式列表
+    var stylesArr = [
+      {
+        icon: {
+          img: 'https://a.amap.com/jsapi_demos/static/resource/img/men3.png',
+          size: [16, 16], //可见区域的大小
+          anchor: 'bottom-center', //锚点
+          fitZoom: 14, //最合适的级别
+          scaleFactor: 2, //地图放大一级的缩放比例系数
+          maxScale: 2, //最大放大比例
+          minScale: 1 //最小放大比例
+        },
+        label: {
+          content: '百花殿',
+          position: 'BM',
+          minZoom: 15
+        }
+      },
+      {
+        icon: {
+          img: 'https://a.amap.com/jsapi_demos/static/resource/img/tingzi.png',
+          size: [48, 63],
+          anchor: 'bottom-center',
+          fitZoom: 17.5,
+          scaleFactor: 2,
+          maxScale: 2,
+          minScale: 0.125
+        },
+        label: {
+          content: '万寿亭',
+          position: 'BM',
+          minZoom: 15
+        }
+      }
+    ]
+    // zoom 与样式的映射
+    var zoomStyleMapping1 = {
+      7.6: 0, // 14级使用样式 0
+      7: 0, // 14级使用样式 0
+      14: 0, // 14级使用样式 0
+      15: 0,
+      16: 0,
+      17: 0,
+      18: 1,
+      19: 1,
+      20: 1
+    }
+    // 加载灵活点标记的插件
+    var elasticMarker = new window.AMap.ElasticMarker({
+      position: [120.22047498787455, 30.185354564274313],
+      // 指定样式列表
+      styles: stylesArr,
+      // 指定 zoom 与样式的映射
+      zoomStyleMapping: zoomStyleMapping1
+    })
+    map.value.add(elasticMarker)
+  }
   // 渲染图层
   const _renderlayer = async ({ areaNode, cityHight, level }: { areaNode: any; cityHight: number; level: string }) => {
     // 创建loca容器
@@ -653,6 +657,8 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
     }
     // 添加光源
     addLight(level)
+    // addPrism()
+    renderEs()
     // 添加棱柱
     // addPrism()
     // 每次进来先清除
@@ -663,9 +669,6 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
       boundLinelayerBottom.value.destroy()
     }
 
-    if (boundPolygonLayer.value) {
-      boundPolygonLayer.value.destroy()
-    }
     if (pluseLineLayer.value) {
       pluseLineLayer.value.destroy()
     }
@@ -686,23 +689,16 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
     // 3d图层
     boundPolygonLayer.value = setboundPolygonLayer(areaNode, cityHight)
 
-    pluseLineLayer.value = setPluseLineLayer({ areaNode })
-    // 阴影效果的跑光
-    pluseLineLayer1.value = setPluseLineLayer({
+    pluseLineLayer.value = setPluseLineLayer({
       areaNode,
       styleOption: {
         lineWidth: 5,
         headColor: '#5FFFFA',
         trailColor: '#174FA900',
+        // trailColor: '#174FA900',
         zIndex: 1000
       }
     })
-
-    // const dat = new window.Loca.Dat()
-
-    // dat.addLight(mapLoca.value.ambLight, mapLoca.value, '环境光');
-    // dat.addLight(mapLoca.value.dirLight, mapLoca.value, '平行光');
-    // dat.addLight(mapLoca.value.pointLight, mapLoca.value, '点光');
   }
   const getPointOffset = (currentMarker: any) => {
     const item = currentMarker.getExtData()
@@ -739,6 +735,7 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
         if (error) {
           return reject(error)
         }
+        debugger
         return resolve(areaNode)
       })
     })

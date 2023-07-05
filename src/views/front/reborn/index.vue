@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-06-30 18:32:48
+ * @LastEditTime: 2023-07-04 20:42:10
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -255,7 +255,7 @@ const tabs = computed(() => {
     }
   ].filter((item) => item.show)
 })
-const activeTabName = ref('node接口测试-fsExtra')
+const activeTabName = ref('高德地图')
 const currentTab = computed(() => {
   return tabs.value.find((item) => item.label === activeTabName.value)
 })

@@ -1,6 +1,6 @@
 <template>
   <div id="content_box" class="container-map">
-    <div id="mapContainer" :style="{ width: `${global_width_scale * 100}%`, height: `${global_height_scale * 100}%`}"></div>
+    <div id="mapContainer" :style="{ width: `${global_width_scale * 100}%`, height: `${global_height_scale * 100}%` }"></div>
     <div v-if="currentCityName?.length > 0" class="back">
       <span @click="goProvince">{{ currentCityName[0] }}</span>
       <span v-if="currentCityName[1]" @click="goCity">{{ currentCityName[1] }}</span>
@@ -10,6 +10,8 @@
 </template>
 <script setup lang="ts">
 import useBaseMap from './hook/useBaseMap'
+import asd from './components/asd/index.vue'
+import { render } from 'vue'
 // import iconImg1 from '@/assets/img/IndustrialEnvironment/map-icon1.png'
 // import iconImg2 from '@/assets/img/IndustrialEnvironment/map-icon2.png'
 // import iconImg3 from '@/assets/img/IndustrialEnvironment/map-icon3.png'
@@ -21,7 +23,7 @@ interface Props {
   // 市级的自定义点的图片dom字符串
   customImgDom?: string
   // 是否 控制自定义点的列表中的 相同位置的点 做一定偏移
-  openShifting?: boolean
+  // openShifting?: boolean
   // 区县级别的自定义展示点的列表
   lngLatList?: any[]
   // 地图配置项
@@ -197,34 +199,6 @@ const goCity = () => {
   emit('handelCityChange', currentCityName.value, 'city')
 }
 
-// 弹窗内容
-const techFinanceMarkerContent = (name: string) => {
-  return `
-    <div class="map-content" id="map-content" style="min-width: 179px">
-      <div class="title">${name}</div>
-      ${
-        props.showTooltipList[name]
-          ? props.showTooltipList[name].reduce((pre, item) => {
-              return (
-                pre +
-                `
-          <div class="list-item">
-            <span>${item.title}：</span>
-            <span>
-              ${item.value}
-              ${item.unit ? `<span class="unit">${item.unit}</span>` : ''}
-            </span>
-          </div>
-        `
-              )
-            }, '')
-          : `<div class="list-item">
-            <span> - 暂无信息 - </span>
-          </div>`
-      }
-    </div>`
-}
-
 /** 地图操作
  * ---------------------------------------------------------------------------------------------------------------------------------------
  */
@@ -260,10 +234,18 @@ const handleFeatureMouseoverAndOut = (e: any, feature: any) => {
   if (currentCityName.value[2]) return
   const isHover = e.type === 'featureMouseover' || e.type === 'featureMousemove'
   const { adcode: _adcode, level, name } = feature.properties
-  hoverTipMaker.setContent('<div class="map-content" id="map-content">我裂开了</div>')
-  // if (Object.keys(props.showTooltipList).length > 0) {
-  //   hoverTipMaker.setContent(techFinanceMarkerContent(name))
-  // }
+
+  
+  const theHtml = h(asd, {
+    title: '我裂开了'
+  })
+  const divElement = document.createElement('div');
+  // render(theHtml, document.body)
+  render(theHtml, divElement)
+  const html = theHtml.el?.outerHTML
+
+
+  hoverTipMaker.setContent(html)
   const polys = districtExplorer.value.findFeaturePolygonsByAdcode(_adcode)
   polys.forEach((item: any) => {
     item.setOptions({
@@ -272,14 +254,13 @@ const handleFeatureMouseoverAndOut = (e: any, feature: any) => {
     })
   })
   hoverTipMaker.setMap(isHover ? map.value : null)
-  console.log(hoverTipMaker)
 }
 // 开始distroctExplorer监听事件
 const featureListener = () => {
   // 监听feature的点击事件
   districtExplorer.value.on('featureClick', handleFeatureClick)
   // 监听feature的hover事件
-  // props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMouseout featureMouseover', handleFeatureMouseoverAndOut)
+  props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMouseout featureMouseover', handleFeatureMouseoverAndOut)
   // 监听鼠标在feature上滑动
   props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMousemove', handleFeatureMouseMove)
 }
@@ -296,10 +277,12 @@ const handleFeatureMouseMove = (e: { originalEvent: any; originEvent: any }, fea
   if (!content) return
   const strArr = content.match(/(id="=?)(\S*)(?=")/)
   const id = strArr[strArr.length - 1]
+
   const Ele = document.getElementById(id) as HTMLElement
   const anchor = getPointOffset('mapContainer', Ele.clientWidth, Ele.clientHeight, x, y)
   hoverTipMaker.setPosition(originalEvent.lnglat)
   hoverTipMaker.setAnchor(anchor)
+  
   if (anchor.includes('top')) {
     hoverTipMaker.setOffset(new window.AMap.Pixel(0, 20))
   } else if (anchor.includes('bottom')) {
@@ -316,21 +299,11 @@ const getPointOffset = (dom: string, width: number, height: number, x: number, y
     horizontal = 'right'
   }
   // console.log(height,y);
-  
+
   if (y < height) {
     vertical = 'top'
   }
   return `${vertical}-${horizontal}`
-}
-function filterIndex(level: string) {
-  switch (level) {
-    case 'city':
-      return 1
-    case 'district':
-      return 2
-    default:
-      return 0
-  }
 }
 // 使用根据adcode获取的areaNode数据来渲染区域浏览
 const _renderAreaNode = async (areaNode: any, name: string, level: string) => {
@@ -393,7 +366,7 @@ const _renderAreaNode = async (areaNode: any, name: string, level: string) => {
     cursor: 'pointer',
     bubble: true,
     zIndex: -1,
-    strokeColor: outerBorderColor, // 线颜色
+    strokeColor: 'outerBorderColor', // 线颜色
     fillColor: 'transparent', // 填充色 (此处透明为了显示下方受光模块渐变的效果)
     strokeWeight: outerBorderWidth // 线宽
   })
@@ -420,6 +393,8 @@ function setMapShowTitle(name?: string, level: stirng) {
     })
     return res
   }
+  console.log(name)
+
   // 使用市级区域保存的中心点信息
   if (currentCityName.value[2]) {
     let curItem = null
@@ -443,12 +418,6 @@ function setMapShowTitle(name?: string, level: stirng) {
         }
       })
     })
-    console.log(props.centerValueList.list, 'props.centerValueList.list')
-
-    // subFeaturesInfosList.value.forEach((item, index) => {
-    //   mapShowDongYangTitle({...item, value: filterListItem(props.centerValueList.list, item.name)}, index + 1,
-    //   maxValue.value, props.centerValueList.inProvinceNum)
-    // })
     subFeaturesInfosList.value.forEach((item, index) => {
       mapShowTitle(
         { ...item, value: filterListItem(props.centerValueList.list, item.name), unit: filterUnitItem(props.centerValueList.list, item.name) },
@@ -458,11 +427,11 @@ function setMapShowTitle(name?: string, level: stirng) {
     })
   }
   // 循环显示boar信息板的样式
-  // intervalMark()
-  if (level !== 'district')
-    // timer.value = setInterval(() => {
-    intervalMark()
-  // }, 6000)
+  intervalMark()
+  // if (level !== 'district')
+  //   timer.value = setInterval(() => {
+  //   intervalMark()
+  // }, 2000)
 }
 function intervalMark() {
   if (Object.keys(tipMarkers).length === 0) return
@@ -493,6 +462,7 @@ const _renderDistrictArea = async (_adcode: number, cityHight = 40000, level: st
   const areaNode = await _loadAreaNode(_adcode)
   //设置当前使用的定位用节点
   districtExplorer.value.setAreaNodesForLocating([areaNode])
+  // districtExplorer.value.setAreaNodesForLocating([_adcode])
   currentAreaNode.value = areaNode
   // 渲染areaNode 父级区域 子级区域 颜色/边颜色
   _renderAreaNode(areaNode, name, level)
@@ -507,15 +477,14 @@ const initMap = async () => {
   renderStatus = true
   // 初始化鼠标hover提示内容弹窗Marker
   hoverTipMaker = new window.AMap.Marker({
-    content: null,
+    content: undefined,
     offset: new window.AMap.Pixel(0, -10),
     bubble: true,
     topWhenClick: true // 鼠标点击时marker是否置顶，默认false ，不置顶
   })
   featureListener()
   await _renderDistrictArea(props.adcode, 40000, 'city', currentAdCode.value[1])
-  props.lngLatList?.length > 0 && addHeat(props.lngLatList)
-  // Object.keys(props.centerValueList)?.length > 0 && setMapShowTitle()
+  // addHeat()
 }
 watch(
   () => props.lngLatList,
