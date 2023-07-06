@@ -17,16 +17,11 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver, NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
-import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
 import { visualizer } from 'rollup-plugin-visualizer'
 export default ({ mode }) => {
   return defineConfig({
     plugins: [
-      Vue({
-        script: {
-          defineModel: true
-        }
-      }),
+      Vue(),
       visualizer({
         emitFile: false,
         gzipSize: true,
@@ -42,7 +37,6 @@ export default ({ mode }) => {
       // vue({
       //   reactivityTransform: true,
       // }),
-      vueSetupExtend(),
       // DefineOptions(),
       resolveExternalsPlugin({
         AMap: 'AMap'

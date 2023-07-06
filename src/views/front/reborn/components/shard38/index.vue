@@ -13,7 +13,7 @@ import xjMap from './components/xjMap/index.vue'
 <template>
   <!-- <div class="main-map"> -->
   <div class="map-box">
-    <moduleName></moduleName>
+    <!-- <moduleName></moduleName> -->
     <xjMap></xjMap>
   </div>
   <!-- </div> -->
@@ -21,6 +21,7 @@ import xjMap from './components/xjMap/index.vue'
 <style lang="less" scoped>
 .map-box {
   display: flex;
+  justify-content: center;
   &>div {
     // flex: 1;
     width: 45%;

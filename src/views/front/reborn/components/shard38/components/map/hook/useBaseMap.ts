@@ -735,7 +735,7 @@ export default function useBaseMap(dom: string, mapOptions: AMap.MapOptions) {
         if (error) {
           return reject(error)
         }
-        debugger
+        
         return resolve(areaNode)
       })
     })

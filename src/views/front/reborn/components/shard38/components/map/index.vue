@@ -6,6 +6,10 @@
       <span v-if="currentCityName[1]" @click="goCity">{{ currentCityName[1] }}</span>
       <span v-if="currentCityName[2]">{{ currentCityName[2] }}</span>
     </div>
+    <div class="xj-room">
+    <n-button type="primary" @click="xjClear">你动我试试</n-button>
+    </div>
+
   </div>
 </template>
 <script setup lang="ts">
@@ -15,6 +19,10 @@ import { render } from 'vue'
 // import iconImg1 from '@/assets/img/IndustrialEnvironment/map-icon1.png'
 // import iconImg2 from '@/assets/img/IndustrialEnvironment/map-icon2.png'
 // import iconImg3 from '@/assets/img/IndustrialEnvironment/map-icon3.png'
+const xjClear = ()=>{
+  (map.value).clearMap()
+  // (districtExplorer.value as AMap.DistrictExplorer).clearMap()
+}
 
 interface Props {
   // 市级的hover展示的弹窗信息
@@ -181,7 +189,6 @@ const {
 
 type Resize = () => void
 const resizeMap = inject('resize', () => {
-  console.log(123)
 }) as Resize
 // 下钻方法
 const goProvince = () => {
@@ -263,31 +270,37 @@ const featureListener = () => {
   props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMouseout featureMouseover', handleFeatureMouseoverAndOut)
   // 监听鼠标在feature上滑动
   props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMousemove', handleFeatureMouseMove)
+  // props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMousemove', xjGogo)
+}
+const xjGogo = ()=>{
+  console.log(123123123);
 }
 // 获取位置在滑动时动态计算位置来显示弹窗的方法
 const handleFeatureMouseMove = (e: { originalEvent: any; originEvent: any }, feature?: any) => {
   // 展开区县级别地图时不展示此级别的悬浮框
-  if (currentCityName.value[2]) return
-  if (!hoverTipMaker.getMap()) {
-    handleFeatureMouseoverAndOut(e, feature)
-  }
+  // if (currentCityName.value[2]) return
+  // if (!hoverTipMaker.getMap()) {
+  //   handleFeatureMouseoverAndOut(e, feature)
+  // }
+  // console.log(e.originalEvent.originEvent);
   const originalEvent = e.originalEvent || e.originEvent
-  const { x, y } = originalEvent.pixel
-  const content = hoverTipMaker.getContent()
-  if (!content) return
-  const strArr = content.match(/(id="=?)(\S*)(?=")/)
-  const id = strArr[strArr.length - 1]
+  // const { x, y } = originalEvent.pixel
+  // const content = hoverTipMaker.getContent()
+  // if (!content) return
+  // const strArr = content.match(/(id="=?)(\S*)(?=")/)
+  // const id = strArr[strArr.length - 1]
 
-  const Ele = document.getElementById(id) as HTMLElement
-  const anchor = getPointOffset('mapContainer', Ele.clientWidth, Ele.clientHeight, x, y)
+  // const Ele = document.getElementById(id) as HTMLElement
+  // const anchor = getPointOffset('mapContainer', Ele.clientWidth, Ele.clientHeight, x, y)
   hoverTipMaker.setPosition(originalEvent.lnglat)
-  hoverTipMaker.setAnchor(anchor)
+  // hoverTipMaker.setAnchor(anchor)
   
-  if (anchor.includes('top')) {
-    hoverTipMaker.setOffset(new window.AMap.Pixel(0, 20))
-  } else if (anchor.includes('bottom')) {
-    hoverTipMaker.setOffset(new window.AMap.Pixel(0, -10))
-  }
+  // if (anchor.includes('top')) {
+  //   hoverTipMaker.setOffset(new window.AMap.Pixel(0, 20))
+  // } else if (anchor.includes('bottom')) {
+  //   hoverTipMaker.setOffset(new window.AMap.Pixel(0, -10))
+  // }
+  xjGogo()
 }
 const getPointOffset = (dom: string, width: number, height: number, x: number, y: number): string => {
   const { clientWidth } = document.getElementById(dom) as HTMLElement
@@ -359,7 +372,7 @@ const _renderAreaNode = async (areaNode: any, name: string, level: string) => {
   if (!currentCityName.value[2]) {
     subFeaturesInfosList.value = subFeaturesInfos
   }
-  setMapShowTitle(name, level)
+  // setMapShowTitle(name, level)
 
   // 绘制父级区划
   districtExplorer.value.renderParentFeature(areaNode, {
@@ -393,8 +406,6 @@ function setMapShowTitle(name?: string, level: stirng) {
     })
     return res
   }
-  console.log(name)
-
   // 使用市级区域保存的中心点信息
   if (currentCityName.value[2]) {
     let curItem = null
@@ -537,6 +548,11 @@ onMounted(() => {
 }
 </style>
 <style scoped lang="less">
+.xj-room{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 .container-map {
   width: 100%;
   height: 100%;

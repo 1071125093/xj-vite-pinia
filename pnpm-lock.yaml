@@ -52,7 +52,6 @@ specifiers:
   vite: ^4.3.5
   vite-plugin-eslint: ^1.8.1
   vite-plugin-resolve-externals: ^0.2.2
-  vite-plugin-vue-setup-extend-plus: ^0.1.0
   vitest: ^0.30.0
   vue: ^3.3.4
   vue-countup-v3: ^1.2.0
@@ -120,7 +119,6 @@ devDependencies:
   vite: 4.3.9_f2vm6nmpurfnci5npdfwyh2gu4
   vite-plugin-eslint: 1.8.1_eslint@8.42.0+vite@4.3.9
   vite-plugin-resolve-externals: 0.2.2
-  vite-plugin-vue-setup-extend-plus: 0.1.0
   vitest: 0.30.1_7vytpdylr6vraub4thmrgh7icq
   vue-tsc: 1.8.2_typescript@5.1.3
 
@@ -4701,10 +4699,6 @@ packages:
 
   /vite-plugin-resolve-externals/0.2.2:
     resolution: {integrity: sha512-RHwCA5z+oGwxlqVSJq43qjphpImq8N44NwqjUVqK3aH13R1C4JJM7ApRtOmkfU2x/paN7kdSwf252VVfKEVsQw==}
-    dev: true
-
-  /vite-plugin-vue-setup-extend-plus/0.1.0:
-    resolution: {integrity: sha512-pa27KIsHIBvBMv4xz9uB3UCfAuP2tr7PLlFhCS9vw+aXd326LEHsvhqd3hCQDOR5MjlQVyQH6vwuGr3u+KRiiw==}
     dev: true
 
   /vite/4.3.9_f2vm6nmpurfnci5npdfwyh2gu4:
