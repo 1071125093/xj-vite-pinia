@@ -22,3 +22,9 @@ export interface Props {
   // 自定义的option选项，可以控制地图是否缩放等内容
   mapOptionsCustom?: any
 }
+
+export type Emits = {
+  handelCityChange: [value: string[], level?: string]
+  backProvince: []
+  customPointClick: []
+}

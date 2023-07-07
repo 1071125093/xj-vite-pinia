@@ -1,31 +1,25 @@
-/* eslint-disable */
-/*
- * @Author: zhangqiyue
- * @Date: 2023-03-15 14:45:54
- * @LastEditors: zhangqiyue
- * @LastEditTime: 2023-05-19 18:52:28
- * @FilePath: \fd-dongyang-architectural-brain\src\components\map\hook\useBaseMap.ts
- * @Description:
- *
- * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+/**
+ * @Author: XiaoJun
+ * @Date: 2023-07-04 20:42:44
+ * @LastEditors: XiaoJun
+ * @LastEditTime: 2023-07-07 18:17:50
+ * @Description: 我是地图的hooks层，只知道怎么做，不知道用在哪
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/utils/useBaseMap.ts
  */
+
 import AMapLoader from '@amap/amap-jsapi-loader'
-import { defineEmits, reactive, render, shallowRef } from 'vue'
-import { Props } from '../types'
-import side from './side.png'
+import { reactive, render, shallowRef } from 'vue'
+import boardCard from '../components/boardCard.vue'
 import mapTooltip from '../components/mapTooltip.vue'
-import {throttle} from 'lodash-es'
+import prismContent from '../components/prismContent.vue'
+import { TheEmits } from '../index.vue'
+import { Props } from '../types'
+import { getHtmlByVNode } from './common'
+import side from './side.png'
 
-export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Props, 'mapOptions'>) {
-  const emit = defineEmits<{
-    handelCityChange: [value: string[], level?: string]
-    backProvince: []
-    customPointClick: []
-  }>()
-
+export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Props, 'mapOptions'>, emits: TheEmits) {
   const mapRef = ref()
-
-  const map: any = shallowRef(null)
+  const map = ref()
   // let mapLoca: { add: (arg0: any) => void; animate: { start: () => void; }; }
   const mapLoca: any = shallowRef(null)
   const tipMarkers: any = reactive({})
@@ -70,7 +64,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
   }
   // 展示地图各地区中心点的标记及其名称
   const mapShowTitle = (
-    item: { lngLat: number[]; name: string | number | symbol; value?: number; unit: string },
+    item: { lngLat: any; name: string | number | symbol; value?: number; unit: string },
     index: number,
     maxValue: number = 300
   ) => {
@@ -118,23 +112,22 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     }
     // 没有数据的不展示柱形图以及信息板
     if (!value) return
+    const prismHtml = getHtmlByVNode(
+      h(prismContent, {
+        prismHeight
+      })
+    )
     tipMarkers[name] = new window.AMap.Marker({
-      content: undefined,
+      content: prismHtml,
       offset: new window.AMap.Pixel(0, 0),
       bubble: false,
       anchor: 'center',
       topWhenClick: true,
       clickable: true,
-      zIndex: 1000
+      zIndex: 1000,
+      position: lngLat,
+      map: map.value
     })
-    tipMarkers[name].setContent(`
-      <div class="prism-content" style="--height: ${prismHeight}px;position: relative; width: 10px;transform: translate(50%, 0);">
-        <div class="prism-item" style="display: ${prismHeight ? 'block' : 'none'};">
-          <i></i>
-        </div>
-      </div>`)
-    tipMarkers[name].setPosition(lngLat)
-    tipMarkers[name].setMap(map.value)
     // 监听feature的点击事件
     tipMarkers[name].on('mouseover', () => {
       Object.keys(tipMarkers).forEach((key) => {
@@ -147,128 +140,121 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     })
 
     // part3: 信息板模块
-    const boardName = `${name as unknown as string}-board`
+    const boardName = `${name as string}-board`
     if (tipMarkers[boardName]) {
       tipMarkers[boardName].setMap(null)
     }
+    const boardCardHtml = getHtmlByVNode(
+      h(boardCard, {
+        prismHeight,
+        name: name as string,
+        value,
+        unit
+      })
+    )
     tipMarkers[boardName] = new window.AMap.Marker({
-      content: undefined,
+      content: boardCardHtml,
       offset: new window.AMap.Pixel(0, 0),
       bubble: false,
       anchor: 'center',
       topWhenClick: true,
-      zIndex: 5000
+      zIndex: 5000,
+      position: lngLat as any,
+      map: map.value,
+      visible: false
     })
-    tipMarkers[boardName].hide()
-    tipMarkers[boardName].setContent(`
-      <div class="prism-board" style="display: ${value ? 'flex' : 'none'};position: relative;top: -${prismHeight + 40}px">
-        <div class="prism-board-content">
-          <p class="prism-board-content-title">${name || '-'}</p>
-          <p class="prism-board-content-num">2022年：${value || '-'}${unit || '-'}</p>
-        </div>
-      </div>`)
-    tipMarkers[boardName].setPosition(lngLat)
-    tipMarkers[boardName].setMap(map.value)
+    nextTick(() => {
+      // tipMarkers[boardName].show()
+    })
   }
-  const handleMouseOverContent = (name: string) => {
-    return `
-      <div class="frame-wrap">
-        <div class="map-content" id="map-content" style="
-          width: ${String(name).length * 16 + 32}px;
-          display: flex;justify-content: center;max-width: 400px" >
-          <div class="title" style="margin-bottom: 0;">${name}</div>
-        </div>
-        <div class="triangle"></div>
-      </div>`
-  }
-  // 展示传入地图对应点的标记 (可传入dom字符串（customImgDom），或者直接传图片地址（customImg）)，给了一个默认的30px宽高的样式可以用
-  const mapShowCustomPoint = (data: { lngLat: number[]; name: string }, customImgDom: string, callback: (data: any) => void, customImg?: string) => {
-    const { lngLat, name }: { lngLat: Array<number>; name: keyof typeof tipMarkers } = data
-    // 无法绘制没有坐标值数据
-    if (lngLat.length === 0) return
-    if (tipMarkers[name]) {
-      tipMarkers[name].setMap(null)
-      tipMarkers[name] = null
-    }
-    tipMarkers[name] = new window.AMap.Marker({
-      content: null,
-      offset: new window.AMap.Pixel(0, 0),
-      bubble: true,
-      anchor: 'center'
-    })
-    tipMarkers[name].setContent(`
-        <div style="position: relative">
-          ${customImg ? `<img src="${customImg}" style="width: 30px;height: 30px;display: inline-block;"/>` : customImgDom ? customImgDom : ``}
-        </div>`)
-    tipMarkers[name].setPosition(lngLat)
-    tipMarkers[name].setMap(map.value)
-    // popUp是鼠标触摸到时展示的弹窗
-    const popUp = new window.AMap.Marker({
-      position: new window.AMap.LngLat(lngLat[0], lngLat[1]),
-      // offset: new window.AMap.Pixel(0, 0),
-      // Pixel(x: +向右 -向左, y: +向下 - 向上)
-      // （-（弹窗显示字符宽度 + 误差值）/ 2, -(弹窗padding值 + 弹窗字体大小 + 弹窗三角形高度 + 图片高度 / 2)）
-      offset: new window.AMap.Pixel(-(String(name).length * 16 + 32) / 2, -(32 + 14 + 6 + 10 / 2)),
-      content: handleMouseOverContent(name),
-      zIndex: 100000
-    })
-    // 添加触摸事件
-    tipMarkers[name].on('mouseover', () => {
-      popUp.setMap(map.value)
-    })
-    // 添加触摸结束事件
-    tipMarkers[name].on('mouseout', () => {
-      popUp.remove()
-    })
-    // 传入自定义事件时，添加点击事件
-    if (callback) {
-      tipMarkers[name].on('click', () => {
-        callback(data)
-      })
-    }
-  }
+  // // 展示传入地图对应点的标记 (可传入dom字符串（customImgDom），或者直接传图片地址（customImg）)，给了一个默认的30px宽高的样式可以用
+  // const mapShowCustomPoint = (data: { lngLat: number[]; name: string }, customImgDom: string, callback: (data: any) => void, customImg?: string) => {
+  //   const { lngLat, name }: { lngLat: Array<number>; name: keyof typeof tipMarkers } = data
+  //   // 无法绘制没有坐标值数据
+  //   if (lngLat.length === 0) return
+  //   if (tipMarkers[name]) {
+  //     tipMarkers[name].setMap(null)
+  //     tipMarkers[name] = null
+  //   }
+  //   tipMarkers[name] = new window.AMap.Marker({
+  //     content: null,
+  //     offset: new window.AMap.Pixel(0, 0),
+  //     bubble: true,
+  //     anchor: 'center'
+  //   })
+  //   tipMarkers[name].setContent(`
+  //       <div style="position: relative">
+  //         ${customImg ? `<img src="${customImg}" style="width: 30px;height: 30px;display: inline-block;"/>` : customImgDom ? customImgDom : ``}
+  //       </div>`)
+  //   tipMarkers[name].setPosition(lngLat)
+  //   tipMarkers[name].setMap(map.value)
+  //   // popUp是鼠标触摸到时展示的弹窗
+  //   const popUp = new window.AMap.Marker({
+  //     position: new window.AMap.LngLat(lngLat[0], lngLat[1]),
+  //     // offset: new window.AMap.Pixel(0, 0),
+  //     // Pixel(x: +向右 -向左, y: +向下 - 向上)
+  //     // （-（弹窗显示字符宽度 + 误差值）/ 2, -(弹窗padding值 + 弹窗字体大小 + 弹窗三角形高度 + 图片高度 / 2)）
+  //     offset: new window.AMap.Pixel(-(String(name).length * 16 + 32) / 2, -(32 + 14 + 6 + 10 / 2)),
+  //     content: handleMouseOverContent(name),
+  //     zIndex: 100000
+  //   })
+  //   // 添加触摸事件
+  //   tipMarkers[name].on('mouseover', () => {
+  //     popUp.setMap(map.value)
+  //   })
+  //   // 添加触摸结束事件
+  //   tipMarkers[name].on('mouseout', () => {
+  //     popUp.remove()
+  //   })
+  //   // 传入自定义事件时，添加点击事件
+  //   if (callback) {
+  //     tipMarkers[name].on('click', () => {
+  //       callback(data)
+  //     })
+  //   }
+  // }
   // 展示地图最低级别地区对应点的标记
-  const mapShowSubMarkers = ({ lng_lat, name }: { address?: string; lng_lat?: string; name?: string; unit?: string }, imgUrl: string) => {
-    if (name && tipMarkers[name]) {
-      tipMarkers[name].setMap(null)
-    }
-    if (name) {
-      tipSubMarkers[name] = new window.AMap.Marker({
-        content: undefined,
-        // offset: new window.AMap.Pixel(0, 0),
-        // （-图片高度 / 2， 0）
-        offset: new window.AMap.Pixel(-(28 / 2), 0),
-        bubble: true,
-        anchor: 'center'
-      })
-      const lngLat = lng_lat?.split(',') || []
-      tipSubMarkers[name].setContent(`
-        <div style="position: relative;">
-          <img src="${imgUrl}" style="width: 28px;height: 34px;display: inline-block;"/>
-        </div>`)
+  // const mapShowSubMarkers = ({ lng_lat, name }: { address?: string; lng_lat?: string; name?: string; unit?: string }, imgUrl: string) => {
+  //   if (name && tipMarkers[name]) {
+  //     tipMarkers[name].setMap(null)
+  //   }
+  //   if (name) {
+  //     tipSubMarkers[name] = new window.AMap.Marker({
+  //       content: undefined,
+  //       // offset: new window.AMap.Pixel(0, 0),
+  //       // （-图片高度 / 2， 0）
+  //       offset: new window.AMap.Pixel(-(28 / 2), 0),
+  //       bubble: true,
+  //       anchor: 'center'
+  //     })
+  //     const lngLat = lng_lat?.split(',') || []
+  //     tipSubMarkers[name].setContent(`
+  //       <div style="position: relative;">
+  //         <img src="${imgUrl}" style="width: 28px;height: 34px;display: inline-block;"/>
+  //       </div>`)
 
-      // 测试的点
-      // <div style="position: absolute; z-index: 30;width: 1px;height: 1px;background-color: red;border-radius: 50%"/>
-      tipSubMarkers[name].setPosition(lngLat)
-      tipSubMarkers[name].setMap(map.value)
+  //     // 测试的点
+  //     // <div style="position: absolute; z-index: 30;width: 1px;height: 1px;background-color: red;border-radius: 50%"/>
+  //     tipSubMarkers[name].setPosition(lngLat)
+  //     tipSubMarkers[name].setMap(map.value)
 
-      const popUp = new window.AMap.Marker({
-        position: new window.AMap.LngLat(lngLat[0], lngLat[1]),
-        // offset: new window.AMap.Pixel(0, 0),
-        // Pixel(x: 向右, y: 向下)
-        // （-（弹窗显示字符宽度 + 误差值 + 图片高度）/ 2, -(弹窗padding值 + 弹窗字体大小 + 弹窗三角形高度 + 图片高度 / 2)）
-        offset: new window.AMap.Pixel(-(String(name).length * 16 + 32 + 28) / 2, -(32 + 14 + 6 + 32 / 2)),
-        content: handleMouseOverContent(name),
-        zIndex: 100000
-      })
-      tipSubMarkers[name].on('mouseover', () => {
-        popUp.setMap(map.value)
-      })
-      tipSubMarkers[name].on('mouseout', () => {
-        popUp.remove()
-      })
-    }
-  }
+  //     const popUp = new window.AMap.Marker({
+  //       position: new window.AMap.LngLat(lngLat[0], lngLat[1]),
+  //       // offset: new window.AMap.Pixel(0, 0),
+  //       // Pixel(x: 向右, y: 向下)
+  //       // （-（弹窗显示字符宽度 + 误差值 + 图片高度）/ 2, -(弹窗padding值 + 弹窗字体大小 + 弹窗三角形高度 + 图片高度 / 2)）
+  //       offset: new window.AMap.Pixel(-(String(name).length * 16 + 32 + 28) / 2, -(32 + 14 + 6 + 32 / 2)),
+  //       content: handleMouseOverContent(name),
+  //       zIndex: 100000
+  //     })
+  //     tipSubMarkers[name].on('mouseover', () => {
+  //       popUp.setMap(map.value)
+  //     })
+  //     tipSubMarkers[name].on('mouseout', () => {
+  //       popUp.remove()
+  //     })
+  //   }
+  // }
 
   // 线图层及动画图层所需数据
   const boundLinelayerDataSet = (areaNode: any) => {
@@ -589,14 +575,14 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
   }
 
   // #region **********   初始化tipMaker  start **************/
-  const hoverTipMaker =shallowReactive<{
+  const hoverTipMaker = shallowReactive<{
     base?: AMap.Marker
     alignByEvent: any
   }>({
     base: undefined,
     alignByEvent(e: { originalEvent: any }) {
       if (!this.base) return
-      const originalEvent = e.originalEvent|| e.originEvent
+      const originalEvent = e.originalEvent || e.originEvent
       const { x, y } = originalEvent.pixel
       const Ele = this.base.dom
       const anchor = getPointOffset(Ele.clientWidth, Ele.clientHeight, x, y)
@@ -727,7 +713,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
   }
   const maxValue = ref(0)
   const timer = ref('')
-  let anIndex = ref(0)
+  const anIndex = ref(0)
 
   function setMapShowTitle(name?: string, level: string) {
     if (!props.centerValueList.list?.length) return
@@ -735,7 +721,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     maxValue.value = 0
     clearInterval(timer.value)
     timer.value = ''
-    let setName = name || districtExplorer.currentCityName[2] || districtExplorer.currentCityName[1] || districtExplorer.currentCityName[0]
+    const setName = name || districtExplorer.currentCityName[2] || districtExplorer.currentCityName[1] || districtExplorer.currentCityName[0]
 
     const filterListItem = (l, n) => {
       let res = 0
@@ -835,7 +821,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
       districtExplorer.currentCityName[2] = name
       districtExplorer.currentAdCode[2] = _adcode
     }
-    emit('handelCityChange', districtExplorer.currentCityName, level)
+    emits('handelCityChange', districtExplorer.currentCityName, level)
     await nextTick()
     // 加载某个区域的浏览-------------------------下钻暂时取消
     _renderDistrictArea(_adcode, 40000, level, name)
@@ -886,8 +872,8 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     _createMap,
     mapShowTitle,
     // mapShowDongYangTitle,
-    mapShowSubMarkers,
-    mapShowCustomPoint,
+    // mapShowSubMarkers,
+    // mapShowCustomPoint,
     boundLinelayerDataSet,
     setboundLinelayer,
     setPluseLineLayer,

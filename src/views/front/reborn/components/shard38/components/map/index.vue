@@ -7,9 +7,8 @@
       <span v-if="currentCityName[2]">{{ currentCityName[2] }}</span>
     </div>
     <div class="xj-room">
-    <n-button type="primary" @click="xjClear">你动我试试</n-button>
+      <n-button type="primary" @click="xjClear">你动我试试</n-button>
     </div>
-
   </div>
 </template>
 <script setup lang="ts">
@@ -19,8 +18,8 @@ import { render } from 'vue'
 // import iconImg1 from '@/assets/img/IndustrialEnvironment/map-icon1.png'
 // import iconImg2 from '@/assets/img/IndustrialEnvironment/map-icon2.png'
 // import iconImg3 from '@/assets/img/IndustrialEnvironment/map-icon3.png'
-const xjClear = ()=>{
-  (map.value).clearMap()
+const xjClear = () => {
+  map.value.clearMap()
   // (districtExplorer.value as AMap.DistrictExplorer).clearMap()
 }
 
@@ -188,8 +187,7 @@ const {
 } = useBaseMap('mapContainer', { ...props.mapOptions, ...props.mapOptionsCustom })
 
 type Resize = () => void
-const resizeMap = inject('resize', () => {
-}) as Resize
+const resizeMap = inject('resize', () => {}) as Resize
 // 下钻方法
 const goProvince = () => {
   currentCityName.value[1] = ''
@@ -242,15 +240,13 @@ const handleFeatureMouseoverAndOut = (e: any, feature: any) => {
   const isHover = e.type === 'featureMouseover' || e.type === 'featureMousemove'
   const { adcode: _adcode, level, name } = feature.properties
 
-  
   const theHtml = h(asd, {
     title: '我裂开了'
   })
-  const divElement = document.createElement('div');
+  const divElement = document.createElement('div')
   // render(theHtml, document.body)
   render(theHtml, divElement)
   const html = theHtml.el?.outerHTML
-
 
   hoverTipMaker.setContent(html)
   const polys = districtExplorer.value.findFeaturePolygonsByAdcode(_adcode)
@@ -272,9 +268,12 @@ const featureListener = () => {
   props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMousemove', handleFeatureMouseMove)
   // props.openDefaultMouseMoveHover && districtExplorer.value.on('featureMousemove', xjGogo)
 }
-const xjGogo = ()=>{
-  console.log(123123123);
-}
+onUnmounted(() => {
+  districtExplorer.off('featureClick')
+  districtExplorer.off('featureMouseout featureMouseover')
+  districtExplorer.off('featureMousemove')
+})
+
 // 获取位置在滑动时动态计算位置来显示弹窗的方法
 const handleFeatureMouseMove = (e: { originalEvent: any; originEvent: any }, feature?: any) => {
   // 展开区县级别地图时不展示此级别的悬浮框
@@ -294,7 +293,7 @@ const handleFeatureMouseMove = (e: { originalEvent: any; originEvent: any }, fea
   // const anchor = getPointOffset('mapContainer', Ele.clientWidth, Ele.clientHeight, x, y)
   hoverTipMaker.setPosition(originalEvent.lnglat)
   // hoverTipMaker.setAnchor(anchor)
-  
+
   // if (anchor.includes('top')) {
   //   hoverTipMaker.setOffset(new window.AMap.Pixel(0, 20))
   // } else if (anchor.includes('bottom')) {
@@ -548,7 +547,7 @@ onMounted(() => {
 }
 </style>
 <style scoped lang="less">
-.xj-room{
+.xj-room {
   position: absolute;
   top: 0;
   right: 0;

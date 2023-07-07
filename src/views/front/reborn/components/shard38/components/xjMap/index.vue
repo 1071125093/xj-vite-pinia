@@ -1,16 +1,23 @@
+<!--
+ * @Author: XiaoJun
+ * @Date: 2023-07-05 16:15:06
+ * @LastEditors: XiaoJun
+ * @LastEditTime: 2023-07-07 18:03:20
+ * @Description: 我是地图的vue层，只决定做或者不做，没有实际的做事能力
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/index.vue
+-->
 <script lang="ts" setup>
 import useBaseMap from './utils/useBaseMap'
-import { Props } from './types'
+import { Props, Emits } from './types'
 
 // #region ********** 库&组件等引入 start **************/
 // #endregion ******* 库&组件等引入 ~end~ **************/
 
 // #region ********** define区域 start **************/
-
 const props = withDefaults(defineProps<Props>(), {
   isDeep: true,
   adcode: 330000, // 浙江省
-  openDefaultMouseMoveHover: true,
+  openDefaultMouseMoveHover: false,
   mapOptions: () => ({
     // center: [12517249.610825334, 3648741.0920981606], // 飞入的位置 使用不存在点会导致大量控制台资源获取的报错
     // center: [169.978959, 60.27365], // 飞入动画的起点位置
@@ -103,8 +110,8 @@ const props = withDefaults(defineProps<Props>(), {
   },
   customImgDom: '',
   mapStyle: () => ({
-    // outerBorderColor: '#6ca3c6', // 外层线的颜色颜色
-    outerBorderColor: 'red', // 外层线的颜色颜色
+    outerBorderColor: '#6ca3c6', // 外层线的颜色颜色
+    // outerBorderColor: 'red', // 外层线的颜色颜色
     outerBorderWidth: 2.5, // 外层线的宽度
     innerBorderColor: '#C6DFF9', // 内层线的颜色颜色
     innerBorderWidth: 1.5 // 内层线的宽度
@@ -116,6 +123,9 @@ const props = withDefaults(defineProps<Props>(), {
     }
   }
 })
+
+const emits = defineEmits<Emits>()
+export type TheEmits = typeof emits
 // #endregion ******* define区域 ~end~ **************/
 
 // #region ********** 我在cv，很麻木 start **************/
@@ -139,7 +149,8 @@ const {
     ...props.mapOptions,
     ...props.mapOptionsCustom
   },
-  props
+  props,
+  emits
 )
 // #endregion ******* 我在cv，很麻木 ~end~ **************/
 
@@ -154,6 +165,12 @@ const featureListener = () => {
   // props.openDefaultMouseMoveHover && districtExplorer.base.on('featureMousemove', xjGogo)
   props.openDefaultMouseMoveHover && districtExplorer.base.on('featureMousemove', handleFeatureMouseMove)
 }
+onUnmounted(() => {
+  districtExplorer.base.off('featureClick')
+  districtExplorer.base.off('featureMouseout featureMouseover')
+  districtExplorer.base.off('featureMousemove')
+})
+
 // #endregion ******* 执行-赋予-地图点击交互 ~end~ **************/
 
 // #region ********** 我也不知道这里是什么，我是sb start **************/
@@ -182,8 +199,7 @@ onMounted(() => {
 <template>
   <div class="base-map-container">
     <div class="base-map" ref="mapRef" id="1006411"></div>
-    <div class="xj-room">
-    </div>
+    <div class="xj-room"></div>
   </div>
 </template>
 <style lang="less" scoped>
