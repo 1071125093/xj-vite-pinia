@@ -19,7 +19,8 @@ import side from './side.png'
 
 export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Props, 'mapOptions'>, emits: TheEmits) {
   const mapRef = ref()
-  const map = ref()
+  // const map = ref()
+  const map: any = shallowRef(null)
   // let mapLoca: { add: (arg0: any) => void; animate: { start: () => void; }; }
   const mapLoca: any = shallowRef(null)
   const tipMarkers: any = reactive({})
