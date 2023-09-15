@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-14 09:40:13
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-07-14 10:09:18
+ * @LastEditTime: 2023-07-27 16:45:06
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard18/component/one.vue
 -->
@@ -16,8 +16,10 @@ const init = async () => {
     }, 3000)
   })
 }
-onMounted(async () => {
-  init()
+
+await init()
+setTimeout(async() => {
+  await init()
 })
 </script>
 <template>

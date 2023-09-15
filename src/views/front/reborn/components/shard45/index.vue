@@ -35,6 +35,7 @@ const enterpriseOptions = ref([
   }
 ])
 const xjTabValue = ref('宁波市')
+xjTabValue.value=123
 </script>
 <template>
   <div class="shard">

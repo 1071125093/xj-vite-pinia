@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-07-04 20:42:10
+ * @LastEditTime: 2023-09-14 15:52:09
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -54,6 +54,12 @@ import shard42 from './components/shard42/index.vue'
 import shard43 from './components/shard43/index.vue'
 import shard44 from './components/shard44/index.vue'
 import shard45 from './components/shard45/index.vue'
+import shard46 from './components/shard46/index.vue'
+import shard47 from './components/shard47/index.vue'
+import shard48 from './components/shard48/index.vue'
+import shard49 from './components/shard49/index.vue'
+import shard50 from './components/shard50/index.vue'
+import shard51 from './components/shard51/index.vue'
 // 测试
 // 测试
 /**
@@ -139,7 +145,8 @@ const tabs = computed(() => {
     },
     {
       label: '异步组件',
-      component: markRaw(shard18)
+      component: markRaw(shard18),
+      show: true
     },
     {
       label: '防抖节流',
@@ -198,7 +205,6 @@ const tabs = computed(() => {
     {
       label: 'monaco-editor',
       component: markRaw(shard32),
-      show: true
     },
     {
       label: 'vitest',
@@ -252,10 +258,39 @@ const tabs = computed(() => {
     {
       label: '理解受控和非受控',
       component: markRaw(shard45)
-    }
+    },
+    {
+      label: '试试playground',
+      component: markRaw(shard46)
+    },
+    {
+      label: '试试ts自动生成',
+      component: markRaw(shard47),
+    },
+    {
+      label: 'v3指令',
+      component: markRaw(shard48),
+      show: true
+    },
+    {
+      label: '表格render',
+      component: markRaw(shard49),
+      show: false
+    },
+    {
+      label: '弹窗问题优化',
+      component: markRaw(shard50),
+      show: true
+    },
+    {
+      label: '组件库utils开发',
+      component: markRaw(shard51),
+      show: true
+    },
   ].filter((item) => item.show)
 })
-const activeTabName = ref('高德地图')
+const activeTabName = ref('弹窗问题优化')
+// const activeTabName = ref('弹窗问题优化')
 const currentTab = computed(() => {
   return tabs.value.find((item) => item.label === activeTabName.value)
 })

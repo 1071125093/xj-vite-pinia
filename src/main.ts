@@ -12,7 +12,8 @@ import { piniaInstall } from './store'
 import router from './router/index'
 import directives from './directives'
 const app = createApp(App)
+import { installDialog } from '@/service/fsDialog/index'
 
 piniaInstall(app)
 
-app.use(router).use(directives).mount('#app')
+app.use(router).use(installDialog).use(directives).mount('#app')

@@ -1,59 +1,103 @@
 <!--
- * @Author: XiaoJun
- * @Date: 2022-07-07 17:25:21
- * @LastEditors: XiaoJun
- * @LastEditTime: 2023-06-30 18:32:11
- * @Description: 组件功能
- * @FilePath: /xj-vite-pinia/src/App.vue
+ * @Author: suzb@hsmap.com
+ * @Date: 2022-04-05 12:59:58
+ * @LastEditTime: 2023-09-14 15:10:39
+ * Copyright (c) 2022 by nick/火石创造, All Rights Reserved. 
 -->
-
 <script setup lang="ts">
-// const scaleStop = false
-// const global_width_scale = ref(1)
-// const global_height_scale = ref(1)
-// const _GXResizeEvent = () => {
-//   if (scaleStop) {
-//     return
-//   }
-//   const nDefault_width = 1920
-//   const nDefault_height = 1080
-//   const nClient_width = document.documentElement.clientWidth
-//   const nClient_height = document.documentElement.clientHeight
-//   const nAuot_width = nClient_width / nDefault_width
-//   const nAuot_height = nClient_height / nDefault_height
-//   global_width_scale.value = nAuot_width
-//   global_height_scale.value = nAuot_height
-//   const jNodeBody = document.getElementById('app') as HTMLElement
-//   jNodeBody.style.transform = `scale(${nAuot_width},${nAuot_height})`
-//   if (document.getElementById('mapContainer')) {
-//     const scaleWidth =
-//       nAuot_width > 1 ? nDefault_width / nClient_width : nAuot_width
-//     const scaleHeight =
-//       nAuot_height > 1 ? nDefault_height / nClient_height : nAuot_height
-//     const mapContainer = document.getElementById('mapContainer') as HTMLElement
-//     mapContainer.style.transform = `scale(${(1 / scaleWidth).toFixed(2)},${(
-//       1 / scaleHeight
-//     ).toFixed(2)})`
-//   }
-// }
-// provide('global_width_scale', global_width_scale)
-// provide('global_height_scale', global_height_scale)
-// provide('resize', _GXResizeEvent) // provide("名字",值)
-</script>
+import { NMessageProvider, NLoadingBarProvider, NDialogProvider } from 'naive-ui'
+import { ZConfigProvider, lightTheme, darkTheme, coverThemeDark, coverThemeLight } from '@firestone/zing-ui'
+import MessageContent from '@/components/MessageContent.vue'
+import LoadingContent from '@/components/LoadingContent.vue'
 
+const theme = inject('theme')
+const id = inject('id')
+
+function setColor() {
+  const dom = document.getElementById('app') as HTMLElement
+  if (theme === 'dark') {
+    dom.style.backgroundColor = '#0a1837'
+  } else {
+    dom.style.backgroundColor = '#F5FAFF'
+  }
+}
+
+const lightDisk = { primaryColor: '#1492FF', primaryColorHover: '#1492FF' }
+
+const configLightTheme = computed(() => {
+  return lightTheme(
+    { ...lightDisk }, // 主基础色配置
+    {}
+  )
+})
+
+const darkDisk = { primaryColor: '#05D2FF', primaryColorHover: '#05D2FF' }
+
+const configDarkTheme = computed(() => {
+  return darkTheme(
+    { ...darkDisk }, // 主基础色配置
+    {}
+  )
+})
+coverThemeLight.Popover = {
+  textColor: 'rgb(51, 54, 57)',
+  color: '#fff'
+}
+
+coverThemeDark.Popover = {
+  textColor: 'rgba(255, 255, 255, 0.82)'
+}
+
+onMounted(() => {
+  setColor()
+})
+</script>
 <template>
-  <!-- <router-view></router-view> -->
-  <div id="app">
-    <router-view />
-  </div>
+  <z-config-provider
+    :theme-name="theme"
+    :theme="theme === 'dark' ? configDarkTheme : configLightTheme"
+    :n-theme-overrides="theme === 'dark' ? coverThemeDark : coverThemeLight"
+    :plugins="{
+      echarts: true,
+      AMap: {
+        _AMapSecurityConfig: {
+          securityJsCode: '625c593ac7df8c92ed717c6381e0b3be'
+        },
+        urlParams: {
+          v: '2.0',
+          key: '7c2eb821867de6628376e3d8585fbe96',
+          plugin: ['AMap.DistrictSearch', 'AMap.Geolocation', 'AMap.HeatMap'].join(',')
+        }
+      }
+    }"
+  >
+    <n-loading-bar-provider>
+      <!-- 头部加载效果 注册 -->
+      <LoadingContent />
+      <n-message-provider>
+        <n-dialog-provider>
+          <!-- 全局消息提示 注册 -->
+          <MessageContent />
+          <router-view
+            :id="id"
+            :theme="theme"
+          ></router-view>
+            <!-- style="width: 1200px; min-height: calc(100vh); margin: 0 auto; padding-top: 40px; /* transform: translateY(40px); */ padding-bottom: 40px" -->
+        </n-dialog-provider>
+      </n-message-provider>
+    </n-loading-bar-provider>
+  </z-config-provider>
 </template>
 
-<style lang="less">
-@import './assets/less/init.less';
-#app{
-  height: 100%;
+<style>
+#app {
+  height: auto !important;
+  min-height: 100vh;
 }
-.test {
-  color: @themeColor;
+</style>
+
+<style lang="less" scoped>
+* {
+  box-sizing: border-box;
 }
 </style>

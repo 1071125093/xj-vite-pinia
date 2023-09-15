@@ -13,6 +13,7 @@ declare namespace global {
   type Size = 'small' | 'medium' | 'large'
 }
 declare module 'vuedraggable'
+declare module '@vue/repl/monaco-editor'
 declare module 'd3' {
   const content: any
   export = content

@@ -43,8 +43,9 @@ export default ({ mode }) => {
       }),
       AutoImport({
         imports: [
-          'vue'
-          // 'vue-i18n', '@vueuse/head',
+          'vue',
+          '@vueuse/core'
+          // 'vue-i18n', ,
         ],
         //需要按需自动引入的依赖包
         dts: 'src/auto-import.d.ts'

@@ -2,10 +2,10 @@
  * @Author: XiaoJun
  * @Date: 2023-07-03 14:33:38
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-07-05 18:39:28
+ * @LastEditTime: 2023-07-10 14:41:43
  * @Description: 给高德地图填坑
  * 下次一定，看文档吧
- * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/types/index.d.ts
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/types/amap.d.ts
  */
 declare type normalReturnFun = () => string | number
 
@@ -171,7 +171,7 @@ declare namespace AMap {
      * @description 只有当 off 与 on 的 eventName、handler 函数对象、context 对象完全一致时才能有效移除监听。
      * @returns void
      */
-    off(eventName: string, handler: Function, context?: object): void
+    off(eventName: string, handler?: Function, context?: object): void
   }
 
   /**

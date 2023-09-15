@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 14:00:00
  * @LastEditors: XiaoJun
- * @LastEditTime: 2022-09-08 09:55:14
+ * @LastEditTime: 2023-07-28 11:25:23
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard7/index.vue
 -->
@@ -23,7 +23,8 @@ import {
   useElementByPoint,
   useElementBounding,
   useEventListener,
-  UseElementByPointOptions
+  UseElementByPointOptions,
+  TransitionPresets
 } from '@vueuse/core'
 // import { UseFocusTrap } from '@vueuse/integrations/useFocusTrap/component'
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
@@ -164,9 +165,60 @@ const { pause, resume, isActive } = useIntervalFn(() => {
 //   transform: `translate(calc(${x.value}px - 50%), calc(${y.value}px - 50%))`,
 // }))
 //#endregion *** useElementByPoint end   **********/
+
+// #region ********** useRefHistoryState start **************/
+const useRefHistoryState = reactive({
+  text: ''
+})
+const { history, undo, redo } = useRefHistory(toRef(useRefHistoryState, 'text'))
+// #endregion ******* useRefHistoryState ~end~ **************/
+
+// #region ********** 是否可见--能用 start **************/
+const target = ref(null)
+const targetIsVisible = ref(false)
+const { stop } = useIntersectionObserver(target, ([{ isIntersecting }], observerElement) => {
+  targetIsVisible.value = isIntersecting
+})
+// #endregion ******* 是否可见--能用 ~end~ **************/
+
+// #region ********** fsCount start **************/
+const count = ref(0)
+
+const output = useTransition(count, {
+  duration: 3000,
+  delay:1000,
+  transition: TransitionPresets.easeOutExpo
+})
+
+count.value = 500000
+// #endregion ******* fsCount ~end~ **************/
 </script>
 <template>
   <div class="default_class">
+    <n-space vertical>
+      <h2>
+        <p>Join over</p>
+        <p>{{ Math.round(output) }}+</p>
+        <p>Developers</p>
+      </h2>
+    </n-space>
+    <n-space vertical>
+      <div class="target" ref="target">
+        <h1>Hello world</h1>
+      </div>
+      <p>Is target visible? {{ targetIsVisible }}</p>
+    </n-space>
+    <n-space vertical>
+      <n-button @click="undo">undo</n-button>
+      <n-button @click="redo">redo</n-button>
+      <n-input v-model:value="useRefHistoryState.text" />
+      <ul>
+        <li v-for="entry in history" :key="entry.timestamp">
+          {{ entry }}
+        </li>
+      </ul>
+    </n-space>
+
     <el-button type="primary" size="small" @click="logTitle">点我修改标题</el-button>
     <!-- <el-button type="primary" size="small" @click="getPos">点我获取位置</el-button> -->
     <el-button type="primary" size="small" @click="myToggle">点我全屏</el-button>

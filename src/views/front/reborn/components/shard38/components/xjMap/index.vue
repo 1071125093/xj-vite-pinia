@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2023-07-05 16:15:06
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-07-07 18:03:20
+ * @LastEditTime: 2023-07-10 15:41:38
  * @Description: 我是地图的vue层，只决定做或者不做，没有实际的做事能力
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/index.vue
 -->
@@ -139,7 +139,7 @@ const {
   tipSubMarkers,
   mapShowTitle,
   _createMap,
-  initTipMaker,
+  tipMakerInit,
   _renderDistrictArea,
   handleFeatureClick,
   handleFeatureMouseoverAndOut,
@@ -156,7 +156,7 @@ const {
 
 // #region ********** 执行-赋予-地图点击交互 start **************/
 // 开始distroctExplorer监听事件
-const featureListener = () => {
+const featureListenerInit = () => {
   // 监听feature的点击事件
   districtExplorer.base.on('featureClick', handleFeatureClick)
   // 监听feature的hover事件
@@ -181,10 +181,11 @@ onUnmounted(() => {
 /** 开始初始化 */
 const startInit = async () => {
   await _createMap()
-  initTipMaker()
-  // 初始化鼠标hover提示内容弹窗Marker
 
-  featureListener()
+  // 初始化鼠标hover提示内容弹窗Marker
+  // tipMakerInit()
+  featureListenerInit()
+  
   await _renderDistrictArea(props.adcode, 40000, 'city', districtExplorer.currentAdCode[1])
 }
 onMounted(() => {

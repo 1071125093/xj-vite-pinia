@@ -9,6 +9,7 @@
 /// <reference types="vite/client" />
 /// <reference types="@amap/amap-jsapi-types" />
 /// <reference types="./global.d.ts" />
+/// <reference types="@xj-monorepo/prettier/types" />
 // / <reference types="vue/macros-global" />
 export {}
 declare module '*.vue' {
