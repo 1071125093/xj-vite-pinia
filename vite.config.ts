@@ -6,7 +6,6 @@
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/vite.config.ts
  */
-// import { defineConfig } from 'vite'
 import { defineConfig } from 'vitest/config'
 // import Macros from 'unplugin-vue-macros'
 // import VueMacros from 'unplugin-vue-macros/vite'
@@ -18,9 +17,11 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver, NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
 import { visualizer } from 'rollup-plugin-visualizer'
-export default ({ mode }) => {
+// import utilsInstall from '@/plugins/utilsInstall.ts'
+export default () => {
   return defineConfig({
     plugins: [
+      // utilsInstall(),
       Vue(),
       visualizer({
         emitFile: false,

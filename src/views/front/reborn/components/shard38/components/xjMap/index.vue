@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2023-07-05 16:15:06
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-07-10 15:41:38
+ * @LastEditTime: 2023-09-21 15:27:12
  * @Description: 我是地图的vue层，只决定做或者不做，没有实际的做事能力
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/index.vue
 -->
@@ -16,29 +16,35 @@ import { Props, Emits } from './types'
 // #region ********** define区域 start **************/
 const props = withDefaults(defineProps<Props>(), {
   isDeep: true,
-  adcode: 330000, // 浙江省
+  adcode: 100000, // 浙江省
   openDefaultMouseMoveHover: false,
   mapOptions: () => ({
     // center: [12517249.610825334, 3648741.0920981606], // 飞入的位置 使用不存在点会导致大量控制台资源获取的报错
     // center: [169.978959, 60.27365], // 飞入动画的起点位置
     // center: [121.500419, 31.238089], // 飞入动画的起点位置
     // zoom: 17, // 这个没用
-    zooms: [7.6, 40], // 用这个（会影响下级区县级别地图的缩放大小）
-    zoomEnable: false,
+    // zooms: [7.6, 40], // 用这个（会影响下级区县级别地图的缩放大小）
+    // pitch: 34,
+    // features: ['bg', 'building', 'point'], // 去除边界线
+    center: [100.66, 32.35],
+    zooms: [5, 15],
+    pitch: 30,
+    features: ['bg', 'road'],
+
+    
+    zoomEnable: true,
     dragEnable: false,
     rotateEnable: false,
     pitchEnable: false,
-    pitch: 34,
     animateEnable: false, // 地图平移过程中是否使用动画
     // mapStyle: 'amap://styles/efa8212d6972933730ec583ef314bf09', // 可能是湖北或者和田
     // mapStyle: 'amap://styles/ef758899b87310263a68d3d68324c81d', // 产业雷达
     // mapStyle: 'amap://styles/4eee52d358907721115d6546de8f67ff', // 省经信
-    mapStyle: 'amap://styles/4eee52d358907721115d6546de8f67ff',
+    mapStyle: 'amap://styles/4e146427fb1a932b005e1aeb3a22e442',
     viewMode: '3D',
     showLabel: false,
     moveMap: false,
-    openShifting: false,
-    features: ['bg', 'building', 'point'] // 去除边界线
+    openShifting: false
   }),
   showTooltipList: () => {
     return {}
@@ -110,10 +116,12 @@ const props = withDefaults(defineProps<Props>(), {
   },
   customImgDom: '',
   mapStyle: () => ({
-    outerBorderColor: '#6ca3c6', // 外层线的颜色颜色
+    outerBorderColor: 'red', // 外层线的颜色颜色
+    // outerBorderColor: '#6ca3c6', // 外层线的颜色颜色
     // outerBorderColor: 'red', // 外层线的颜色颜色
     outerBorderWidth: 2.5, // 外层线的宽度
-    innerBorderColor: '#C6DFF9', // 内层线的颜色颜色
+    innerBorderColor: 'orange', // 内层线的颜色颜色
+    // innerBorderColor: '#C6DFF9', // 内层线的颜色颜色
     innerBorderWidth: 1.5 // 内层线的宽度
   }),
   mapOptionsCustom: () => {
@@ -185,8 +193,8 @@ const startInit = async () => {
   // 初始化鼠标hover提示内容弹窗Marker
   // tipMakerInit()
   featureListenerInit()
-  
-  await _renderDistrictArea(props.adcode, 40000, 'city', districtExplorer.currentAdCode[1])
+
+  await _renderDistrictArea(props.adcode, 360000, 'city', districtExplorer.currentAdCode[1])
 }
 onMounted(() => {
   nextTick(() => {

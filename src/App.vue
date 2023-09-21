@@ -1,7 +1,7 @@
 <!--
  * @Author: suzb@hsmap.com
  * @Date: 2022-04-05 12:59:58
- * @LastEditTime: 2023-09-14 15:10:39
+ * @LastEditTime: 2023-09-21 14:41:29
  * Copyright (c) 2022 by nick/火石创造, All Rights Reserved. 
 -->
 <script setup lang="ts">
@@ -54,6 +54,9 @@ onMounted(() => {
 </script>
 <template>
   <z-config-provider
+    :style="{
+      height: '100%'
+    }"
     :theme-name="theme"
     :theme="theme === 'dark' ? configDarkTheme : configLightTheme"
     :n-theme-overrides="theme === 'dark' ? coverThemeDark : coverThemeLight"
@@ -78,26 +81,25 @@ onMounted(() => {
         <n-dialog-provider>
           <!-- 全局消息提示 注册 -->
           <MessageContent />
-          <router-view
-            :id="id"
-            :theme="theme"
-          ></router-view>
-            <!-- style="width: 1200px; min-height: calc(100vh); margin: 0 auto; padding-top: 40px; /* transform: translateY(40px); */ padding-bottom: 40px" -->
+          <router-view :id="id" :theme="theme"></router-view>
+          <!-- style="width: 1200px; min-height: calc(100vh); margin: 0 auto; padding-top: 40px; /* transform: translateY(40px); */ padding-bottom: 40px" -->
         </n-dialog-provider>
       </n-message-provider>
     </n-loading-bar-provider>
   </z-config-provider>
 </template>
 
-<style>
+<style lang="less">
+@import './assets/less/init.less';
 #app {
-  height: auto !important;
-  min-height: 100vh;
+  height: 100%;
+}
+.test {
+  color: @themeColor;
 }
 </style>
-
 <style lang="less" scoped>
-* {
-  box-sizing: border-box;
+.blue {
+  color: blue;
 }
 </style>

@@ -299,7 +299,6 @@ const handleFeatureMouseMove = (e: { originalEvent: any; originEvent: any }, fea
   // } else if (anchor.includes('bottom')) {
   //   hoverTipMaker.setOffset(new window.AMap.Pixel(0, -10))
   // }
-  xjGogo()
 }
 const getPointOffset = (dom: string, width: number, height: number, x: number, y: number): string => {
   const { clientWidth } = document.getElementById(dom) as HTMLElement

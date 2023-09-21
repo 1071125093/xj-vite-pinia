@@ -22,12 +22,12 @@ import xjMap from './components/xjMap/index.vue'
 .map-box {
   display: flex;
   justify-content: center;
-  &>div {
+  & > div {
     // flex: 1;
-    width: 45%;
-    &:not(:last-of-type) {
-      margin-right: 40px;
-    }
+    width: 100%;
+    // &:not(:last-of-type) {
+    //   margin-right: 40px;
+    // }
   }
 }
 </style>

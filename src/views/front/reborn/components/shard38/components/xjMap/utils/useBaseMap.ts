@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2023-07-04 20:42:44
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-07-10 15:44:27
+ * @LastEditTime: 2023-09-21 15:36:10
  * @Description: 我是地图的hooks层，只知道怎么做，不知道用在哪
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/utils/useBaseMap.ts
  */
@@ -36,7 +36,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
   const _createMap = async () => {
     return new Promise((resolve) => {
       AMapLoader.load({
-        key: '60fdb942e15dfeefff0d5595c58a8de3', // 申请好的Web端开发者Key，首次调用 load 时必填
+        key: '121f83178898edf35b075ee4e4980b49', // 申请好的Web端开发者Key，首次调用 load 时必填
         // key:"9ff74af1cfa9a4b78433149e22f1f0ec", // 产业雷达
         version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
         plugins: ['AMap.Scale', 'AMap.ToolBar', 'AMap.Marker', 'AMap.ElasticMarker'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
@@ -288,21 +288,30 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     // 样式
     _boundPolygonLayer.setStyle({
       // hover后显示的颜色
+      // topColor() {
+      //   return '#1b547cFF'
+      // },
+      // sideTopColor() {
+      //   return '#1b547cFF'
+      // },
+      // sideBottomColor() {
+      //   return '#04143C'
+      // },
       topColor() {
-        return '#1b547cFF'
+        return '#234889'
       },
       sideTopColor() {
-        return '#1b547cFF'
+        return 'red'
       },
       sideBottomColor() {
-        return '#04143C'
+        return 'green'
       },
       // 地图厚度
       height() {
         return cityHight
       },
       altitude: 0 - cityHight, // 地图偏移量
-      texture: side
+      // texture: side // 我和sideTopColor，sideBottomColor二选一
     } as Loca.PolygonLayer.StyleOptions)
     mapLoca.value.add(_boundPolygonLayer)
     return _boundPolygonLayer
@@ -413,7 +422,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
       })
     }
     // 添加光源
-    addLight(level)
+    // addLight(level)
     // addPrism()
     // 添加棱柱
     // addPrism()
@@ -437,7 +446,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     boundLinelayerBottom.value = setboundLinelayer({
       areaNode,
       styleOption: {
-        color: '#7DEAFF',
+        color: 'orange',
         lineWidth: 5,
         altitude: 0 - cityHight
       }
@@ -529,8 +538,8 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     // 主要是districtExplorer.base在地图创建完之后 始终不会变成undefined
     base: undefined as any,
     currentAreaNode: '',
-    currentCityName: ['浙江省', '', ''],
-    currentAdCode: ['330000', '', ''],
+    currentCityName: ['', '', ''],
+    currentAdCode: ['100000', '', ''],
     subFeaturesInfosList: []
   })
   // 初始化区域浏览
