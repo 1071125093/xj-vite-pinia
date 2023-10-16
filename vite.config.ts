@@ -17,17 +17,19 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver, NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
 import { visualizer } from 'rollup-plugin-visualizer'
-// import utilsInstall from '@/plugins/utilsInstall.ts'
+import utilsInstall from 'zingutilsinstall'
 export default () => {
   return defineConfig({
     plugins: [
-      // utilsInstall(),
+      utilsInstall({
+        run: false
+      }),
       Vue(),
       visualizer({
         emitFile: false,
         gzipSize: true,
         filename: 'report.html', //分析图生成的文件名
-        open: true //如果存在本地服务端口，将在打包后自动展示
+        open: false //如果存在本地服务端口，将在打包后自动展示
       }),
       // Macros.vite({
       //   plugins: {

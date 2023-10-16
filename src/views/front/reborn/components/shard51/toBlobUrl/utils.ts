@@ -14,9 +14,12 @@ async function getFileResposne() {
     pageSize: 1000
   }
   // 发起 Axios POST 请求获取后端返回的数据流
-  const response = await theAxios.post('https://mtyh-company-api.aihuoshi.net/lget/company/info/mt/company/download', postData, {
+  const response = await theAxios.post('http://localhost:3000/upload/stream', postData, {
     responseType: 'blob' // 指定响应类型为二进制数据流
   })
+  // const response = await theAxios.post('https://mtyh-company-api.aihuoshi.net/lget/company/info/mt/company/download', postData, {
+  //   responseType: 'blob' // 指定响应类型为二进制数据流
+  // })
   return response
 }
 

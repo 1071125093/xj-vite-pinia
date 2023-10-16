@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2023-07-05 16:15:06
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-09-21 15:27:12
+ * @LastEditTime: 2023-09-21 16:34:46
  * @Description: 我是地图的vue层，只决定做或者不做，没有实际的做事能力
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/index.vue
 -->
@@ -29,9 +29,8 @@ const props = withDefaults(defineProps<Props>(), {
     center: [100.66, 32.35],
     zooms: [5, 15],
     pitch: 30,
-    features: ['bg', 'road'],
+    features: ['bg'],
 
-    
     zoomEnable: true,
     dragEnable: false,
     rotateEnable: false,
@@ -116,7 +115,7 @@ const props = withDefaults(defineProps<Props>(), {
   },
   customImgDom: '',
   mapStyle: () => ({
-    outerBorderColor: 'red', // 外层线的颜色颜色
+    outerBorderColor: 'yellow', // 外层线的颜色颜色
     // outerBorderColor: '#6ca3c6', // 外层线的颜色颜色
     // outerBorderColor: 'red', // 外层线的颜色颜色
     outerBorderWidth: 2.5, // 外层线的宽度
@@ -203,17 +202,44 @@ onMounted(() => {
 })
 // #endregion ******* 初始化相关 ~end~ **************/
 // #region ********** 通用部分 start **************/
+// 下钻方法
+const goProvince = () => {
+  districtExplorer.currentCityName[1] = ''
+  districtExplorer.currentCityName[2] = ''
+  districtExplorer.currentAdCode[2] = ''
+  districtExplorer.currentAdCode[1] = ''
+  _renderDistrictArea(districtExplorer.currentAdCode[0], 40000, 'province', districtExplorer.currentAdCode[0])
+  // emit('handelCityChange', districtExplorer.currentCityName, 'province')
+}
+const goCity = () => {
+  districtExplorer.currentCityName[2] = ''
+  districtExplorer.currentAdCode[2] = ''
+  _renderDistrictArea(districtExplorer.currentAdCode[1], 40000, 'city', districtExplorer.currentAdCode[1])
+  // emit('handelCityChange', districtExplorer.currentCityName, 'city')
+}
+
 // #endregion ******* 通用部分 ~end~ **************/
 </script>
 <template>
   <div class="base-map-container">
+    <div>{{ districtExplorer.currentCityName }}</div>
+    <div v-if="districtExplorer.currentCityName?.length > 0" class="back">
+      <span @click="goProvince">{{ districtExplorer.currentCityName[0] }}</span>
+      <span v-if="districtExplorer.currentCityName[1]" @click="goCity">{{ districtExplorer.currentCityName[1] }}</span>
+      <span v-if="districtExplorer.currentCityName[2]">{{ districtExplorer.currentCityName[2] }}</span>
+    </div>
     <div class="base-map" ref="mapRef" id="1006411"></div>
-    <div class="xj-room"></div>
   </div>
 </template>
 <style lang="less" scoped>
 .base-map-container {
   position: relative;
+  .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
 }
 .base-map {
   width: 100%;

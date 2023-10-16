@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2023-07-04 20:42:44
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-09-21 15:36:10
+ * @LastEditTime: 2023-09-21 16:19:53
  * @Description: 我是地图的hooks层，只知道怎么做，不知道用在哪
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/utils/useBaseMap.ts
  */
@@ -209,7 +209,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     boundLinelayer.setSource(data)
     // 样式
     boundLinelayer.setStyle({
-      color: '#C6DFF9FF',
+      color: '#C6DFF9',
       lineWidth: 3,
       ...styleOption
     })
@@ -301,7 +301,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
         return '#234889'
       },
       sideTopColor() {
-        return 'red'
+        return 'blue'
       },
       sideBottomColor() {
         return 'green'
@@ -310,7 +310,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
       height() {
         return cityHight
       },
-      altitude: 0 - cityHight, // 地图偏移量
+      altitude: 0 - cityHight // 地图偏移量
       // texture: side // 我和sideTopColor，sideBottomColor二选一
     } as Loca.PolygonLayer.StyleOptions)
     mapLoca.value.add(_boundPolygonLayer)
@@ -433,7 +433,9 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     if (boundLinelayerBottom.value) {
       boundLinelayerBottom.value.destroy()
     }
-
+    if (boundPolygonLayer.value) {
+      boundPolygonLayer.value.destroy()
+    }
     if (pluseLineLayer.value) {
       pluseLineLayer.value.destroy()
     }
@@ -446,7 +448,7 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     boundLinelayerBottom.value = setboundLinelayer({
       areaNode,
       styleOption: {
-        color: 'orange',
+        color: 'blue',
         lineWidth: 5,
         altitude: 0 - cityHight
       }
@@ -728,7 +730,13 @@ export default function useBaseMap(mapOptions: AMap.MapOptions, props: Omit<Prop
     // 清空弹窗内容
     hoverTipMaker.base?.setMap(null)
     // 赋值
-    if (level === 'city') {
+    if (level === 'province') {
+      if (districtExplorer.currentCityName[0] === name) return
+      districtExplorer.currentCityName[1] = ''
+      districtExplorer.currentCityName[0] = name
+      districtExplorer.currentAdCode[1] = ''
+      districtExplorer.currentAdCode[0] = adcode
+    } else if (level === 'city') {
       if (districtExplorer.currentCityName[1] === name) return
       districtExplorer.currentCityName[2] = ''
       districtExplorer.currentCityName[1] = name

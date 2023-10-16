@@ -1,7 +1,7 @@
 <!--
  * @Author: suzb@hsmap.com
  * @Date: 2022-04-05 12:59:58
- * @LastEditTime: 2023-09-21 14:41:29
+ * @LastEditTime: 2023-09-26 14:07:06
  * Copyright (c) 2022 by nick/火石创造, All Rights Reserved. 
 -->
 <script setup lang="ts">
@@ -9,10 +9,10 @@ import { NMessageProvider, NLoadingBarProvider, NDialogProvider } from 'naive-ui
 import { ZConfigProvider, lightTheme, darkTheme, coverThemeDark, coverThemeLight } from '@firestone/zing-ui'
 import MessageContent from '@/components/MessageContent.vue'
 import LoadingContent from '@/components/LoadingContent.vue'
-
+import { useGXResizeEvent } from '@/utils/useGXResizeEvent'
 const theme = inject('theme')
 const id = inject('id')
-
+// useGXResizeEvent()
 function setColor() {
   const dom = document.getElementById('app') as HTMLElement
   if (theme === 'dark') {
@@ -55,7 +55,8 @@ onMounted(() => {
 <template>
   <z-config-provider
     :style="{
-      height: '100%'
+      height: '100%',
+      width: '100%'
     }"
     :theme-name="theme"
     :theme="theme === 'dark' ? configDarkTheme : configLightTheme"
@@ -93,6 +94,9 @@ onMounted(() => {
 @import './assets/less/init.less';
 #app {
   height: 100%;
+  transform-origin: 0 0;
+  width: 1920px;
+  height: 1080px;
 }
 .test {
   color: @themeColor;
