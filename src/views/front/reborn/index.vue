@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-09-14 15:52:09
+ * @LastEditTime: 2023-10-16 10:09:42
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -60,6 +60,7 @@ import shard48 from './components/shard48/index.vue'
 import shard49 from './components/shard49/index.vue'
 import shard50 from './components/shard50/index.vue'
 import shard51 from './components/shard51/index.vue'
+import shard52 from './components/shard52/index.vue'
 // 测试
 // 测试
 /**
@@ -287,9 +288,14 @@ const tabs = computed(() => {
       component: markRaw(shard51),
       show: true
     },
+    {
+      label: '继承naiveui组件',
+      component: markRaw(shard52),
+      show: true
+    },
   ].filter((item) => item.show)
 })
-const activeTabName = ref('弹窗问题优化')
+const activeTabName = ref('继承naiveui组件')
 // const activeTabName = ref('弹窗问题优化')
 const currentTab = computed(() => {
   return tabs.value.find((item) => item.label === activeTabName.value)

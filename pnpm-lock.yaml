@@ -3182,7 +3182,7 @@ packages:
       ssri: 8.0.1
       terser-webpack-plugin: 5.3.9_webpack@5.88.2
       thread-loader: 3.0.4_webpack@5.88.2
-      vue-loader: 17.2.2_vue@3.3.4+webpack@5.88.2
+      vue-loader: 17.3.0_vue@3.3.4+webpack@5.88.2
       vue-style-loader: 4.1.3
       webpack: 5.88.2
       webpack-bundle-analyzer: 4.9.1
@@ -10117,8 +10117,8 @@ packages:
       - whiskers
     dev: false
 
-  /vue-loader/17.2.2_vue@3.3.4+webpack@5.88.2:
-    resolution: {integrity: sha512-aqNvKJvnz2A/6VWeJZodAo8XLoAlVwBv+2Z6dama+LHsAF+P/xijQ+OfWrxIs0wcGSJduvdzvTuATzXbNKkpiw==}
+  /vue-loader/17.3.0_vue@3.3.4+webpack@5.88.2:
+    resolution: {integrity: sha512-VUURABiN0TIUz0yvJJ/V/rZjGUh10JZtD+IDI5bXFslzFi9mV6ebKkPzoqiSi8e0vh8Ip7JHJx+I0AzAG0KsCA==}
     peerDependencies:
       '@vue/compiler-sfc': '*'
       vue: '*'
