@@ -1,7 +1,7 @@
 <!--
  * @Author: suzb@hsmap.com
  * @Date: 2022-04-05 12:59:58
- * @LastEditTime: 2023-09-26 14:07:06
+ * @LastEditTime: 2023-10-20 16:42:21
  * Copyright (c) 2022 by nick/火石创造, All Rights Reserved. 
 -->
 <script setup lang="ts">
@@ -9,9 +9,9 @@ import { NMessageProvider, NLoadingBarProvider, NDialogProvider } from 'naive-ui
 import { ZConfigProvider, lightTheme, darkTheme, coverThemeDark, coverThemeLight } from '@firestone/zing-ui'
 import MessageContent from '@/components/MessageContent.vue'
 import LoadingContent from '@/components/LoadingContent.vue'
-import { useGXResizeEvent } from '@/utils/useGXResizeEvent'
+// import { useGXResizeEvent } from '@/utils/useGXResizeEvent'
 const theme = inject('theme')
-const id = inject('id')
+const id = inject('id', 'xjTestId')
 // useGXResizeEvent()
 function setColor() {
   const dom = document.getElementById('app') as HTMLElement
@@ -61,19 +61,6 @@ onMounted(() => {
     :theme-name="theme"
     :theme="theme === 'dark' ? configDarkTheme : configLightTheme"
     :n-theme-overrides="theme === 'dark' ? coverThemeDark : coverThemeLight"
-    :plugins="{
-      echarts: true,
-      AMap: {
-        _AMapSecurityConfig: {
-          securityJsCode: '625c593ac7df8c92ed717c6381e0b3be'
-        },
-        urlParams: {
-          v: '2.0',
-          key: '7c2eb821867de6628376e3d8585fbe96',
-          plugin: ['AMap.DistrictSearch', 'AMap.Geolocation', 'AMap.HeatMap'].join(',')
-        }
-      }
-    }"
   >
     <n-loading-bar-provider>
       <!-- 头部加载效果 注册 -->

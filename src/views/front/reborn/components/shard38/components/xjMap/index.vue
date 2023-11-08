@@ -2,13 +2,14 @@
  * @Author: XiaoJun
  * @Date: 2023-07-05 16:15:06
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-09-21 16:34:46
+ * @LastEditTime: 2023-10-17 11:46:05
  * @Description: 我是地图的vue层，只决定做或者不做，没有实际的做事能力
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/index.vue
 -->
 <script lang="ts" setup>
 import useBaseMap from './utils/useBaseMap'
 import { Props, Emits } from './types'
+import { CSSProperties } from 'vue'
 
 // #region ********** 库&组件等引入 start **************/
 // #endregion ******* 库&组件等引入 ~end~ **************/
@@ -27,7 +28,7 @@ const props = withDefaults(defineProps<Props>(), {
     // pitch: 34,
     // features: ['bg', 'building', 'point'], // 去除边界线
     center: [100.66, 32.35],
-    zooms: [5, 15],
+    zooms: [4.4, 15],
     pitch: 30,
     features: ['bg'],
 
@@ -218,6 +219,7 @@ const goCity = () => {
   // emit('handelCityChange', districtExplorer.currentCityName, 'city')
 }
 
+const calcAMapScale = inject<CSSProperties>('calcAMapScale')
 // #endregion ******* 通用部分 ~end~ **************/
 </script>
 <template>
@@ -228,7 +230,7 @@ const goCity = () => {
       <span v-if="districtExplorer.currentCityName[1]" @click="goCity">{{ districtExplorer.currentCityName[1] }}</span>
       <span v-if="districtExplorer.currentCityName[2]">{{ districtExplorer.currentCityName[2] }}</span>
     </div>
-    <div class="base-map" ref="mapRef" id="1006411"></div>
+    <div class="base-map" ref="mapRef" id="1006411" :style="calcAMapScale"></div>
   </div>
 </template>
 <style lang="less" scoped>

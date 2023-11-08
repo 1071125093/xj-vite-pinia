@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2023-10-16 10:10:21
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-10-16 11:49:22
+ * @LastEditTime: 2023-10-18 15:49:46
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard52/components/Test.vue
 -->
@@ -16,10 +16,7 @@ interface Props extends /** @vue-ignore */ ButtonProps {
 }
 
 defineProps<Props>()
-// const emits = defineEmits<{
-//   xjTest: [number, string]
-//   (event: 'sth', val1: number, val2: number): void
-// }>()
+
 // #endregion ******* 库&组件等引入 ~end~ **************/
 
 // #region ********** 通用部分 start **************/

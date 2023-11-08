@@ -1,6 +1,7 @@
 import { NButton } from 'naive-ui'
 import { App } from 'vue'
 import { createVNode, render, h, VNodeTypes } from 'vue'
+import fsConfigProvider from '@/components/fsConfigProvider/index.vue'
 /*
  * @Author: XiaoJun
  * @Date: 2023-01-30 14:20:30
@@ -71,19 +72,29 @@ export const showDialog = (theComponent: any, prop: any = {}) => {
       const dialogApp = h(theComponent, {
         ...prop
       })
-      dialogApp.appContext = myApp._context
-      myApp._context.app._instance!.provides = myApp._instance!.provides
-      
+      // const dialogApp = h(theNoob, {}, [
+      //   h(theComponent, {
+      //     ...prop
+      //   })
+      // ])
+      // dialogApp.appContext = myApp._context
+      // myApp._context.app._instance!.provides = myApp._instance!.provides
+
       mountNode = document.createElement('div')
       mountNode.className = `fs_dialog_container${Math.random()}`
       /** 渲染render到临时mountNode上 */
       // render(dialogApp, document.body)
       render(dialogApp, mountNode)
       /** 挂载到body上 */
-      // const theTarget = document.getElementById('subApp')
-      // theTarget.appendChild(mountNode)
-      document.body.appendChild(mountNode)
-      debugger
+      const theTarget = document.querySelector('#xjTestId')
+      theTarget.appendChild(mountNode)
+      // document.body.appendChild(mountNode)
+      nextTick(() => {
+        dialogApp.appContext = myApp._context
+      })
+
+      console.log(myApp, dialogApp)
+
       /** 把所有的dialog信息以uid为主键存储到map中 */
       const uid = dialogApp.component?.uid
       dialogMap.set(uid, {

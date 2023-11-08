@@ -21,9 +21,7 @@ import utilsInstall from 'zingutilsinstall'
 export default () => {
   return defineConfig({
     plugins: [
-      utilsInstall({
-        run: false
-      }),
+      utilsInstall({"include":["getHtmlByVNode","sortByEnum","getDataType","sortByKey","useTimeDown","useAutoResize"]}),
       Vue(),
       visualizer({
         emitFile: false,
@@ -66,7 +64,7 @@ export default () => {
     server: {
       host: true,
       port: 10086,
-      // open: true,
+      open: false,
       https: false,
       cors: true,
       proxy: {

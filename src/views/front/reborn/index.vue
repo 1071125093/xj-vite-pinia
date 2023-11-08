@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-10-16 10:09:42
+ * @LastEditTime: 2023-11-08 10:34:28
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -61,6 +61,8 @@ import shard49 from './components/shard49/index.vue'
 import shard50 from './components/shard50/index.vue'
 import shard51 from './components/shard51/index.vue'
 import shard52 from './components/shard52/index.vue'
+import shard53 from './components/shard53/index.vue'
+import { piniaSystem } from '@/store'
 // 测试
 // 测试
 /**
@@ -205,7 +207,7 @@ const tabs = computed(() => {
     },
     {
       label: 'monaco-editor',
-      component: markRaw(shard32),
+      component: markRaw(shard32)
     },
     {
       label: 'vitest',
@@ -266,44 +268,44 @@ const tabs = computed(() => {
     },
     {
       label: '试试ts自动生成',
-      component: markRaw(shard47),
+      component: markRaw(shard47)
     },
     {
       label: 'v3指令',
       component: markRaw(shard48),
-      show: true
     },
     {
       label: '表格render',
       component: markRaw(shard49),
-      show: false
     },
     {
       label: '弹窗问题优化',
       component: markRaw(shard50),
-      show: true
     },
     {
       label: '组件库utils开发',
       component: markRaw(shard51),
-      show: true
     },
     {
-      label: '继承naiveui组件',
+      label: '我裂开了',
       component: markRaw(shard52),
-      show: true
     },
+    {
+      label: '测试海龙的鬼东西',
+      component: markRaw(shard53),
+      show: true
+    }
   ].filter((item) => item.show)
 })
-const activeTabName = ref('继承naiveui组件')
+// const activeTabName = ref('继承naiveui组件')
 // const activeTabName = ref('弹窗问题优化')
 const currentTab = computed(() => {
-  return tabs.value.find((item) => item.label === activeTabName.value)
+  return tabs.value.find((item) => item.label === piniaSystem.currentTabName)
 })
 </script>
 <template>
   <div class="reborn">
-    <el-tabs v-model="activeTabName" class="demo-tabs">
+    <el-tabs v-model="piniaSystem.currentTabName" class="demo-tabs">
       <el-tab-pane v-for="tab in tabs" :key="tab.label" :label="tab.label" :name="tab.label"></el-tab-pane>
     </el-tabs>
     <component class="the-noob" :is="currentTab?.component"></component>
@@ -318,6 +320,7 @@ const currentTab = computed(() => {
     flex: 1;
     // min-height: 600px;
     // height: 100%;
+    overflow-y: auto;
   }
 }
 </style>

@@ -1,12 +1,14 @@
 <!--
  * @Author: XiaoJun
- * @Date: 2023-06-13 15:16:30
+ * @Date: 2023-11-08 10:52:13
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-10-25 13:41:33
+ * @LastEditTime: 2023-11-08 11:06:21
  * @Description: 组件功能
- * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard8/index.vue
+ * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard53/test53.vue
 -->
 <script lang="ts" setup>
+
+
 // #region ********** 库&组件等引入 start **************/
 // #endregion ******* 库&组件等引入 ~end~ **************/
 

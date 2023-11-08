@@ -7,7 +7,7 @@
  * @FilePath: /xj-vite-pinia/src/global.d.ts
  */
 
-declare namespace global {
+declare namespace Asd {
   type MyType = number | string
   type MyTypeB = boolean | boolean[]
   type Size = 'small' | 'medium' | 'large'

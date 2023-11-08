@@ -14,6 +14,7 @@ interface State {
   count: number
   age: number
   token: string
+  currentTabName: string
 }
 interface UserInfo {
   userName: string
@@ -23,11 +24,12 @@ export default defineStore('system', () => {
   const state = reactive<State>({
     userInfo: {
       userName: '',
-      password: '',
+      password: ''
     },
     count: 123,
     age: 333,
     token: '',
+    currentTabName: '弹窗问题优化'
   })
 
   /** 设置登录token */
@@ -39,6 +41,8 @@ export default defineStore('system', () => {
   //#endregion *** userInfo相关 end   **********/
   return {
     ...toRefs(state),
-    setToken,
+    setToken
   }
+},{
+  persist:{}
 })

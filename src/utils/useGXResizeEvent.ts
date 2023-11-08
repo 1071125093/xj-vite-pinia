@@ -1,10 +1,28 @@
-export const useGXResizeEvent = () => {
+import { CSSProperties } from 'vue'
+
+/**
+ * @description:
+ * @param {*} config.element 被缩放的根元素，一般默认#app
+ * @return {*} 不返回啥，但是注入
+ * global_width_scale
+ * global_height_scale
+ * calcAMapScale
+ * resize
+ * @return {*} 
+ */
+
+export const useGXResizeEvent = (
+  config = {
+    element: '#app'
+  }
+) => {
   const global_width_scale = ref(1)
   const global_height_scale = ref(1)
+  // 当前版本不支持slaceStop的抛出，目前各个驾驶舱都是单独的项目
+  const scaleStop = ref(false)
 
   const _GXResizeEvent = () => {
-    const scaleStop = false
-    if (scaleStop) {
+    if (scaleStop.value) {
       return
     }
     const nDefault_width = 1920
@@ -15,18 +33,19 @@ export const useGXResizeEvent = () => {
     const nAuot_height = nClient_height / nDefault_height
     global_width_scale.value = nAuot_width
     global_height_scale.value = nAuot_height
-    const jNodeBody = document.getElementById('app') as HTMLElement
+    const jNodeBody = document.querySelector(config.element) as HTMLElement
     jNodeBody.style.transform = `scale(${nAuot_width},${nAuot_height})`
-    // const mapEle = document.getElementsByClassName('map')
-    const mapContainerEle = document.getElementsByClassName('mapContainer')
-    if (mapContainerEle && mapContainerEle.length > 0) {
-      for (let i = 0; i < mapContainerEle.length; i++) {
-        mapContainerEle[i].style.transform = `scale(${(1 / nAuot_width).toFixed(2)},${(1 / nAuot_height).toFixed(2)})`
-      }
-    }
+    jNodeBody.style.transformOrigin = '0 0'
   }
+  const calcAMapScale = computed<CSSProperties>(() => {
+    return {
+      transform: `scale(${1 / global_width_scale.value}, ${1 / global_height_scale.value})`
+    }
+  })
+
   provide('global_width_scale', global_width_scale)
   provide('global_height_scale', global_height_scale)
+  provide('calcAMapScale', calcAMapScale)
   provide('resize', _GXResizeEvent) // provide("名字",值)
 
   onMounted(() => {

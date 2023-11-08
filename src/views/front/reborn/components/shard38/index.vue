@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 // #region ********** 库&组件等引入 start **************/
-import moduleName from './components/map/index.vue'
 import xjMap from './components/xjMap/index.vue'
 // #endregion ******* 库&组件等引入 ~end~ **************/
-
+import { useGXResizeEvent } from '@/utils/useGXResizeEvent'
 // #region ********** 通用部分 start **************/
+useGXResizeEvent({
+  element: '#theContainer'
+})
 // #endregion ******* 通用部分 ~end~ **************/
 
 // #region ********** 测试区域 start **************/
@@ -12,7 +14,7 @@ import xjMap from './components/xjMap/index.vue'
 </script>
 <template>
   <!-- <div class="main-map"> -->
-  <div class="map-box">
+  <div class="map-box" id="theContainer">
     <!-- <moduleName></moduleName> -->
     <xjMap></xjMap>
   </div>

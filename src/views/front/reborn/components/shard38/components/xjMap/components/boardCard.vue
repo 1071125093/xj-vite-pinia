@@ -2,12 +2,13 @@
  * @Author: XiaoJun
  * @Date: 2023-07-07 16:57:29
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-07-07 17:19:56
+ * @LastEditTime: 2023-10-18 09:41:45
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/components/shard38/components/xjMap/components/boardCard.vue
 -->
 <script lang="ts" setup>
 // #region ********** 库&组件等引入 start **************/
+const asd = 123
 // #endregion ******* 库&组件等引入 ~end~ **************/
 
 // #region ********** 通用部分 start **************/

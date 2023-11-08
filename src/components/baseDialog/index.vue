@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2023-02-15 13:42:17
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-09-08 19:18:02
+ * @LastEditTime: 2023-10-20 18:22:22
  * @Description: 弹窗
  * @FilePath: /xj-vite-pinia/src/components/baseDialog/index.vue
 -->
@@ -99,7 +99,11 @@ const handleCancel = async () => {
 
 /** 确认按钮的loading */
 const confirmLoading = ref(false)
-const theTheme = useThemeVars()
+const xjTestBobo = (val)=>{
+  if(!val){
+    handleCancel() 
+  }
+}
 // #endregion ******* 处理弹窗交互 ~end~ **************/
 </script>
 <template>
@@ -111,9 +115,10 @@ const theTheme = useThemeVars()
     class="fs-dialog"
     to="body"
     style="width: 1200px; height: 700px"
-    :closable="false"
+    :mask-closable="true"
     :show-icon="false"
     @close="handleCancel"
+    :on-update-show="xjTestBobo"
   >
     <template #header>
       <div class="base-dialog-title">
