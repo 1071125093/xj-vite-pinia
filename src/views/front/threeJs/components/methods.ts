@@ -12,9 +12,11 @@ export const createCamera = () => {
   return camera
 }
 
-export const createRenderer = () => {
+export const createRenderer = (theNoobRef: Ref<HTMLElement>) => {
   const renderer = new THREE.WebGLRenderer()
   renderer.setSize(window.innerWidth, window.innerHeight)
+  // 干，nmd渲染到dom那里 被我的vue外壳挡住了。
+  theNoobRef.value.appendChild(renderer.domElement)
   return renderer
 }
 
@@ -36,7 +38,7 @@ export const useThreeInit = (theNoobRef: Ref<HTMLElement>) => {
   const camera = createCamera()
 
   // 创建渲染器
-  const renderer = createRenderer()
+  const renderer = createRenderer(theNoobRef)
   // 创建几何体
   const { cube } = createGeometry(scene)
 
@@ -44,7 +46,7 @@ export const useThreeInit = (theNoobRef: Ref<HTMLElement>) => {
   camera.lookAt(0, 0, 0)
   renderer.render(scene, camera)
 
-  theNoobRef.value.appendChild(renderer.domElement)
+  // theNoobRef.value.appendChild(renderer.domElement)
 
   animate()
   function animate() {
