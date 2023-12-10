@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2023-12-10 16:20:07
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-12-10 16:20:15
+ * @LastEditTime: 2023-12-10 16:32:37
  * @Description: threejs-demo
  * @FilePath: /xj-vite-pinia/src/views/front/threeJs/components/theDemo.vue
 -->
@@ -12,11 +12,16 @@ import * as THREE from 'three'
 // #endregion ******* 库&组件等引入 ~end~ **************/
 
 // #region ********** 通用部分 start **************/
+const zero:Zero.Zero1= {
+  
+}
 // #endregion ******* 通用部分 ~end~ **************/
 
 // #region ********** 初始化相关 start **************/
 /** 开始初始化 */
-const startInit = () => {}
+const startInit = () => {
+  THREE.
+}
 // #endregion ******* 初始化相关 ~end~ **************/
 
 // #region ********** 测试区域 start **************/
