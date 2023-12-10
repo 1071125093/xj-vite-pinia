@@ -24,5 +24,6 @@ import theDemo from './components/theDemo.vue'
 </template>
 <style lang="less" scoped>
 .three-js {
+  height: 100%;
 }
 </style>
