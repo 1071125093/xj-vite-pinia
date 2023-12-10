@@ -9,12 +9,13 @@
 import { Router } from 'vue-router'
 import { piniaSystem } from '@/store'
 const useRouterGuard = (router: Router) => {
-  router.beforeEach(async (to, from) => {
-    if (!piniaSystem?.userInfo?.userName && !['login', 'reborn'].includes(to.name as string)) {
-      router.push({
-        name: 'login',
-      })
-    }
-  })
+  // 干
+  // router.beforeEach(async (to, from) => {
+  //   if (!piniaSystem?.userInfo?.userName && !['login', 'reborn'].includes(to.name as string)) {
+  //     router.push({
+  //       name: 'login',
+  //     })
+  //   }
+  // })
 }
 export default useRouterGuard

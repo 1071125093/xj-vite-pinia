@@ -21,7 +21,7 @@ import utilsInstall from 'zingutilsinstall'
 export default () => {
   return defineConfig({
     plugins: [
-      utilsInstall({"include":["getHtmlByVNode","sortByEnum","getDataType","sortByKey","useTimeDown","useAutoResize"]}),
+      utilsInstall({"include":["getHtmlByVNode","sortByEnum","getDataType","sortByKey","useTimeDown","useAutoResize","arrayConvertTree"]}),
       Vue(),
       visualizer({
         emitFile: false,

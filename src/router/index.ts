@@ -14,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'front',
     component: () => import('@/views/front/index.vue'),
     redirect: {
-      name: 'reborn',
+      name: 'reborn'
     },
     children: [
       {
@@ -22,36 +22,44 @@ const routes: Array<RouteRecordRaw> = [
         name: 'reborn',
         component: () => import('@/views/front/reborn/index.vue'),
         meta: {
-          title: 'reborn页面',
-        },
+          title: 'reborn页面'
+        }
       },
       {
         path: 'system',
         name: 'system',
         component: () => import('@/views/front/system/index.vue'),
         meta: {
-          title: '系统页面',
-        },
+          title: '系统页面'
+        }
+      },
+      {
+        path: 'threeJs',
+        name: 'threeJs',
+        component: () => import('@/views/front/threeJs/index.vue'),
+        meta: {
+          title: '系统页面'
+        }
       },
       {
         path: 'login',
         name: 'login',
         component: () => import('@/views/front/login/index.vue'),
         meta: {
-          title: '登陆页面',
-        },
-      },
-    ],
+          title: '登陆页面'
+        }
+      }
+    ]
   },
   {
     path: '/:catchAll(.*)',
-    redirect: '/front',
-  },
+    redirect: '/front'
+  }
 ]
 
 const router: Router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes
 })
 useRouterGuard(router)
 export default router

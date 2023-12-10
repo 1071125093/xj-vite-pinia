@@ -145,6 +145,33 @@ export function getDataType(value: any, typeVal?: TypeRul):any {
 export function sortByEnum<T extends keyof U, U>(arr: U[], key: T, theEnum: any) {
   return arr.sort((pre, suf) => theEnum[pre[key]] - theEnum[suf[key]])
 }
+export function buildTree(data, idKey, pidKey) {
+    const nodes = {};
+    let root = null;
+
+    // 创建节点映射
+    data.forEach(item => {
+        nodes[item[idKey]] = item;
+        item.children = null; // 初始化为 null
+    });
+
+    // 构建树结构
+    data.forEach(item => {
+        const parentId = item[pidKey];
+        if (parentId === null) {
+            root = item; // 根节点
+        } else {
+            if (nodes[parentId]) {
+                if (nodes[parentId].children === null) {
+                    nodes[parentId].children = []; // 如果子节点为 null，则初始化为数组
+                }
+                nodes[parentId].children.push(item); // 将当前节点添加到父节点的子节点列表中
+            }
+        }
+    });
+
+    return root;
+}
 
 /** 
  * @description: 通过vue组件，生成一个具体的HTML
