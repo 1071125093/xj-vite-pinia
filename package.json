@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "asd": "vite --mode sit -a",
     "copy": "node ./src/service/copyShard.js",
     "dev": "vite --mode dev",
     "pro": "vite --mode pro",
@@ -43,8 +44,8 @@
     "qs": "^6.11.0",
     "three": "^0.159.0",
     "vant": "^3.5.2",
-    "vue": "^3.3.4",
-    "vue-countup-v3": "^1.2.0",
+    "vue": "^3.3.12",
+    "vue-next-focus": "^0.0.8",
     "vue-router": "^4.1.6",
     "vuedraggable": "^4.1.0",
     "xiaojun-utils": "^1.0.0"

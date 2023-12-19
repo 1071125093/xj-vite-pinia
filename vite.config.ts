@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2022-07-07 17:25:21
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-04-10 17:51:02
+ * @LastEditTime: 2023-04-11 00:38:26
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/vite.config.ts
  */
@@ -48,6 +48,7 @@ export default () => {
           '@vueuse/core'
           // 'vue-i18n', ,
         ],
+        dirs:['src/api/xjTest'],
         //需要按需自动引入的依赖包
         dts: 'src/auto-import.d.ts'
         //选择auto-import.d.ts生成的位置'
