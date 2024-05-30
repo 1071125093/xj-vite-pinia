@@ -2,7 +2,7 @@
  * @Author: XiaoJun
  * @Date: 2023-12-10 15:48:30
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-12-10 16:02:32
+ * @LastEditTime: 2024-03-28 18:07:32
  * @Description: 组件功
  * @FilePath: /xj-vite-pinia/src/views/demo/bobo.vue
 -->

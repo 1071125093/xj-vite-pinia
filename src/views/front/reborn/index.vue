@@ -2,7 +2,7 @@
  * @Author: HuangXiaojun
  * @Date: 2022-06-22 00:11:08
  * @LastEditors: XiaoJun
- * @LastEditTime: 2023-12-19 10:04:02
+ * @LastEditTime: 2024-05-30 14:33:33
  * @Description: 组件功能
  * @FilePath: /xj-vite-pinia/src/views/front/reborn/index.vue
 -->
@@ -62,6 +62,7 @@ import shard50 from './components/shard50/index.vue'
 import shard51 from './components/shard51/index.vue'
 import shard52 from './components/shard52/index.vue'
 import shard53 from './components/shard53/index.vue'
+import shard54 from './components/shard54/index.vue'
 import { piniaSystem } from '@/store'
 // 测试
 // 测试
@@ -272,27 +273,31 @@ const tabs = computed(() => {
     },
     {
       label: 'v3指令',
-      component: markRaw(shard48),
+      component: markRaw(shard48)
     },
     {
       label: '表格render',
-      component: markRaw(shard49),
+      component: markRaw(shard49)
     },
     {
       label: '弹窗问题优化',
-      component: markRaw(shard50),
+      component: markRaw(shard50)
     },
     {
       label: '组件库utils开发',
-      component: markRaw(shard51),
+      component: markRaw(shard51)
     },
     {
       label: '我裂开了',
-      component: markRaw(shard52),
+      component: markRaw(shard52)
     },
     {
       label: '测试海龙的鬼东西',
-      component: markRaw(shard53),
+      component: markRaw(shard53)
+    },
+    {
+      label: 'nest项目分页器',
+      component: markRaw(shard54),
       show: true
     }
   ].filter((item) => item.show)

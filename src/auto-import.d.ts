@@ -5,6 +5,8 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
+  const api_wanna_detail: typeof import('./api/xjTest/detail')['api_wanna_detail']
+  const api_wanna_info: typeof import('./api/xjTest/info')['api_wanna_info']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const computed: typeof import('vue')['computed']

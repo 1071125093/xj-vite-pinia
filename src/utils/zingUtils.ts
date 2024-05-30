@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {render,} from 'vue'
+import {ref,computed,onScopeDispose,VNode,render,} from 'vue'
 
 
 export interface UseAutoResizeType {
@@ -61,6 +61,7 @@ export interface UseAutoResizeType {
     return close
   }
 
+
 /**
  * @description: 倒计时
  * @param {*} minTime 最小时间秒数
@@ -71,28 +72,29 @@ export interface UseAutoResizeType {
                   run: () => void; 从头开始执行倒计时
               }
  */
-export function useTimeDown(minTime = 0,maxTime=60) {
+export function useTimeDown(minTime = 0, maxTime = 60) {
   const time = ref(minTime)
-  const isEnd = computed(()=>time.value===minTime)
-  let timer:null|number = null
-  function run(){
-    if(!isEnd.value) return ;
+  const isEnd = computed(() => time.value === minTime)
+  let timer: null | number = null
+  function run() {
+    if (!isEnd.value) return
     time.value = maxTime
-    timer = setInterval(()=>{
-      if( --time.value<=minTime){
+    timer = setInterval(() => {
+      if (--time.value <= minTime) {
         time.value = minTime
         clearInterval(timer as number)
-        timer=null
+        timer = null
       }
-    },1000)
+    }, 1000)
   }
-  onScopeDispose(()=>{
-    timer!==null&&clearInterval(timer)
-    timer=null
+  onScopeDispose(() => {
+    timer !== null && clearInterval(timer)
+    timer = null
     time.value = minTime
   })
-  return {time,isEnd,run}
+  return { time, isEnd, run }
 }
+
 export function sortByKey(arr:any, property:string | Array<any>, order = true) {
   const backupArr = JSON.parse(JSON.stringify(arr))
   const compareArr = (a:any, b:any) => {
@@ -145,33 +147,35 @@ export function getDataType(value: any, typeVal?: TypeRul):any {
 export function sortByEnum<T extends keyof U, U>(arr: U[], key: T, theEnum: any) {
   return arr.sort((pre, suf) => theEnum[pre[key]] - theEnum[suf[key]])
 }
-export function buildTree(data, idKey, pidKey) {
-    const nodes = {};
-    let root = null;
+export function arrayConverTree(data: any[], idKey: string | number, pidKey: string | number) {
+  const nodes: { [key: string]: any } = {}
+  let root = null
 
-    // 创建节点映射
-    data.forEach(item => {
-        nodes[item[idKey]] = item;
-        item.children = null; // 初始化为 null
-    });
+  // 创建节点映射
+  // Explicitly define the type of the nodes object
+  data.forEach((item) => {
+    nodes[item[idKey]] = item
+    item.children = null // Initialize as null
+  })
 
-    // 构建树结构
-    data.forEach(item => {
-        const parentId = item[pidKey];
-        if (parentId === null) {
-            root = item; // 根节点
-        } else {
-            if (nodes[parentId]) {
-                if (nodes[parentId].children === null) {
-                    nodes[parentId].children = []; // 如果子节点为 null，则初始化为数组
-                }
-                nodes[parentId].children.push(item); // 将当前节点添加到父节点的子节点列表中
-            }
+  // 构建树结构
+  data.forEach((item: { [x: string]: any }) => {
+    const parentId = item[pidKey]
+    if (parentId === null) {
+      root = item // 根节点
+    } else {
+      if (nodes[parentId]) {
+        if (nodes[parentId].children === null) {
+          nodes[parentId].children = [] // 如果子节点为 null，则初始化为数组
         }
-    });
+        nodes[parentId].children.push(item) // 将当前节点添加到父节点的子节点列表中
+      }
+    }
+  })
 
-    return root;
+  return root
 }
+
 
 /** 
  * @description: 通过vue组件，生成一个具体的HTML
@@ -180,8 +184,27 @@ export function buildTree(data, idKey, pidKey) {
  * 3.用法详见官网样例
  * @param {VNode} vnode 
  */
-export function getHtmlByVNode(vnode: VNode) {
-  const divElement = document.createElement('div')
-  render(vnode, divElement)
-  return divElement.innerHTML
+export function getHtmlByVNode(
+  vnode: VNode | VNode[],
+  config = {
+    filterEmptyText: true
+  }
+) {
+  let theHTML = ''
+  if (Array.isArray(vnode)) {
+    const divElement = document.createElement('div')
+    vnode.forEach((fi) => {
+      render(fi, divElement)
+      // 是否过滤空值
+      if (config?.filterEmptyText && !divElement.innerText) return
+      theHTML += divElement.innerHTML
+    })
+  } else {
+    const divElement = document.createElement('div')
+    render(vnode, divElement)
+    // 是否过滤空值
+    if (config?.filterEmptyText && !divElement.innerText) return
+    theHTML += divElement.innerHTML
+  }
+  return theHTML
 }
